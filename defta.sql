@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 28, 2019 at 04:51 PM
+-- Generation Time: Aug 28, 2019 at 05:06 PM
 -- Server version: 10.3.16-MariaDB
 -- PHP Version: 7.3.6
 
@@ -384,7 +384,29 @@ INSERT INTO `partai` (`id`, `nama`) VALUES
 
 CREATE TABLE `paslon_capres` (
   `id` int(11) NOT NULL,
+  `no_paslon` varchar(191) NOT NULL,
   `paslon_capres` varchar(191) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `paslon_capres`
+--
+
+INSERT INTO `paslon_capres` (`id`, `no_paslon`, `paslon_capres`) VALUES
+(1, '02', 'Prabowo-Sandi'),
+(2, '01', 'Jokowi-Ma\'ruf');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `statistik`
+--
+
+CREATE TABLE `statistik` (
+  `id` int(11) NOT NULL,
+  `tipe` enum('dpd','dprd','pilpres') NOT NULL,
+  `suara_sah` int(11) NOT NULL,
+  `suara_tidak_sah` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -423,6 +445,22 @@ CREATE TABLE `suara_paslon_capres` (
   `jumlah` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL,
+  `username` varchar(191) NOT NULL,
+  `password` varchar(191) NOT NULL,
+  `nama` varchar(191) NOT NULL,
+  `level` enum('kecamatan','kabupaten') NOT NULL,
+  `id_kecamatan` varchar(7) DEFAULT NULL,
+  `id_kabupaten` varchar(5) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 --
 -- Indexes for dumped tables
 --
@@ -459,6 +497,12 @@ ALTER TABLE `paslon_capres`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `statistik`
+--
+ALTER TABLE `statistik`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `suara_dpd`
 --
 ALTER TABLE `suara_dpd`
@@ -480,6 +524,15 @@ ALTER TABLE `suara_paslon_capres`
   ADD KEY `id_paslon_capres` (`id_paslon_capres`);
 
 --
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`),
+  ADD KEY `id_kabupaten` (`id_kabupaten`),
+  ADD KEY `id_kecamatan` (`id_kecamatan`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -499,6 +552,18 @@ ALTER TABLE `partai`
 -- AUTO_INCREMENT for table `paslon_capres`
 --
 ALTER TABLE `paslon_capres`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `statistik`
+--
+ALTER TABLE `statistik`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -531,6 +596,13 @@ ALTER TABLE `suara_partai`
 ALTER TABLE `suara_paslon_capres`
   ADD CONSTRAINT `suara_paslon_capres_ibfk_1` FOREIGN KEY (`id_kecamatan`) REFERENCES `kecamatan` (`id`),
   ADD CONSTRAINT `suara_paslon_capres_ibfk_2` FOREIGN KEY (`id_paslon_capres`) REFERENCES `paslon_capres` (`id`);
+
+--
+-- Constraints for table `user`
+--
+ALTER TABLE `user`
+  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`id_kabupaten`) REFERENCES `kabupaten` (`id`),
+  ADD CONSTRAINT `user_ibfk_2` FOREIGN KEY (`id_kecamatan`) REFERENCES `kecamatan` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
