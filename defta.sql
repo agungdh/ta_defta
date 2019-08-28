@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 27, 2019 at 04:29 AM
+-- Generation Time: Aug 28, 2019 at 04:03 PM
 -- Server version: 10.3.16-MariaDB
 -- PHP Version: 7.3.6
 
@@ -100,6 +100,18 @@ INSERT INTO `kabupaten_kota` (`id`, `dapil`, `kabupaten_kota`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `kecamatan`
+--
+
+CREATE TABLE `kecamatan` (
+  `id` int(11) NOT NULL,
+  `id_kabupaten_kota` int(11) NOT NULL,
+  `kecamatan` varchar(191) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `partai`
 --
 
@@ -133,27 +145,36 @@ INSERT INTO `partai` (`id`, `nama`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `suara_dpd`
+-- Table structure for table `periode`
 --
 
-CREATE TABLE `suara_dpd` (
-  `id_kabupaten_kota` int(11) NOT NULL,
-  `id_calon_dpd` int(11) NOT NULL,
-  `sah` int(11) NOT NULL,
-  `tidak_sah` int(11) NOT NULL
+CREATE TABLE `periode` (
+  `id` int(11) NOT NULL,
+  `periode` varchar(191) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `suara_dprd`
+-- Table structure for table `peserta_dpd`
 --
 
-CREATE TABLE `suara_dprd` (
-  `id_kabupaten_kota` int(11) NOT NULL,
-  `id_partai` int(11) NOT NULL,
-  `sah` int(11) NOT NULL,
-  `tidak_sah` int(11) NOT NULL
+CREATE TABLE `peserta_dpd` (
+  `id` int(11) NOT NULL,
+  `id_periode` int(11) NOT NULL,
+  `id_calon_dpd` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `peserta_partai`
+--
+
+CREATE TABLE `peserta_partai` (
+  `id` int(11) NOT NULL,
+  `id_periode` int(11) NOT NULL,
+  `id_partai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -173,24 +194,39 @@ ALTER TABLE `kabupaten_kota`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `kecamatan`
+--
+ALTER TABLE `kecamatan`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_kabupaten_kota` (`id_kabupaten_kota`);
+
+--
 -- Indexes for table `partai`
 --
 ALTER TABLE `partai`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `suara_dpd`
+-- Indexes for table `periode`
 --
-ALTER TABLE `suara_dpd`
-  ADD PRIMARY KEY (`id_kabupaten_kota`,`id_calon_dpd`),
-  ADD KEY `id_calon_dpd` (`id_calon_dpd`);
+ALTER TABLE `periode`
+  ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `suara_dprd`
+-- Indexes for table `peserta_dpd`
 --
-ALTER TABLE `suara_dprd`
-  ADD PRIMARY KEY (`id_kabupaten_kota`,`id_partai`),
-  ADD KEY `id_partai` (`id_partai`);
+ALTER TABLE `peserta_dpd`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_calon_dpd` (`id_calon_dpd`),
+  ADD KEY `id_periode` (`id_periode`);
+
+--
+-- Indexes for table `peserta_partai`
+--
+ALTER TABLE `peserta_partai`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_partai` (`id_partai`),
+  ADD KEY `id_periode` (`id_periode`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -209,28 +245,58 @@ ALTER TABLE `kabupaten_kota`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
+-- AUTO_INCREMENT for table `kecamatan`
+--
+ALTER TABLE `kecamatan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `partai`
 --
 ALTER TABLE `partai`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
+-- AUTO_INCREMENT for table `periode`
+--
+ALTER TABLE `periode`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `peserta_dpd`
+--
+ALTER TABLE `peserta_dpd`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `peserta_partai`
+--
+ALTER TABLE `peserta_partai`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `suara_dpd`
+-- Constraints for table `kecamatan`
 --
-ALTER TABLE `suara_dpd`
-  ADD CONSTRAINT `suara_dpd_ibfk_1` FOREIGN KEY (`id_calon_dpd`) REFERENCES `calon_dpd` (`id`),
-  ADD CONSTRAINT `suara_dpd_ibfk_2` FOREIGN KEY (`id_kabupaten_kota`) REFERENCES `kabupaten_kota` (`id`);
+ALTER TABLE `kecamatan`
+  ADD CONSTRAINT `kecamatan_ibfk_1` FOREIGN KEY (`id_kabupaten_kota`) REFERENCES `kabupaten_kota` (`id`);
 
 --
--- Constraints for table `suara_dprd`
+-- Constraints for table `peserta_dpd`
 --
-ALTER TABLE `suara_dprd`
-  ADD CONSTRAINT `suara_dprd_ibfk_1` FOREIGN KEY (`id_partai`) REFERENCES `partai` (`id`),
-  ADD CONSTRAINT `suara_dprd_ibfk_2` FOREIGN KEY (`id_kabupaten_kota`) REFERENCES `kabupaten_kota` (`id`);
+ALTER TABLE `peserta_dpd`
+  ADD CONSTRAINT `peserta_dpd_ibfk_1` FOREIGN KEY (`id_calon_dpd`) REFERENCES `calon_dpd` (`id`),
+  ADD CONSTRAINT `peserta_dpd_ibfk_2` FOREIGN KEY (`id_periode`) REFERENCES `periode` (`id`);
+
+--
+-- Constraints for table `peserta_partai`
+--
+ALTER TABLE `peserta_partai`
+  ADD CONSTRAINT `peserta_partai_ibfk_1` FOREIGN KEY (`id_partai`) REFERENCES `partai` (`id`),
+  ADD CONSTRAINT `peserta_partai_ibfk_2` FOREIGN KEY (`id_periode`) REFERENCES `periode` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
