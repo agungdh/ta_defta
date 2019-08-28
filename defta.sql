@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 28, 2019 at 04:36 PM
+-- Generation Time: Aug 28, 2019 at 04:51 PM
 -- Server version: 10.3.16-MariaDB
 -- PHP Version: 7.3.6
 
@@ -67,20 +67,20 @@ INSERT INTO `calon_dpd` (`id`, `nama`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kab`
+-- Table structure for table `kabupaten`
 --
 
-CREATE TABLE `kab` (
+CREATE TABLE `kabupaten` (
   `id` varchar(4) NOT NULL,
   `dapil` int(11) NOT NULL,
-  `nama_kab` varchar(100) NOT NULL
+  `kabupaten` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `kab`
+-- Dumping data for table `kabupaten`
 --
 
-INSERT INTO `kab` (`id`, `dapil`, `nama_kab`) VALUES
+INSERT INTO `kabupaten` (`id`, `dapil`, `kabupaten`) VALUES
 ('1801', 4, 'KABUPATEN LAMPUNG BARAT'),
 ('1802', 4, 'KABUPATEN TANGGAMUS'),
 ('1803', 1, 'LAMPUNG SELATAN'),
@@ -100,20 +100,20 @@ INSERT INTO `kab` (`id`, `dapil`, `nama_kab`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kec`
+-- Table structure for table `kecamatan`
 --
 
-CREATE TABLE `kec` (
+CREATE TABLE `kecamatan` (
   `id` varchar(7) NOT NULL,
-  `kab_id` varchar(4) NOT NULL,
-  `nama_kec` varchar(100) NOT NULL
+  `id_kabupaten` varchar(4) NOT NULL,
+  `kecamatan` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `kec`
+-- Dumping data for table `kecamatan`
 --
 
-INSERT INTO `kec` (`id`, `kab_id`, `nama_kec`) VALUES
+INSERT INTO `kecamatan` (`id`, `id_kabupaten`, `kecamatan`) VALUES
 ('1801040', '1801', 'BALIK BUKIT'),
 ('1801041', '1801', 'SUKAU'),
 ('1801042', '1801', 'LUMBOK SEMINUNG'),
@@ -376,6 +376,53 @@ INSERT INTO `partai` (`id`, `nama`) VALUES
 (15, 'PARTAI BULAN BINTANG'),
 (16, 'PKPI');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `paslon_capres`
+--
+
+CREATE TABLE `paslon_capres` (
+  `id` int(11) NOT NULL,
+  `paslon_capres` varchar(191) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `suara_dpd`
+--
+
+CREATE TABLE `suara_dpd` (
+  `id_kecamatan` varchar(7) NOT NULL,
+  `id_calon_dpd` int(11) NOT NULL,
+  `jumlah` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `suara_partai`
+--
+
+CREATE TABLE `suara_partai` (
+  `id_kecamatan` varchar(7) NOT NULL,
+  `id_partai` int(11) NOT NULL,
+  `jumlah` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `suara_paslon_capres`
+--
+
+CREATE TABLE `suara_paslon_capres` (
+  `id_kecamatan` varchar(7) NOT NULL,
+  `id_paslon_capres` int(11) NOT NULL,
+  `jumlah` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 --
 -- Indexes for dumped tables
 --
@@ -387,23 +434,50 @@ ALTER TABLE `calon_dpd`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `kab`
+-- Indexes for table `kabupaten`
 --
-ALTER TABLE `kab`
+ALTER TABLE `kabupaten`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `kec`
+-- Indexes for table `kecamatan`
 --
-ALTER TABLE `kec`
+ALTER TABLE `kecamatan`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `kab_id` (`kab_id`);
+  ADD KEY `kab_id` (`id_kabupaten`);
 
 --
 -- Indexes for table `partai`
 --
 ALTER TABLE `partai`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `paslon_capres`
+--
+ALTER TABLE `paslon_capres`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `suara_dpd`
+--
+ALTER TABLE `suara_dpd`
+  ADD PRIMARY KEY (`id_kecamatan`,`id_calon_dpd`),
+  ADD KEY `id_calon_dpd` (`id_calon_dpd`);
+
+--
+-- Indexes for table `suara_partai`
+--
+ALTER TABLE `suara_partai`
+  ADD PRIMARY KEY (`id_kecamatan`,`id_partai`),
+  ADD KEY `id_partai` (`id_partai`);
+
+--
+-- Indexes for table `suara_paslon_capres`
+--
+ALTER TABLE `suara_paslon_capres`
+  ADD PRIMARY KEY (`id_kecamatan`,`id_paslon_capres`),
+  ADD KEY `id_paslon_capres` (`id_paslon_capres`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -422,14 +496,41 @@ ALTER TABLE `partai`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
+-- AUTO_INCREMENT for table `paslon_capres`
+--
+ALTER TABLE `paslon_capres`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `kec`
+-- Constraints for table `kecamatan`
 --
-ALTER TABLE `kec`
-  ADD CONSTRAINT `kec_ibfk_1` FOREIGN KEY (`kab_id`) REFERENCES `kab` (`id`);
+ALTER TABLE `kecamatan`
+  ADD CONSTRAINT `kecamatan_ibfk_1` FOREIGN KEY (`id_kabupaten`) REFERENCES `kabupaten` (`id`);
+
+--
+-- Constraints for table `suara_dpd`
+--
+ALTER TABLE `suara_dpd`
+  ADD CONSTRAINT `suara_dpd_ibfk_1` FOREIGN KEY (`id_calon_dpd`) REFERENCES `calon_dpd` (`id`),
+  ADD CONSTRAINT `suara_dpd_ibfk_2` FOREIGN KEY (`id_kecamatan`) REFERENCES `kecamatan` (`id`);
+
+--
+-- Constraints for table `suara_partai`
+--
+ALTER TABLE `suara_partai`
+  ADD CONSTRAINT `suara_partai_ibfk_1` FOREIGN KEY (`id_kecamatan`) REFERENCES `kecamatan` (`id`),
+  ADD CONSTRAINT `suara_partai_ibfk_2` FOREIGN KEY (`id_partai`) REFERENCES `partai` (`id`);
+
+--
+-- Constraints for table `suara_paslon_capres`
+--
+ALTER TABLE `suara_paslon_capres`
+  ADD CONSTRAINT `suara_paslon_capres_ibfk_1` FOREIGN KEY (`id_kecamatan`) REFERENCES `kecamatan` (`id`),
+  ADD CONSTRAINT `suara_paslon_capres_ibfk_2` FOREIGN KEY (`id_paslon_capres`) REFERENCES `paslon_capres` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
