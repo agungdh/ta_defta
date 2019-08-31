@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 4.6.6deb5
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Aug 28, 2019 at 05:29 PM
--- Server version: 10.3.16-MariaDB
--- PHP Version: 7.3.6
+-- Host: localhost:3306
+-- Generation Time: Aug 31, 2019 at 09:51 AM
+-- Server version: 10.3.17-MariaDB-0ubuntu0.19.04.1
+-- PHP Version: 7.3.8-1+ubuntu19.04.1+deb.sury.org+1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -332,6 +330,7 @@ CREATE TABLE `paslon_capres` (
 
 CREATE TABLE `pemilu_dpd` (
   `id` int(11) NOT NULL,
+  `id_periode` int(11) NOT NULL,
   `id_kecamatan` varchar(7) NOT NULL,
   `jumlah_kelurahan` int(11) NOT NULL,
   `jumlah_pemilih` int(11) NOT NULL,
@@ -349,6 +348,7 @@ CREATE TABLE `pemilu_dpd` (
 
 CREATE TABLE `pemilu_dpr` (
   `id` int(11) NOT NULL,
+  `id_periode` int(11) NOT NULL,
   `id_kecamatan` varchar(7) NOT NULL,
   `jumlah_kelurahan` int(11) NOT NULL,
   `jumlah_pemilih` int(11) NOT NULL,
@@ -366,6 +366,7 @@ CREATE TABLE `pemilu_dpr` (
 
 CREATE TABLE `pemilu_dprd` (
   `id` int(11) NOT NULL,
+  `id_periode` int(11) NOT NULL,
   `id_kecamatan` varchar(7) NOT NULL,
   `jumlah_kelurahan` int(11) NOT NULL,
   `jumlah_pemilih` int(11) NOT NULL,
@@ -378,11 +379,23 @@ CREATE TABLE `pemilu_dprd` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `periode`
+--
+
+CREATE TABLE `periode` (
+  `id` int(11) NOT NULL,
+  `periode` varchar(191) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `pilpres`
 --
 
 CREATE TABLE `pilpres` (
   `id` int(11) NOT NULL,
+  `id_periode` int(11) NOT NULL,
   `id_kecamatan` varchar(7) NOT NULL,
   `jumlah_kelurahan` int(11) NOT NULL,
   `jumlah_pemilih` int(11) NOT NULL,
@@ -474,28 +487,38 @@ ALTER TABLE `paslon_capres`
 --
 ALTER TABLE `pemilu_dpd`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_kecamatan` (`id_kecamatan`);
+  ADD KEY `id_kecamatan` (`id_kecamatan`),
+  ADD KEY `id_periode` (`id_periode`);
 
 --
 -- Indexes for table `pemilu_dpr`
 --
 ALTER TABLE `pemilu_dpr`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_kecamatan` (`id_kecamatan`);
+  ADD KEY `id_kecamatan` (`id_kecamatan`),
+  ADD KEY `id_periode` (`id_periode`);
 
 --
 -- Indexes for table `pemilu_dprd`
 --
 ALTER TABLE `pemilu_dprd`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_kecamatan` (`id_kecamatan`);
+  ADD KEY `id_kecamatan` (`id_kecamatan`),
+  ADD KEY `id_periode` (`id_periode`);
+
+--
+-- Indexes for table `periode`
+--
+ALTER TABLE `periode`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `pilpres`
 --
 ALTER TABLE `pilpres`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_kecamatan` (`id_kecamatan`);
+  ADD KEY `id_kecamatan` (`id_kecamatan`),
+  ADD KEY `id_periode` (`id_periode`);
 
 --
 -- Indexes for table `suara_dpd`
@@ -534,37 +557,36 @@ ALTER TABLE `suara_pilpres`
 --
 ALTER TABLE `partai`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `paslon_capres`
 --
 ALTER TABLE `paslon_capres`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `pemilu_dpd`
 --
 ALTER TABLE `pemilu_dpd`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `pemilu_dpr`
 --
 ALTER TABLE `pemilu_dpr`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `pemilu_dprd`
 --
 ALTER TABLE `pemilu_dprd`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
+--
+-- AUTO_INCREMENT for table `periode`
+--
+ALTER TABLE `periode`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `pilpres`
 --
 ALTER TABLE `pilpres`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- Constraints for dumped tables
 --
@@ -579,25 +601,29 @@ ALTER TABLE `kecamatan`
 -- Constraints for table `pemilu_dpd`
 --
 ALTER TABLE `pemilu_dpd`
-  ADD CONSTRAINT `pemilu_dpd_ibfk_1` FOREIGN KEY (`id_kecamatan`) REFERENCES `kecamatan` (`id`);
+  ADD CONSTRAINT `pemilu_dpd_ibfk_1` FOREIGN KEY (`id_kecamatan`) REFERENCES `kecamatan` (`id`),
+  ADD CONSTRAINT `pemilu_dpd_ibfk_2` FOREIGN KEY (`id_periode`) REFERENCES `periode` (`id`);
 
 --
 -- Constraints for table `pemilu_dpr`
 --
 ALTER TABLE `pemilu_dpr`
-  ADD CONSTRAINT `pemilu_dpr_ibfk_1` FOREIGN KEY (`id_kecamatan`) REFERENCES `kecamatan` (`id`);
+  ADD CONSTRAINT `pemilu_dpr_ibfk_1` FOREIGN KEY (`id_kecamatan`) REFERENCES `kecamatan` (`id`),
+  ADD CONSTRAINT `pemilu_dpr_ibfk_2` FOREIGN KEY (`id_periode`) REFERENCES `periode` (`id`);
 
 --
 -- Constraints for table `pemilu_dprd`
 --
 ALTER TABLE `pemilu_dprd`
-  ADD CONSTRAINT `pemilu_dprd_ibfk_1` FOREIGN KEY (`id_kecamatan`) REFERENCES `kecamatan` (`id`);
+  ADD CONSTRAINT `pemilu_dprd_ibfk_1` FOREIGN KEY (`id_kecamatan`) REFERENCES `kecamatan` (`id`),
+  ADD CONSTRAINT `pemilu_dprd_ibfk_2` FOREIGN KEY (`id_periode`) REFERENCES `periode` (`id`);
 
 --
 -- Constraints for table `pilpres`
 --
 ALTER TABLE `pilpres`
-  ADD CONSTRAINT `pilpres_ibfk_1` FOREIGN KEY (`id_kecamatan`) REFERENCES `kecamatan` (`id`);
+  ADD CONSTRAINT `pilpres_ibfk_1` FOREIGN KEY (`id_kecamatan`) REFERENCES `kecamatan` (`id`),
+  ADD CONSTRAINT `pilpres_ibfk_2` FOREIGN KEY (`id_periode`) REFERENCES `periode` (`id`);
 
 --
 -- Constraints for table `suara_dpd`
@@ -626,7 +652,6 @@ ALTER TABLE `suara_dprd`
 ALTER TABLE `suara_pilpres`
   ADD CONSTRAINT `suara_pilpres_ibfk_1` FOREIGN KEY (`id_paslon_capres`) REFERENCES `paslon_capres` (`id`),
   ADD CONSTRAINT `suara_pilpres_ibfk_2` FOREIGN KEY (`id_pilpres`) REFERENCES `pilpres` (`id`);
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
