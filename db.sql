@@ -3,7 +3,7 @@
 -- Host: 127.0.0.1	Database: defta
 -- ------------------------------------------------------
 -- Server version 	5.5.5-10.3.17-MariaDB-0ubuntu0.19.04.1
--- Date: Sat, 31 Aug 2019 11:11:30 +0700
+-- Date: Sat, 31 Aug 2019 12:04:51 +0700
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -25,8 +25,8 @@
 CREATE TABLE `suara_pemilihan` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_pemilihan` int(11) NOT NULL,
-  `id_partai` int(11) NOT NULL,
-  `id_paslon_capres` int(11) NOT NULL,
+  `id_partai` int(11) DEFAULT NULL,
+  `id_paslon_capres` int(11) DEFAULT NULL,
   `jumlah` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_pemilihan` (`id_pemilihan`),
@@ -78,6 +78,38 @@ UNLOCK TABLES;
 COMMIT;
 
 -- Dumped table `paslon_capres` with 0 row(s)
+--
+
+--
+-- Table structure for table `user`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(191) NOT NULL,
+  `password` varchar(191) NOT NULL,
+  `level` enum('a','s') NOT NULL,
+  `nama` varchar(191) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user`
+--
+
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+SET autocommit=0;
+INSERT INTO `user` VALUES (1,'admin','$2y$12$83K/WnkWWoEbcd5KEvvouOMHQ.hk6LjyYzDP1V97FZQ/LbcVfdd/u','a','Administrator'),(5,'guru','$2y$10$UIHxN5Zo2lMkqKBwQlT/wuP2fKHoYmwCKRp9grk9ocOHlkGhPbLtq','a','Guru'),(7,'siswa','$2y$10$kmA3Yt75OFgrMLysTrXrLed00zIAgTdxvsFMy7hGwLPfsb1XGP0SW','s','siswa');
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
+COMMIT;
+
+-- Dumped table `user` with 3 row(s)
 --
 
 --
@@ -240,4 +272,4 @@ COMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on: Sat, 31 Aug 2019 11:11:30 +0700
+-- Dump completed on: Sat, 31 Aug 2019 12:04:51 +0700

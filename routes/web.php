@@ -1,5 +1,9 @@
 <?php
 
+Route::resources([
+	'kabupaten' => 'KabupatenController',
+]);
+
 Route::get('/ndaskumumet', 'TempController@index');
 
 Route::get('/materi/mid', 'MateriController@mid')->name('materi.mid');
