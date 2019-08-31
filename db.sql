@@ -3,7 +3,7 @@
 -- Host: 127.0.0.1	Database: defta
 -- ------------------------------------------------------
 -- Server version 	5.5.5-10.3.17-MariaDB-0ubuntu0.19.04.1
--- Date: Sat, 31 Aug 2019 19:30:43 +0700
+-- Date: Sat, 31 Aug 2019 23:23:07 +0700
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -159,7 +159,7 @@ CREATE TABLE `periode` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `periode` varchar(191) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -169,11 +169,12 @@ CREATE TABLE `periode` (
 LOCK TABLES `periode` WRITE;
 /*!40000 ALTER TABLE `periode` DISABLE KEYS */;
 SET autocommit=0;
+INSERT INTO `periode` VALUES (1,'2014/2019'),(2,'2019/2024');
 /*!40000 ALTER TABLE `periode` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
 
--- Dumped table `periode` with 0 row(s)
+-- Dumped table `periode` with 2 row(s)
 --
 
 --
@@ -187,7 +188,7 @@ CREATE TABLE `kabupaten` (
   `dapil` int(11) NOT NULL,
   `kabupaten` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1877 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1878 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -245,7 +246,7 @@ CREATE TABLE `kecamatan` (
   PRIMARY KEY (`id`),
   KEY `kab_id` (`id_kabupaten`),
   CONSTRAINT `kecamatan_ibfk_1` FOREIGN KEY (`id_kabupaten`) REFERENCES `kabupaten` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1872027 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1872028 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -272,4 +273,4 @@ COMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on: Sat, 31 Aug 2019 19:30:44 +0700
+-- Dump completed on: Sat, 31 Aug 2019 23:23:07 +0700
