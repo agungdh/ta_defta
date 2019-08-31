@@ -26,33 +26,23 @@ class KecamatanController extends Controller
 
     public function create($id_kabupaten)
     {
-        $kabupaten = Kabupaten::with('kecamatans')->find($id_kabupaten);
+        $kabupaten = Kabupaten::find($id_kabupaten);
 
         return view('kecamatan.create', compact(['kabupaten']));
     }
 
-    public function store(Request $request, $id_cerita)
+    public function store(Request $request, $id_kabupaten)
     {
-        $cerita = Narasi::find($id_kabupaten);
-
         $request->validate([
-            'no' => 'required',
-            'pertanyaan' => 'required',
-            'jawaban_a' => 'required',
-            'jawaban_b' => 'required',
-            'jawaban_c' => 'required',
-            'jawaban_d' => 'required',
-            'jawaban_e' => 'required',
-            'kunci' => 'required',
+            'kecamatan' => 'required',
         ]);
 
-        $data = $request->only('pertanyaan','jawaban_a','jawaban_b','jawaban_c','jawaban_d','jawaban_e','kunci','no');
-        $data['id_cerita'] = $id_cerita;
-        $data['id_materi'] = $cerita->id_materi;
+        $data = $request->only('kecamatan');
+        $data['id_kabupaten'] = $id_kabupaten;
         
-        DB::table('soal')->insert($data);
+        DB::table('kecamatan')->insert($data);
 
-        return redirect()->route('kecamatan.index', $id_cerita)->with('alert', [
+        return redirect()->route('kecamatan.index', $id_kabupaten)->with('alert', [
             'title' => 'BERHASIL !!!',
             'message' => 'Berhasil Tambah Data',
             'class' => 'success',
@@ -61,18 +51,10 @@ class KecamatanController extends Controller
 
     public function edit($id)
     {
-        $soal = Soal::find($id);
-        $narasi = $soal->narasi;
-        $materi = $narasi->materi;
-        $kuncis = [
-            'a' => 'A',
-            'b' => 'B',
-            'c' => 'C',
-            'd' => 'D',
-            'e' => 'E',
-        ];
+        $kecamatan = Kecamatan::with('kabupaten')->find($id);
+        $kabupaten = $kecamatan->kabupaten;
 
-        return view('kecamatan.edit', compact(['soal', 'materi', 'kuncis', 'narasi']));
+        return view('kecamatan.edit', compact(['kecamatan', 'kabupaten']));
     }
 
     public function update(Request $request, $id)
@@ -91,12 +73,12 @@ class KecamatanController extends Controller
         ]);
 
         $data = $request->only('pertanyaan','jawaban_a','jawaban_b','jawaban_c','jawaban_d','jawaban_e','kunci','no');
-        $data['id_cerita'] = $soal->id_cerita;
+        $data['id_kabupaten'] = $soal->id_kabupaten;
         $data['id_materi'] = $soal->narasi->id_materi;
 
         Soal::where(['id' => $id])->update($data);
 
-        return redirect()->route('kecamatan.index', $soal->id_cerita)->with('alert', [
+        return redirect()->route('kecamatan.index', $soal->id_kabupaten)->with('alert', [
             'title' => 'BERHASIL !!!',
             'message' => 'Berhasil Ubah Data',
             'class' => 'success',
@@ -117,7 +99,7 @@ class KecamatanController extends Controller
             ]);        
         }
 
-        return redirect()->route('kecamatan.index', $soal->id_cerita)->with('alert', [
+        return redirect()->route('kecamatan.index', $soal->id_kabupaten)->with('alert', [
             'title' => 'BERHASIL !!!',
             'message' => 'Berhasil Hapus Data',
             'class' => 'success',

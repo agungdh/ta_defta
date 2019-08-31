@@ -4,7 +4,7 @@
 		<div class="form-group">
 			<label for="dapil">Dapil</label>
 			<div>
-				{!! Form::text('dapil',$kabupaten->dapil,['class'=> 'form-control mask_ribuan','placeholder'=>'Isi Dapil', 'id' => 'dapil']) !!}
+				{!! Form::text('dapil',$kabupaten->dapil,['class'=> 'form-control mask_ribuan','placeholder'=>'Isi Dapil', 'id' => 'dapil', 'disabled' => true]) !!}
 			</div>
 		</div>
 	</div>
@@ -13,7 +13,7 @@
 		<div class="form-group">
 			<label for="kabupaten">Kabupaten</label>
 			<div>
-				{!! Form::text('kabupaten',$kabupaten->kabupaten,['class'=> 'form-control','placeholder'=>'Isi Kabupaten', 'id' => 'kabupaten']) !!}
+				{!! Form::text('kabupaten',$kabupaten->kabupaten,['class'=> 'form-control','placeholder'=>'Isi Kabupaten', 'id' => 'kabupaten', 'disabled' => true]) !!}
 			</div>
 		</div>
 	</div>
@@ -26,7 +26,7 @@
 		<div class="{{$class}}">
 			<label for="kecamatan" data-toggle="tooltip" title="{{$message}}">kecamatan</label>
 			<div data-toggle="tooltip" title="{{$message}}">
-				{!! Form::text('kecamatan',null,['class'=> 'form-control mask_ribuan','placeholder'=>'Isi kecamatan', 'id' => 'kecamatan']) !!}
+				{!! Form::text('kecamatan',null,['class'=> 'form-control','placeholder'=>'Isi kecamatan', 'id' => 'kecamatan']) !!}
 			</div>
 		</div>
 	</div>
