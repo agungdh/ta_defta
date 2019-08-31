@@ -21,7 +21,7 @@ Kecamatan
 
 				<div class="box-footer">
 					<button type="submit" class="btn btn-success">Simpan</button>
-					<a href="{{route('kecamatan.index, $kabupaten->id')}}" class="btn btn-info">Batal</a>
+					<a href="{{route('kecamatan.index', $kabupaten->id)}}" class="btn btn-info">Batal</a>
 				</div>
 			{!! Form::close() !!}
 		</div>

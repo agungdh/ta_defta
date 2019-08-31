@@ -10,6 +10,32 @@ Kecamatan
 
 @section('content')
 <div class="row">
+  <div class="col-md-12">
+        <div class="box animated jackInTheBox box-primary" style="box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);">
+      <div class="box-body">
+            <div class="col-md-6">
+          <div class="form-group">
+            <label for="dapil">Dapil</label>
+            <div>
+              {!! Form::text('dapil',$kabupaten->dapil,['class'=> 'form-control mask_ribuan','placeholder'=>'Isi Dapil', 'id' => 'dapil', 'disabled' => true]) !!}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="kabupaten">Kabupaten</label>
+            <div>
+              {!! Form::text('kabupaten',$kabupaten->kabupaten,['class'=> 'form-control','placeholder'=>'Isi Kabupaten', 'id' => 'kabupaten', 'disabled' => true]) !!}
+            </div>
+          </div>
+        </div>
+      </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
     <div class="col-md-12">
         <div class="box animated slideInLeft box-primary" style="box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);">
             <div class="box-header">

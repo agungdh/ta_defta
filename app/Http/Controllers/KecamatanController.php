@@ -59,26 +59,17 @@ class KecamatanController extends Controller
 
     public function update(Request $request, $id)
     {        
-        $soal = Soal::find($id);
+        $kecamatan = Kecamatan::find($id);
 
-       $request->validate([
-            'no' => 'required',
-            'pertanyaan' => 'required',
-            'jawaban_a' => 'required',
-            'jawaban_b' => 'required',
-            'jawaban_c' => 'required',
-            'jawaban_d' => 'required',
-            'jawaban_e' => 'required',
-            'kunci' => 'required',
+        $request->validate([
+            'kecamatan' => 'required',
         ]);
 
-        $data = $request->only('pertanyaan','jawaban_a','jawaban_b','jawaban_c','jawaban_d','jawaban_e','kunci','no');
-        $data['id_kabupaten'] = $soal->id_kabupaten;
-        $data['id_materi'] = $soal->narasi->id_materi;
+        $data = $request->only('kecamatan');
 
-        Soal::where(['id' => $id])->update($data);
+        Kecamatan::where(['id' => $id])->update($data);
 
-        return redirect()->route('kecamatan.index', $soal->id_kabupaten)->with('alert', [
+        return redirect()->route('kecamatan.index', $kecamatan->id_kabupaten)->with('alert', [
             'title' => 'BERHASIL !!!',
             'message' => 'Berhasil Ubah Data',
             'class' => 'success',
@@ -87,10 +78,10 @@ class KecamatanController extends Controller
 
     public function destroy($id)
     {     
-        $soal = Soal::find($id);
+        $kecamatan = Kecamatan::find($id);
 
         try {
-            Soal::where(['id' => $id])->delete();   
+            Kecamatan::where(['id' => $id])->delete();   
         } catch (QueryException $exception) {
             return redirect()->back()->with('alert', [
                 'title' => 'ERROR !!!',
@@ -99,7 +90,7 @@ class KecamatanController extends Controller
             ]);        
         }
 
-        return redirect()->route('kecamatan.index', $soal->id_kabupaten)->with('alert', [
+        return redirect()->route('kecamatan.index', $kecamatan->id_kabupaten)->with('alert', [
             'title' => 'BERHASIL !!!',
             'message' => 'Berhasil Hapus Data',
             'class' => 'success',
