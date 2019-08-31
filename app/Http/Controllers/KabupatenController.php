@@ -28,26 +28,15 @@ class KabupatenController extends Controller
 
     public function store(Request $request)
     {
-        $request['durasi'] = str_replace('.', '', $request['durasi']);
+        $request['dapil'] = str_replace('.', '', $request['dapil']);
         $request->validate([
-            'unit' => 'required',
-            'materi' => 'required',
-            'deskripsi' => 'required',
-            'berkas' => 'required|file|mimes:pdf',
-            'durasi' => 'required|numeric|min:10',
+            'kabupaten' => 'required',
+            'dapil' => 'required|numeric|min:1',
         ]);
 
-        $data = $request->only('unit', 'materi', 'deskripsi', 'durasi');
+        $data = $request->only('kabupaten', 'dapil');
         
-        $id_materi = DB::table('materi')->insertGetId($data);
-
-        $berkas = $request->file('berkas');
-        $id_files = DB::table('files')->insertGetId([
-            'id_materi' => $id_materi,
-            'filename' => $berkas->getClientOriginalName(),
-        ]);
-
-        $berkas->move(storage_path('app/public/files/berkas'), $id_files);
+        DB::table('kabupaten')->insert($data);
 
         return redirect()->route('kabupaten.index')->with('alert', [
             'title' => 'BERHASIL !!!',
@@ -58,36 +47,22 @@ class KabupatenController extends Controller
 
     public function edit($id)
     {
-        $materi = Kabupaten::find($id);
+        $kabupaten = Kabupaten::find($id);
 
-        return view('kabupaten.edit', compact(['materi']));
+        return view('kabupaten.edit', compact(['kabupaten']));
     }
 
     public function update(Request $request, $id)
     {        
-        $materi = Kabupaten::find($id);
-
-        $request['durasi'] = str_replace('.', '', $request['durasi']);
+        $request['dapil'] = str_replace('.', '', $request['dapil']);
         $request->validate([
-            'unit' => 'required',
-            'materi' => 'required',
-            'deskripsi' => 'required',
-            'berkas' => 'file|mimes:pdf',
-            'durasi' => 'required|numeric|min:10',
+            'kabupaten' => 'required',
+            'dapil' => 'required|numeric|min:1',
         ]);
 
-        $data = $request->only('unit', 'materi', 'deskripsi', 'durasi');
+        $data = $request->only('kabupaten', 'dapil');
         
         Kabupaten::where('id', $id)->update($data);
-
-        $berkas = $request->file('berkas');
-        if ($berkas) {
-            $files = $materi->berkas;
-            $files->filename = $berkas->getClientOriginalName();
-            $files->save();
-            
-            $berkas->move(storage_path('app/public/files/berkas'), $files->id);
-        }
 
         return redirect()->route('kabupaten.index')->with('alert', [
             'title' => 'BERHASIL !!!',
@@ -99,9 +74,6 @@ class KabupatenController extends Controller
     public function destroy($id)
     {     
         try {
-            $berkas = Berkas::where(['id_materi' => $id])->first();   
-            Berkas::where(['id_materi' => $id])->delete();   
-            unlink(storage_path('app/public/files/berkas/' . $berkas->id));
             Kabupaten::where(['id' => $id])->delete();   
         } catch (QueryException $exception) {
             return redirect()->back()->with('alert', [
