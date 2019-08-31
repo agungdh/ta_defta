@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Aug 31, 2019 at 09:51 AM
+-- Generation Time: Aug 31, 2019 at 11:05 AM
 -- Server version: 10.3.17-MariaDB-0ubuntu0.19.04.1
 -- PHP Version: 7.3.8-1+ubuntu19.04.1+deb.sury.org+1
 
@@ -325,49 +325,14 @@ CREATE TABLE `paslon_capres` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pemilu_dpd`
+-- Table structure for table `pemilihan`
 --
 
-CREATE TABLE `pemilu_dpd` (
+CREATE TABLE `pemilihan` (
   `id` int(11) NOT NULL,
   `id_periode` int(11) NOT NULL,
   `id_kecamatan` varchar(7) NOT NULL,
-  `jumlah_kelurahan` int(11) NOT NULL,
-  `jumlah_pemilih` int(11) NOT NULL,
-  `jumlah_pemilih_terdaftar` int(11) NOT NULL,
-  `jumlah_tps` int(11) NOT NULL,
-  `suara_sah` int(11) NOT NULL,
-  `suara_tidak_sah` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `pemilu_dpr`
---
-
-CREATE TABLE `pemilu_dpr` (
-  `id` int(11) NOT NULL,
-  `id_periode` int(11) NOT NULL,
-  `id_kecamatan` varchar(7) NOT NULL,
-  `jumlah_kelurahan` int(11) NOT NULL,
-  `jumlah_pemilih` int(11) NOT NULL,
-  `jumlah_pemilih_terdaftar` int(11) NOT NULL,
-  `jumlah_tps` int(11) NOT NULL,
-  `suara_sah` int(11) NOT NULL,
-  `suara_tidak_sah` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `pemilu_dprd`
---
-
-CREATE TABLE `pemilu_dprd` (
-  `id` int(11) NOT NULL,
-  `id_periode` int(11) NOT NULL,
-  `id_kecamatan` varchar(7) NOT NULL,
+  `tipe` enum('presiden','dpr','dpd','dprdp','dprdk') NOT NULL,
   `jumlah_kelurahan` int(11) NOT NULL,
   `jumlah_pemilih` int(11) NOT NULL,
   `jumlah_pemilih_terdaftar` int(11) NOT NULL,
@@ -390,68 +355,16 @@ CREATE TABLE `periode` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pilpres`
+-- Table structure for table `suara_pemilihan`
 --
 
-CREATE TABLE `pilpres` (
+CREATE TABLE `suara_pemilihan` (
   `id` int(11) NOT NULL,
-  `id_periode` int(11) NOT NULL,
-  `id_kecamatan` varchar(7) NOT NULL,
-  `jumlah_kelurahan` int(11) NOT NULL,
-  `jumlah_pemilih` int(11) NOT NULL,
-  `jumlah_pemilih_terdaftar` int(11) NOT NULL,
-  `jumlah_tps` int(11) NOT NULL,
-  `suara_sah` int(11) NOT NULL,
-  `suara_tidak_sah` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `suara_dpd`
---
-
-CREATE TABLE `suara_dpd` (
-  `id_pemilu_dpd` int(11) NOT NULL,
+  `id_pemilihan` int(11) NOT NULL,
   `id_partai` int(11) NOT NULL,
-  `jumlah` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `suara_dpr`
---
-
-CREATE TABLE `suara_dpr` (
-  `id_pemilu_dpr` int(11) NOT NULL,
-  `id_partai` int(11) NOT NULL,
-  `jumlah` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `suara_dprd`
---
-
-CREATE TABLE `suara_dprd` (
-  `id_pemilu_dprd` int(11) NOT NULL,
-  `id_partai` int(11) NOT NULL,
-  `jumlah` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `suara_pilpres`
---
-
-CREATE TABLE `suara_pilpres` (
-  `id_pilpres` int(11) NOT NULL,
   `id_paslon_capres` int(11) NOT NULL,
   `jumlah` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Indexes for dumped tables
@@ -483,25 +396,9 @@ ALTER TABLE `paslon_capres`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `pemilu_dpd`
+-- Indexes for table `pemilihan`
 --
-ALTER TABLE `pemilu_dpd`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_kecamatan` (`id_kecamatan`),
-  ADD KEY `id_periode` (`id_periode`);
-
---
--- Indexes for table `pemilu_dpr`
---
-ALTER TABLE `pemilu_dpr`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_kecamatan` (`id_kecamatan`),
-  ADD KEY `id_periode` (`id_periode`);
-
---
--- Indexes for table `pemilu_dprd`
---
-ALTER TABLE `pemilu_dprd`
+ALTER TABLE `pemilihan`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_kecamatan` (`id_kecamatan`),
   ADD KEY `id_periode` (`id_periode`);
@@ -513,39 +410,12 @@ ALTER TABLE `periode`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `pilpres`
+-- Indexes for table `suara_pemilihan`
 --
-ALTER TABLE `pilpres`
+ALTER TABLE `suara_pemilihan`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_kecamatan` (`id_kecamatan`),
-  ADD KEY `id_periode` (`id_periode`);
-
---
--- Indexes for table `suara_dpd`
---
-ALTER TABLE `suara_dpd`
-  ADD PRIMARY KEY (`id_pemilu_dpd`,`id_partai`),
-  ADD KEY `id_partai` (`id_partai`);
-
---
--- Indexes for table `suara_dpr`
---
-ALTER TABLE `suara_dpr`
-  ADD PRIMARY KEY (`id_pemilu_dpr`,`id_partai`),
-  ADD KEY `id_partai` (`id_partai`);
-
---
--- Indexes for table `suara_dprd`
---
-ALTER TABLE `suara_dprd`
-  ADD PRIMARY KEY (`id_pemilu_dprd`,`id_partai`),
-  ADD KEY `id_partai` (`id_partai`);
-
---
--- Indexes for table `suara_pilpres`
---
-ALTER TABLE `suara_pilpres`
-  ADD PRIMARY KEY (`id_pilpres`,`id_paslon_capres`),
+  ADD KEY `id_pemilihan` (`id_pemilihan`),
+  ADD KEY `id_partai` (`id_partai`),
   ADD KEY `id_paslon_capres` (`id_paslon_capres`);
 
 --
@@ -563,19 +433,9 @@ ALTER TABLE `partai`
 ALTER TABLE `paslon_capres`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `pemilu_dpd`
+-- AUTO_INCREMENT for table `pemilihan`
 --
-ALTER TABLE `pemilu_dpd`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `pemilu_dpr`
---
-ALTER TABLE `pemilu_dpr`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `pemilu_dprd`
---
-ALTER TABLE `pemilu_dprd`
+ALTER TABLE `pemilihan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `periode`
@@ -583,9 +443,9 @@ ALTER TABLE `pemilu_dprd`
 ALTER TABLE `periode`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `pilpres`
+-- AUTO_INCREMENT for table `suara_pemilihan`
 --
-ALTER TABLE `pilpres`
+ALTER TABLE `suara_pemilihan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- Constraints for dumped tables
@@ -598,60 +458,12 @@ ALTER TABLE `kecamatan`
   ADD CONSTRAINT `kecamatan_ibfk_1` FOREIGN KEY (`id_kabupaten`) REFERENCES `kabupaten` (`id`);
 
 --
--- Constraints for table `pemilu_dpd`
+-- Constraints for table `suara_pemilihan`
 --
-ALTER TABLE `pemilu_dpd`
-  ADD CONSTRAINT `pemilu_dpd_ibfk_1` FOREIGN KEY (`id_kecamatan`) REFERENCES `kecamatan` (`id`),
-  ADD CONSTRAINT `pemilu_dpd_ibfk_2` FOREIGN KEY (`id_periode`) REFERENCES `periode` (`id`);
-
---
--- Constraints for table `pemilu_dpr`
---
-ALTER TABLE `pemilu_dpr`
-  ADD CONSTRAINT `pemilu_dpr_ibfk_1` FOREIGN KEY (`id_kecamatan`) REFERENCES `kecamatan` (`id`),
-  ADD CONSTRAINT `pemilu_dpr_ibfk_2` FOREIGN KEY (`id_periode`) REFERENCES `periode` (`id`);
-
---
--- Constraints for table `pemilu_dprd`
---
-ALTER TABLE `pemilu_dprd`
-  ADD CONSTRAINT `pemilu_dprd_ibfk_1` FOREIGN KEY (`id_kecamatan`) REFERENCES `kecamatan` (`id`),
-  ADD CONSTRAINT `pemilu_dprd_ibfk_2` FOREIGN KEY (`id_periode`) REFERENCES `periode` (`id`);
-
---
--- Constraints for table `pilpres`
---
-ALTER TABLE `pilpres`
-  ADD CONSTRAINT `pilpres_ibfk_1` FOREIGN KEY (`id_kecamatan`) REFERENCES `kecamatan` (`id`),
-  ADD CONSTRAINT `pilpres_ibfk_2` FOREIGN KEY (`id_periode`) REFERENCES `periode` (`id`);
-
---
--- Constraints for table `suara_dpd`
---
-ALTER TABLE `suara_dpd`
-  ADD CONSTRAINT `suara_dpd_ibfk_1` FOREIGN KEY (`id_partai`) REFERENCES `partai` (`id`),
-  ADD CONSTRAINT `suara_dpd_ibfk_2` FOREIGN KEY (`id_pemilu_dpd`) REFERENCES `pemilu_dpd` (`id`);
-
---
--- Constraints for table `suara_dpr`
---
-ALTER TABLE `suara_dpr`
-  ADD CONSTRAINT `suara_dpr_ibfk_1` FOREIGN KEY (`id_partai`) REFERENCES `partai` (`id`),
-  ADD CONSTRAINT `suara_dpr_ibfk_2` FOREIGN KEY (`id_pemilu_dpr`) REFERENCES `pemilu_dpr` (`id`);
-
---
--- Constraints for table `suara_dprd`
---
-ALTER TABLE `suara_dprd`
-  ADD CONSTRAINT `suara_dprd_ibfk_1` FOREIGN KEY (`id_partai`) REFERENCES `partai` (`id`),
-  ADD CONSTRAINT `suara_dprd_ibfk_2` FOREIGN KEY (`id_pemilu_dprd`) REFERENCES `pemilu_dprd` (`id`);
-
---
--- Constraints for table `suara_pilpres`
---
-ALTER TABLE `suara_pilpres`
-  ADD CONSTRAINT `suara_pilpres_ibfk_1` FOREIGN KEY (`id_paslon_capres`) REFERENCES `paslon_capres` (`id`),
-  ADD CONSTRAINT `suara_pilpres_ibfk_2` FOREIGN KEY (`id_pilpres`) REFERENCES `pilpres` (`id`);
+ALTER TABLE `suara_pemilihan`
+  ADD CONSTRAINT `suara_pemilihan_ibfk_1` FOREIGN KEY (`id_pemilihan`) REFERENCES `pemilihan` (`id`),
+  ADD CONSTRAINT `suara_pemilihan_ibfk_2` FOREIGN KEY (`id_partai`) REFERENCES `partai` (`id`),
+  ADD CONSTRAINT `suara_pemilihan_ibfk_3` FOREIGN KEY (`id_paslon_capres`) REFERENCES `paslon_capres` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
