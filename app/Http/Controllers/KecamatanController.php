@@ -26,17 +26,9 @@ class KecamatanController extends Controller
 
     public function create($id_kabupaten)
     {
-        $narasi = Narasi::find($id_kabupaten);
-        $materi = $narasi->materi;
-        $kuncis = [
-            'a' => 'A',
-            'b' => 'B',
-            'c' => 'C',
-            'd' => 'D',
-            'e' => 'E',
-        ];
+        $kabupaten = Kabupaten::with('kecamatans')->find($id_kabupaten);
 
-        return view('kecamatan.create', compact(['materi', 'kuncis', 'narasi']));
+        return view('kecamatan.create', compact(['kabupaten']));
     }
 
     public function store(Request $request, $id_cerita)

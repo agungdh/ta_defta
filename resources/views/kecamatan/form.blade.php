@@ -1,24 +1,33 @@
 <div class="box-body">
 
-	@php
-	$class = $errors->has('dapil') ? 'form-group has-error' : 'form-group';
-	$message = $errors->has('dapil') ? $errors->first('dapil') : '';
-	@endphp
-	<div class="{{$class}}">
-		<label for="dapil" data-toggle="tooltip" title="{{$message}}">Dapil</label>
-		<div data-toggle="tooltip" title="{{$message}}">
-			{!! Form::text('dapil',null,['class'=> 'form-control mask_ribuan','placeholder'=>'Isi Dapil', 'id' => 'dapil']) !!}
+	<div class="col-md-6">
+		<div class="form-group">
+			<label for="dapil">Dapil</label>
+			<div>
+				{!! Form::text('dapil',$kabupaten->dapil,['class'=> 'form-control mask_ribuan','placeholder'=>'Isi Dapil', 'id' => 'dapil']) !!}
+			</div>
 		</div>
 	</div>
 
-	@php
-	$class = $errors->has('kabupaten') ? 'form-group has-error' : 'form-group';
-	$message = $errors->has('kabupaten') ? $errors->first('kabupaten') : '';
-	@endphp
-	<div class="{{$class}}">
-		<label for="kabupaten" data-toggle="tooltip" title="{{$message}}">Kabupaten</label>
-		<div data-toggle="tooltip" title="{{$message}}">
-			{!! Form::text('kabupaten',null,['class'=> 'form-control','placeholder'=>'Isi Kabupaten', 'id' => 'kabupaten']) !!}
+	<div class="col-md-6">
+		<div class="form-group">
+			<label for="kabupaten">Kabupaten</label>
+			<div>
+				{!! Form::text('kabupaten',$kabupaten->kabupaten,['class'=> 'form-control','placeholder'=>'Isi Kabupaten', 'id' => 'kabupaten']) !!}
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-12">
+		@php
+		$class = $errors->has('kecamatan') ? 'form-group has-error' : 'form-group';
+		$message = $errors->has('kecamatan') ? $errors->first('kecamatan') : '';
+		@endphp
+		<div class="{{$class}}">
+			<label for="kecamatan" data-toggle="tooltip" title="{{$message}}">kecamatan</label>
+			<div data-toggle="tooltip" title="{{$message}}">
+				{!! Form::text('kecamatan',null,['class'=> 'form-control mask_ribuan','placeholder'=>'Isi kecamatan', 'id' => 'kecamatan']) !!}
+			</div>
 		</div>
 	</div>
 
