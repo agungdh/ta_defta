@@ -1,11 +1,11 @@
 @extends('template.template')
 
 @section('title')
-Kabupaten
+Kecamatan
 @endsection
 
 @section('nav')
-@include('kabupaten.nav')
+@include('kecamatan.nav')
 @endsection
 
 @section('content')
@@ -13,37 +13,31 @@ Kabupaten
     <div class="col-md-12">
         <div class="box animated slideInLeft box-primary" style="box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);">
             <div class="box-header">
-              <h3 class="box-title">Data Kabupaten</h3>
+              <h3 class="box-title">Data Kecamatan</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                <a class="btn btn-success btn-sm" href="{{route('kabupaten.create')}}">
+                <a class="btn btn-success btn-sm" href="{{route('kecamatan.create', $kabupaten->id)}}">
                   <i class="glyphicon glyphicon-plus"></i> Tambah
                 </a><br><br>
               <table class="table table-bordered table-hover datatable" style="width: 100%">
                 <thead>
                     <tr>
-                      <th>Dapil</th>
-                      <th>Kabupaten</th>
+                      <th>Kecamatan</th>
                       <th>Proses</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($kabupatens as $item)
+                    @foreach($kecamatans as $item)
 
                     <tr>
-                        <td>{{$item->dapil}}</td>
-                        <td>{{$item->kabupaten}}</td>
+                        <td>{{$item->kecamatan}}</td>
                         
                         <td>
 
-                            {!! Form::open(['id' => 'formHapus' . $item->id, 'route' => ['kabupaten.destroy', $item->id], 'method' => 'delete']) !!}
+                            {!! Form::open(['id' => 'formHapus' . $item->id, 'route' => ['kecamatan.destroy', $item->id], 'method' => 'delete']) !!}
 
-                                <a class="btn btn-primary btn-sm" href="{{route('kecamatan.index', $item->id)}}">
-                                  <i class="glyphicon glyphicon-map-marker"></i> Kecamatan
-                                </a>
-
-                                <a class="btn btn-primary btn-sm" href="{{route('kabupaten.edit', $item->id)}}">
+                                <a class="btn btn-primary btn-sm" href="{{route('kecamatan.edit', $item->id)}}">
                                   <i class="glyphicon glyphicon-pencil"></i> Edit
                                 </a>
 

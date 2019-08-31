@@ -4,6 +4,36 @@ Route::resources([
 	'kabupaten' => 'KabupatenController',
 ]);
 
+Route::get('/kecamatan/{id_kabupaten}', 'KecamatanController@index')->name('kecamatan.index');
+Route::get('/kecamatan/{id_kabupaten}/create', 'KecamatanController@create')->name('kecamatan.create');
+Route::post('/kecamatan/{id_kabupaten}', 'KecamatanController@store')->name('kecamatan.store');
+Route::get('/kecamatan/{id}/edit', 'KecamatanController@edit')->name('kecamatan.edit');
+Route::put('/kecamatan/{id}', 'KecamatanController@update')->name('kecamatan.update');
+Route::delete('/kecamatan/{id}', 'KecamatanController@destroy')->name('kecamatan.destroy');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Route::get('/ndaskumumet', 'TempController@index');
 
 Route::get('/materi/mid', 'MateriController@mid')->name('materi.mid');
