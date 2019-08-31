@@ -1,0 +1,1 @@
+<li><a href="{{ route('pemakaian.index') }}"><i class="fa fa-home"></i> Pemakaian</a></li>

@@ -1,0 +1,1 @@
+<li><a href="{{ route('fungsiumum.index') }}"><i class="fa fa-home"></i> Fungsi Umum</a></li>
