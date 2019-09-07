@@ -1,6 +1,7 @@
 <?php
 
 Route::resources([
+	'partai' => 'PartaiController',
 	'kabupaten' => 'KabupatenController',
 	'periode' => 'PeriodeController',
 ]);
