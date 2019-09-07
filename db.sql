@@ -3,7 +3,7 @@
 -- Host: 127.0.0.1	Database: defta
 -- ------------------------------------------------------
 -- Server version 	5.5.5-10.3.17-MariaDB-0ubuntu0.19.04.1
--- Date: Sat, 31 Aug 2019 23:23:07 +0700
+-- Date: Sat, 07 Sep 2019 12:08:50 +0700
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -27,14 +27,17 @@ CREATE TABLE `suara_pemilihan` (
   `id_pemilihan` int(11) NOT NULL,
   `id_partai` int(11) DEFAULT NULL,
   `id_paslon_capres` int(11) DEFAULT NULL,
+  `id_calon_dpd` int(11) NOT NULL,
   `jumlah` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_pemilihan` (`id_pemilihan`),
   KEY `id_partai` (`id_partai`),
   KEY `id_paslon_capres` (`id_paslon_capres`),
+  KEY `id_calon_dpd` (`id_calon_dpd`),
   CONSTRAINT `suara_pemilihan_ibfk_1` FOREIGN KEY (`id_pemilihan`) REFERENCES `pemilihan` (`id`),
   CONSTRAINT `suara_pemilihan_ibfk_2` FOREIGN KEY (`id_partai`) REFERENCES `partai` (`id`),
-  CONSTRAINT `suara_pemilihan_ibfk_3` FOREIGN KEY (`id_paslon_capres`) REFERENCES `paslon_capres` (`id`)
+  CONSTRAINT `suara_pemilihan_ibfk_3` FOREIGN KEY (`id_paslon_capres`) REFERENCES `paslon_capres` (`id`),
+  CONSTRAINT `suara_pemilihan_ibfk_4` FOREIGN KEY (`id_calon_dpd`) REFERENCES `calon_dpd` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -113,6 +116,36 @@ COMMIT;
 --
 
 --
+-- Table structure for table `calon_dpd`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `calon_dpd` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_partai` int(11) DEFAULT NULL,
+  `nama` varchar(191) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_partai` (`id_partai`),
+  CONSTRAINT `calon_dpd_ibfk_1` FOREIGN KEY (`id_partai`) REFERENCES `partai` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `calon_dpd`
+--
+
+LOCK TABLES `calon_dpd` WRITE;
+/*!40000 ALTER TABLE `calon_dpd` DISABLE KEYS */;
+SET autocommit=0;
+/*!40000 ALTER TABLE `calon_dpd` ENABLE KEYS */;
+UNLOCK TABLES;
+COMMIT;
+
+-- Dumped table `calon_dpd` with 0 row(s)
+--
+
+--
 -- Table structure for table `pemilihan`
 --
 
@@ -121,7 +154,7 @@ COMMIT;
 CREATE TABLE `pemilihan` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_periode` int(11) NOT NULL,
-  `id_kecamatan` varchar(7) NOT NULL,
+  `id_kecamatan` int(11) NOT NULL,
   `tipe` enum('presiden','dpr','dpd','dprdp','dprdk') NOT NULL,
   `jumlah_kelurahan` int(11) NOT NULL,
   `jumlah_pemilih` int(11) NOT NULL,
@@ -131,7 +164,9 @@ CREATE TABLE `pemilihan` (
   `suara_tidak_sah` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_kecamatan` (`id_kecamatan`),
-  KEY `id_periode` (`id_periode`)
+  KEY `id_periode` (`id_periode`),
+  CONSTRAINT `pemilihan_ibfk_1` FOREIGN KEY (`id_periode`) REFERENCES `periode` (`id`),
+  CONSTRAINT `pemilihan_ibfk_2` FOREIGN KEY (`id_kecamatan`) REFERENCES `kecamatan` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -159,7 +194,7 @@ CREATE TABLE `periode` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `periode` varchar(191) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -273,4 +308,4 @@ COMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on: Sat, 31 Aug 2019 23:23:07 +0700
+-- Dump completed on: Sat, 07 Sep 2019 12:08:50 +0700
