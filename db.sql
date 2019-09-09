@@ -3,7 +3,7 @@
 -- Host: 127.0.0.1	Database: defta
 -- ------------------------------------------------------
 -- Server version 	5.5.5-10.3.17-MariaDB-0ubuntu0.19.04.1
--- Date: Mon, 09 Sep 2019 14:45:50 +0700
+-- Date: Mon, 09 Sep 2019 14:48:19 +0700
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -27,7 +27,7 @@ CREATE TABLE `suara_pemilihan` (
   `id_pemilihan` int(11) NOT NULL,
   `id_partai` int(11) DEFAULT NULL,
   `id_paslon_capres` int(11) DEFAULT NULL,
-  `id_calon_dpd` int(11) NOT NULL,
+  `id_calon_dpd` int(11) DEFAULT NULL,
   `jumlah` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_pemilihan` (`id_pemilihan`),
@@ -66,7 +66,7 @@ CREATE TABLE `paslon_capres` (
   `no_urut` varchar(191) NOT NULL,
   `paslon_capres` varchar(191) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -76,11 +76,12 @@ CREATE TABLE `paslon_capres` (
 LOCK TABLES `paslon_capres` WRITE;
 /*!40000 ALTER TABLE `paslon_capres` DISABLE KEYS */;
 SET autocommit=0;
+INSERT INTO `paslon_capres` VALUES (4,'hgg','sgsg');
 /*!40000 ALTER TABLE `paslon_capres` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
 
--- Dumped table `paslon_capres` with 0 row(s)
+-- Dumped table `paslon_capres` with 1 row(s)
 --
 
 --
@@ -251,7 +252,7 @@ CREATE TABLE `partai` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `partai` varchar(191) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -309,4 +310,4 @@ COMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on: Mon, 09 Sep 2019 14:45:50 +0700
+-- Dump completed on: Mon, 09 Sep 2019 14:48:19 +0700
