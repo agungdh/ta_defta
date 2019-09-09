@@ -35,8 +35,8 @@ Partai
                         <td>{{$item->partai}}</td>
                         <td>
                           @if(file_exists(storage_path('app/public/files/logo/' . $item->id)))
-                            <a href="{{asset('storage/files/logo/' . $item->id)}}" target="_blank">
-                              <img class="img-responsive" src="{{asset('storage/files/logo/' . $item->id)}}">
+                            <a href="{{asset('storage/files/logo/' . $item->id)}}?nocache={{time()}}" target="_blank">
+                              <img class="img-responsive" src="{{asset('storage/files/logo/' . $item->id)}}?nocache={{time()}}">
                             </a>
                           @else
                             <img class="img-responsive" src="{{asset('storage/assets/inf')}}">

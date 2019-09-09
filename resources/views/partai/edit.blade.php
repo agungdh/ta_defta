@@ -1,11 +1,11 @@
 @extends('template.template')
 
 @section('title')
-Kabupaten
+Partai
 @endsection
 
 @section('nav')
-@include('kabupaten.nav')
+@include('partai.nav')
 @endsection
 
 @section('content')
@@ -13,15 +13,15 @@ Kabupaten
 	<div class="col-md-12">
         <div class="box animated jackInTheBox box-primary" style="box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);">
 			<div class="box-header with-border">
-				<h3 class="box-title">Ubah Kabupaten</h3>
+				<h3 class="box-title">Ubah Partai</h3>
 			</div>
 
-			{!! Form::model($kabupaten, ['route' => ['kabupaten.update', $kabupaten->id], 'role' => 'form', 'method' => 'put', 'files' => true]) !!}
-				@include('kabupaten.form')
+			{!! Form::model($partai, ['route' => ['partai.update', $partai->id], 'role' => 'form', 'method' => 'put', 'files' => true]) !!}
+				@include('partai.form')
 
 				<div class="box-footer">
 					<button type="submit" class="btn btn-success">Simpan</button>
-					<a href="{{route('kabupaten.index')}}" class="btn btn-info">Batal</a>
+					<a href="{{route('partai.index')}}" class="btn btn-info">Batal</a>
 				</div>
 			{!! Form::close() !!}
 		</div>

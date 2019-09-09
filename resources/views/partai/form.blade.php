@@ -17,6 +17,13 @@
 	@endphp
 	<div class="{{$class}}">
 		<label for="logo" data-toggle="tooltip" title="{{$message}}">Logo</label>
+		@if($partai && file_exists(storage_path('app/public/files/logo/' . $partai->id)))
+			<a href="{{asset('storage/files/logo/' . $partai->id)}}?nocache={{time()}}" target="_blank">
+				<img class="img-responsive" src="{{asset('storage/files/logo/' . $partai->id)}}?nocache={{time()}}">
+			</a>
+		@else
+			<img class="img-responsive" src="{{asset('storage/assets/inf')}}">
+		@endif
 		<div data-toggle="tooltip" title="{{$message}}">
 			{!! Form::file('logo',['class'=> 'form-control','id' => 'logo']) !!}
 		</div>

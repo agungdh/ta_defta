@@ -30,6 +30,7 @@ class PartaiController extends Controller
     {
         $request->validate([
             'partai' => 'required',
+            'logo' => 'image',
         ]);
 
         $data = $request->only('partai');
@@ -50,21 +51,27 @@ class PartaiController extends Controller
 
     public function edit($id)
     {
-        $kabupaten = Partai::find($id);
+        $partai = Partai::find($id);
 
         return view('partai.edit', compact(['partai']));
     }
 
     public function update(Request $request, $id)
     {        
-        $request['dapil'] = str_replace('.', '', $request['dapil']);
         $request->validate([
             'partai' => 'required',
+            'logo' => 'image',
         ]);
 
-        $data = $request->only('partai', 'dapil');
+        $data = $request->only('partai');
         
         Partai::where('id', $id)->update($data);
+
+        $logo = $request->file('logo');
+        if ($logo) {            
+            $logo->move(storage_path('app/public/files/logo'), $id);
+        }
+
 
         return redirect()->route('partai.index')->with('alert', [
             'title' => 'BERHASIL !!!',
