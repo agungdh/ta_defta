@@ -1,9 +1,11 @@
 <?php
 
 Route::resources([
-	'partai' => 'PartaiController',
 	'kabupaten' => 'KabupatenController',
 	'periode' => 'PeriodeController',
+	'partai' => 'PartaiController',
+	'calondpd' => 'CalonDPDController',
+	'pasloncapres' => 'PaslonCapresController',
 ]);
 
 Route::get('/kecamatan/{id_kabupaten}', 'KecamatanController@index')->name('kecamatan.index');

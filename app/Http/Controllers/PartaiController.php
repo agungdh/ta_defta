@@ -35,11 +35,11 @@ class PartaiController extends Controller
 
         $data = $request->only('partai');
         
-        $idpartai = DB::table('partai')->insertGetId($data);
+        $id = DB::table('partai')->insertGetId($data);
 
         $logo = $request->file('logo');
         if ($logo) {            
-            $logo->move(storage_path('app/public/files/logo'), $idpartai);
+            $logo->move(storage_path('app/public/files/logo'), $id);
         }
 
         return redirect()->route('partai.index')->with('alert', [

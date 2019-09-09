@@ -3,7 +3,7 @@
 -- Host: 127.0.0.1	Database: defta
 -- ------------------------------------------------------
 -- Server version 	5.5.5-10.3.17-MariaDB-0ubuntu0.19.04.1
--- Date: Sat, 07 Sep 2019 13:29:35 +0700
+-- Date: Mon, 09 Sep 2019 14:45:50 +0700
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -66,7 +66,7 @@ CREATE TABLE `paslon_capres` (
   `no_urut` varchar(191) NOT NULL,
   `paslon_capres` varchar(191) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -251,7 +251,7 @@ CREATE TABLE `partai` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `partai` varchar(191) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -261,11 +261,12 @@ CREATE TABLE `partai` (
 LOCK TABLES `partai` WRITE;
 /*!40000 ALTER TABLE `partai` DISABLE KEYS */;
 SET autocommit=0;
+INSERT INTO `partai` VALUES (8,'gada gambar zz');
 /*!40000 ALTER TABLE `partai` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
 
--- Dumped table `partai` with 0 row(s)
+-- Dumped table `partai` with 1 row(s)
 --
 
 --
@@ -308,4 +309,4 @@ COMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on: Sat, 07 Sep 2019 13:29:35 +0700
+-- Dump completed on: Mon, 09 Sep 2019 14:45:50 +0700
