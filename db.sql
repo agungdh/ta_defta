@@ -3,7 +3,7 @@
 -- Host: 127.0.0.1	Database: defta
 -- ------------------------------------------------------
 -- Server version 	5.5.5-10.3.17-MariaDB-0ubuntu0.19.04.1
--- Date: Mon, 09 Sep 2019 14:48:19 +0700
+-- Date: Mon, 09 Sep 2019 16:48:43 +0700
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -129,7 +129,7 @@ CREATE TABLE `calon_dpd` (
   PRIMARY KEY (`id`),
   KEY `id_partai` (`id_partai`),
   CONSTRAINT `calon_dpd_ibfk_1` FOREIGN KEY (`id_partai`) REFERENCES `partai` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -310,4 +310,4 @@ COMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on: Mon, 09 Sep 2019 14:48:19 +0700
+-- Dump completed on: Mon, 09 Sep 2019 16:48:43 +0700
