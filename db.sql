@@ -3,7 +3,7 @@
 -- Host: 127.0.0.1	Database: defta
 -- ------------------------------------------------------
 -- Server version 	5.5.5-10.3.17-MariaDB-0ubuntu0.19.04.1
--- Date: Mon, 09 Sep 2019 16:48:43 +0700
+-- Date: Mon, 09 Sep 2019 17:55:16 +0700
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -28,7 +28,9 @@ CREATE TABLE `suara_pemilihan` (
   `id_partai` int(11) DEFAULT NULL,
   `id_paslon_capres` int(11) DEFAULT NULL,
   `id_calon_dpd` int(11) DEFAULT NULL,
-  `jumlah` int(11) NOT NULL,
+  `jumlah_pemilih_terdaftar` int(11) NOT NULL,
+  `jumlah_suara_sah` int(11) NOT NULL,
+  `jumlah_suara_tidak_sah` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_pemilihan` (`id_pemilihan`),
   KEY `id_partai` (`id_partai`),
@@ -158,11 +160,7 @@ CREATE TABLE `pemilihan` (
   `id_kecamatan` int(11) NOT NULL,
   `tipe` enum('presiden','dpr','dpd','dprdp','dprdk') NOT NULL,
   `jumlah_kelurahan` int(11) NOT NULL,
-  `jumlah_pemilih` int(11) NOT NULL,
-  `jumlah_pemilih_terdaftar` int(11) NOT NULL,
   `jumlah_tps` int(11) NOT NULL,
-  `suara_sah` int(11) NOT NULL,
-  `suara_tidak_sah` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_kecamatan` (`id_kecamatan`),
   KEY `id_periode` (`id_periode`),
@@ -310,4 +308,4 @@ COMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on: Mon, 09 Sep 2019 16:48:43 +0700
+-- Dump completed on: Mon, 09 Sep 2019 17:55:16 +0700
