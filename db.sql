@@ -3,7 +3,7 @@
 -- Host: 127.0.0.1	Database: defta
 -- ------------------------------------------------------
 -- Server version 	5.5.5-10.3.17-MariaDB-0ubuntu0.19.04.1
--- Date: Mon, 09 Sep 2019 17:55:16 +0700
+-- Date: Tue, 10 Sep 2019 10:23:48 +0700
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -28,6 +28,8 @@ CREATE TABLE `suara_pemilihan` (
   `id_partai` int(11) DEFAULT NULL,
   `id_paslon_capres` int(11) DEFAULT NULL,
   `id_calon_dpd` int(11) DEFAULT NULL,
+  `jumlah_kelurahan` int(11) NOT NULL,
+  `jumlah_tps` int(11) NOT NULL,
   `jumlah_pemilih_terdaftar` int(11) NOT NULL,
   `jumlah_suara_sah` int(11) NOT NULL,
   `jumlah_suara_tidak_sah` int(11) NOT NULL,
@@ -96,10 +98,13 @@ CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(191) NOT NULL,
   `password` varchar(191) NOT NULL,
-  `level` enum('a','s') NOT NULL,
+  `level` enum('a','s','opkab','opprov') NOT NULL,
   `nama` varchar(191) NOT NULL,
+  `id_kecamatan` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `username` (`username`)
+  UNIQUE KEY `username` (`username`),
+  KEY `id_kecamatan` (`id_kecamatan`),
+  CONSTRAINT `user_ibfk_1` FOREIGN KEY (`id_kecamatan`) REFERENCES `kecamatan` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -110,7 +115,7 @@ CREATE TABLE `user` (
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 SET autocommit=0;
-INSERT INTO `user` VALUES (1,'admin','$2y$12$83K/WnkWWoEbcd5KEvvouOMHQ.hk6LjyYzDP1V97FZQ/LbcVfdd/u','a','Administrator'),(5,'guru','$2y$10$UIHxN5Zo2lMkqKBwQlT/wuP2fKHoYmwCKRp9grk9ocOHlkGhPbLtq','a','Guru'),(7,'siswa','$2y$10$kmA3Yt75OFgrMLysTrXrLed00zIAgTdxvsFMy7hGwLPfsb1XGP0SW','s','siswa');
+INSERT INTO `user` VALUES (1,'admin','$2y$12$83K/WnkWWoEbcd5KEvvouOMHQ.hk6LjyYzDP1V97FZQ/LbcVfdd/u','a','Administrator',NULL),(5,'guru','$2y$10$UIHxN5Zo2lMkqKBwQlT/wuP2fKHoYmwCKRp9grk9ocOHlkGhPbLtq','a','Guru',NULL),(7,'siswa','$2y$10$kmA3Yt75OFgrMLysTrXrLed00zIAgTdxvsFMy7hGwLPfsb1XGP0SW','s','siswa',NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -159,8 +164,6 @@ CREATE TABLE `pemilihan` (
   `id_periode` int(11) NOT NULL,
   `id_kecamatan` int(11) NOT NULL,
   `tipe` enum('presiden','dpr','dpd','dprdp','dprdk') NOT NULL,
-  `jumlah_kelurahan` int(11) NOT NULL,
-  `jumlah_tps` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_kecamatan` (`id_kecamatan`),
   KEY `id_periode` (`id_periode`),
@@ -308,4 +311,4 @@ COMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on: Mon, 09 Sep 2019 17:55:16 +0700
+-- Dump completed on: Tue, 10 Sep 2019 10:23:48 +0700
