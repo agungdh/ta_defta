@@ -28,13 +28,11 @@ class KabupatenController extends Controller
 
     public function store(Request $request)
     {
-        $request['dapil'] = str_replace('.', '', $request['dapil']);
         $request->validate([
             'kabupaten' => 'required',
-            'dapil' => 'required|numeric|min:1',
         ]);
 
-        $data = $request->only('kabupaten', 'dapil');
+        $data = $request->only('kabupaten');
         
         DB::table('kabupaten')->insert($data);
 
@@ -54,13 +52,11 @@ class KabupatenController extends Controller
 
     public function update(Request $request, $id)
     {        
-        $request['dapil'] = str_replace('.', '', $request['dapil']);
         $request->validate([
             'kabupaten' => 'required',
-            'dapil' => 'required|numeric|min:1',
         ]);
 
-        $data = $request->only('kabupaten', 'dapil');
+        $data = $request->only('kabupaten');
         
         Kabupaten::where('id', $id)->update($data);
 

@@ -3,7 +3,7 @@
 -- Host: 127.0.0.1	Database: defta
 -- ------------------------------------------------------
 -- Server version 	5.5.5-10.3.17-MariaDB-0ubuntu0.19.04.1
--- Date: Tue, 10 Sep 2019 10:23:48 +0700
+-- Date: Wed, 11 Sep 2019 14:08:54 +0700
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -105,7 +105,7 @@ CREATE TABLE `user` (
   UNIQUE KEY `username` (`username`),
   KEY `id_kecamatan` (`id_kecamatan`),
   CONSTRAINT `user_ibfk_1` FOREIGN KEY (`id_kecamatan`) REFERENCES `kecamatan` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -115,12 +115,12 @@ CREATE TABLE `user` (
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 SET autocommit=0;
-INSERT INTO `user` VALUES (1,'admin','$2y$12$83K/WnkWWoEbcd5KEvvouOMHQ.hk6LjyYzDP1V97FZQ/LbcVfdd/u','a','Administrator',NULL),(5,'guru','$2y$10$UIHxN5Zo2lMkqKBwQlT/wuP2fKHoYmwCKRp9grk9ocOHlkGhPbLtq','a','Guru',NULL),(7,'siswa','$2y$10$kmA3Yt75OFgrMLysTrXrLed00zIAgTdxvsFMy7hGwLPfsb1XGP0SW','s','siswa',NULL);
+INSERT INTO `user` VALUES (8,'oplampung','$2y$12$gGqu.v/AVuxxvPBYZIjKcecraPyIr1po.FbE1e2BoYKmyyq3TKlSu','opprov','Operator Lampung',NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
 
--- Dumped table `user` with 3 row(s)
+-- Dumped table `user` with 1 row(s)
 --
 
 --
@@ -222,10 +222,9 @@ COMMIT;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `kabupaten` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `dapil` int(11) NOT NULL,
   `kabupaten` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1878 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1879 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -235,7 +234,7 @@ CREATE TABLE `kabupaten` (
 LOCK TABLES `kabupaten` WRITE;
 /*!40000 ALTER TABLE `kabupaten` DISABLE KEYS */;
 SET autocommit=0;
-INSERT INTO `kabupaten` VALUES (1801,4,'KABUPATEN LAMPUNG BARAT'),(1802,4,'KABUPATEN TANGGAMUS'),(1803,1,'LAMPUNG SELATAN'),(1804,8,'LAMPUNG TIMUR'),(1805,7,'LAMPUNG TENGAH'),(1806,5,'LAMPUNG UTARA'),(1807,5,'WAY KANAN'),(1808,6,'TULANGBAWANG'),(1809,3,'PESAWARAN'),(1810,3,'PRINGSEWU'),(1811,6,'MESUJI'),(1812,6,'TULANG BAWANG BARAT'),(1813,4,'PESISIR BARAT'),(1871,2,'BANDAR LAMPUNG'),(1872,3,'METRO');
+INSERT INTO `kabupaten` VALUES (1801,'KABUPATEN LAMPUNG BARAT'),(1802,'KABUPATEN TANGGAMUS'),(1803,'LAMPUNG SELATAN'),(1804,'LAMPUNG TIMUR'),(1805,'LAMPUNG TENGAH'),(1806,'LAMPUNG UTARA'),(1807,'WAY KANAN'),(1808,'TULANGBAWANG'),(1809,'PESAWARAN'),(1810,'PRINGSEWU'),(1811,'MESUJI'),(1812,'TULANG BAWANG BARAT'),(1813,'PESISIR BARAT'),(1871,'BANDAR LAMPUNG'),(1872,'METRO');
 /*!40000 ALTER TABLE `kabupaten` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -284,7 +283,7 @@ CREATE TABLE `kecamatan` (
   PRIMARY KEY (`id`),
   KEY `kab_id` (`id_kabupaten`),
   CONSTRAINT `kecamatan_ibfk_1` FOREIGN KEY (`id_kabupaten`) REFERENCES `kabupaten` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1872028 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1872029 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -311,4 +310,4 @@ COMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on: Tue, 10 Sep 2019 10:23:48 +0700
+-- Dump completed on: Wed, 11 Sep 2019 14:08:54 +0700

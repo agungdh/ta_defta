@@ -101,10 +101,8 @@ if(session('login')) {
                 <img src="{{asset('storage/assets')}}/favicon/cbfjg-rsl5i.png" class="img-circle" alt="User Image">
 
                 <p>
-                  @if(session('login'))
                     {{$userData->username}}
-                    <small>{{$userData->level == 'a' ? 'Administrator' : 'Siswa'}}</small>
-                  @endif
+                    <small>{{$userData->level == 'opprov' ? 'Operator Provinsi' : 'Operator Kabupaten'}}</small>
                 </p>
               </li>
               <!-- Menu Footer-->

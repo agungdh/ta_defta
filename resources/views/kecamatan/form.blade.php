@@ -1,15 +1,6 @@
 <div class="box-body">
 
-	<div class="col-md-6">
-		<div class="form-group">
-			<label for="dapil">Dapil</label>
-			<div>
-				{!! Form::text('dapil',$kabupaten->dapil,['class'=> 'form-control mask_ribuan','placeholder'=>'Isi Dapil', 'id' => 'dapil', 'disabled' => true]) !!}
-			</div>
-		</div>
-	</div>
-
-	<div class="col-md-6">
+	<div class="col-md-12">
 		<div class="form-group">
 			<label for="kabupaten">Kabupaten</label>
 			<div>

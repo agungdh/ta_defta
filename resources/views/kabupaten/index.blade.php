@@ -23,7 +23,6 @@ Kabupaten
               <table class="table table-bordered table-hover datatable" style="width: 100%">
                 <thead>
                     <tr>
-                      <th>Dapil</th>
                       <th>Kabupaten</th>
                       <th>Proses</th>
                     </tr>
@@ -32,7 +31,6 @@ Kabupaten
                     @foreach($kabupatens as $item)
 
                     <tr>
-                        <td>{{$item->dapil}}</td>
                         <td>{{$item->kabupaten}}</td>
                         
                         <td>
