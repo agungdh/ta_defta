@@ -3,7 +3,7 @@
 -- Host: 127.0.0.1	Database: defta
 -- ------------------------------------------------------
 -- Server version 	5.5.5-10.3.17-MariaDB-0ubuntu0.19.04.1
--- Date: Wed, 11 Sep 2019 14:08:54 +0700
+-- Date: Wed, 11 Sep 2019 14:52:42 +0700
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -96,16 +96,16 @@ COMMIT;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_kabupaten` int(11) DEFAULT NULL,
   `username` varchar(191) NOT NULL,
   `password` varchar(191) NOT NULL,
-  `level` enum('a','s','opkab','opprov') NOT NULL,
+  `level` enum('opkab','opprov') NOT NULL,
   `nama` varchar(191) NOT NULL,
-  `id_kecamatan` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
-  KEY `id_kecamatan` (`id_kecamatan`),
-  CONSTRAINT `user_ibfk_1` FOREIGN KEY (`id_kecamatan`) REFERENCES `kecamatan` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+  KEY `id_kabupaten` (`id_kabupaten`),
+  CONSTRAINT `user_ibfk_1` FOREIGN KEY (`id_kabupaten`) REFERENCES `kabupaten` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -115,12 +115,12 @@ CREATE TABLE `user` (
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 SET autocommit=0;
-INSERT INTO `user` VALUES (8,'oplampung','$2y$12$gGqu.v/AVuxxvPBYZIjKcecraPyIr1po.FbE1e2BoYKmyyq3TKlSu','opprov','Operator Lampung',NULL);
+INSERT INTO `user` VALUES (8,NULL,'oplampung','$2y$12$gGqu.v/AVuxxvPBYZIjKcecraPyIr1po.FbE1e2BoYKmyyq3TKlSu','opprov','Operator Lampung'),(9,1872,'opmetro','$2y$12$CRLQk2W6MFjttDHY7WiaxOna.Wto.v4hzmACTmyBxmelEzZm3rSTG','opkab','Operator Metro');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
 
--- Dumped table `user` with 1 row(s)
+-- Dumped table `user` with 2 row(s)
 --
 
 --
@@ -310,4 +310,4 @@ COMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on: Wed, 11 Sep 2019 14:08:54 +0700
+-- Dump completed on: Wed, 11 Sep 2019 14:52:42 +0700

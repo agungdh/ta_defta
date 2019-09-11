@@ -7,6 +7,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Validation\Rule;
 
 use App\Models\User;
+use App\Models\Kabupaten;
 
 use ADHhelper;
 
@@ -15,16 +16,29 @@ use DB;
 
 class UserController extends Controller
 {
+    public function getAllKabupatens()
+    {
+        $kabupatens_raw = Kabupaten::all();
+        $kabupatens = [];
+        foreach ($kabupatens_raw as $item) {
+            $kabupatens[$item->id] = "{$item->kabupaten}";
+        }
+
+        return $kabupatens;
+    }
+
     public function index()
     {
-        $users = User::get();
+        $users = User::with('kabupaten')->get();
 
         return view('user.index', compact(['users']));
     }
 
     public function create()
     {
-        return view('user.create', compact([]));
+        $kabupatens = $this->getAllKabupatens();
+
+        return view('user.create', compact(['kabupatens']));
     }
 
     public function store(Request $request)
@@ -34,9 +48,10 @@ class UserController extends Controller
             'level' => 'required',
             'username' => 'required|unique:user,username',
             'password' => 'required|confirmed',
+            'id_kabupaten' => 'required_if:level,opkab',
         ]);
 
-        $data = $request->only('nama', 'level', 'username', 'password');
+        $data = $request->only('nama', 'level', 'username', 'id_kabupaten', 'password');
         $data['password'] = Hash::make($request->password);
 
         DB::table('user')->insert($data);
@@ -51,8 +66,9 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
+        $kabupatens = $this->getAllKabupatens();
 
-        return view('user.edit', compact(['user']));
+        return view('user.edit', compact(['user', 'kabupatens']));
     }
 
     public function update(Request $request, $id)
@@ -66,9 +82,10 @@ class UserController extends Controller
                 Rule::unique('user', 'username')->ignore($id),
             ],
             'password' => 'confirmed',
+            'id_kabupaten' => 'required_if:level,opkab',
         ]);
 
-        $data = $request->only('nama', 'level', 'username');
+        $data = $request->only('nama', 'level', 'username', 'id_kabupaten');
         if ($request->password) {
             $data['password'] = Hash::make($request->password);
         }

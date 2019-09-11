@@ -13,4 +13,9 @@ class User extends Model
 	protected $hidden = [
 					        'password',
 					    ];
+
+    public function kabupaten()
+    {
+        return $this->belongsTo('App\Models\Kabupaten', 'id_kabupaten');
+    }
 }

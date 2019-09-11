@@ -30,9 +30,22 @@
 		<label for="level" data-toggle="tooltip" title="{{$message}}">Level</label>
 		<div data-toggle="tooltip" title="{{$message}}">
 			{!! Form::select('level',[
-					'a' => 'Administrator',
-					's' => 'Siswa',
+					'opkab' => 'Operator Kabupaten',
+					'opprov' => 'Operator Provinsi',
 				],null,['class'=> 'form-control select2','placeholder'=>'Pilih Level','id'=>'level','style'=>'width: 100%']) !!}
+		</div>
+	</div>
+
+	<div id="div__id_kabupaten">
+		@php
+		$class = $errors->has('id_kabupaten') ? 'form-group has-error' : 'form-group';
+		$message = $errors->has('id_kabupaten') ? $errors->first('id_kabupaten') : '';
+		@endphp
+		<div class="{{$class}}">
+			<label for="id_kabupaten" data-toggle="tooltip" title="{{$message}}">Kabupaten</label>
+			<div data-toggle="tooltip" title="{{$message}}">
+				{!! Form::select('id_kabupaten', $kabupatens,null,['class'=> 'form-control select2','placeholder'=>'Pilih Kabupaten','id'=>'id_kabupaten','style'=>'width: 100%']) !!}
+			</div>
 		</div>
 	</div>
 
@@ -61,4 +74,17 @@
 </div>
 
 @section('js')
+@parent
+<script type="text/javascript">
+	$("#level").change(function() {
+		if ($("#level").val() == 'opkab') {
+			$("#div__id_kabupaten").show();
+		} else {
+			$("#id_kabupaten").val('').trigger('change');
+			$("#div__id_kabupaten").hide();
+		}
+	});
+
+	$("#level").trigger("change");
+</script>
 @endsection

@@ -26,6 +26,7 @@
 	                  <th>Username</th>
                     <th>Nama</th>
                     <th>Level</th>
+                    <th>Kabupaten / Kota</th>
 	                  <th>Proses</th>
 	                </tr>
                 </thead>
@@ -34,7 +35,8 @@
                 	<tr>
                     <td>{{$item->username}}</td>
                     <td>{{$item->nama}}</td>
-                    <td>{{$item->level == 'a' ? 'Administrator' : 'Siswa'}}</td>
+                    <td>{{$item->level == 'opprov' ? 'Operator Provinsi' : 'Operator Kabupaten'}}</td>
+                    <td>{{$item->kabupaten ? $item->kabupaten->kabupaten : null}}</td>
                 		
                 		<td>
 
