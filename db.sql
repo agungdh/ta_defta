@@ -3,7 +3,7 @@
 -- Host: 127.0.0.1	Database: defta
 -- ------------------------------------------------------
 -- Server version 	5.5.5-10.3.17-MariaDB-0ubuntu0.19.04.1
--- Date: Wed, 11 Sep 2019 14:52:42 +0700
+-- Date: Thu, 12 Sep 2019 14:45:25 +0700
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -25,6 +25,7 @@
 CREATE TABLE `suara_pemilihan` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_pemilihan` int(11) NOT NULL,
+  `id_kecamatan` int(11) NOT NULL,
   `id_partai` int(11) DEFAULT NULL,
   `id_paslon_capres` int(11) DEFAULT NULL,
   `id_calon_dpd` int(11) DEFAULT NULL,
@@ -38,10 +39,12 @@ CREATE TABLE `suara_pemilihan` (
   KEY `id_partai` (`id_partai`),
   KEY `id_paslon_capres` (`id_paslon_capres`),
   KEY `id_calon_dpd` (`id_calon_dpd`),
+  KEY `id_kecamatan` (`id_kecamatan`),
   CONSTRAINT `suara_pemilihan_ibfk_1` FOREIGN KEY (`id_pemilihan`) REFERENCES `pemilihan` (`id`),
   CONSTRAINT `suara_pemilihan_ibfk_2` FOREIGN KEY (`id_partai`) REFERENCES `partai` (`id`),
   CONSTRAINT `suara_pemilihan_ibfk_3` FOREIGN KEY (`id_paslon_capres`) REFERENCES `paslon_capres` (`id`),
-  CONSTRAINT `suara_pemilihan_ibfk_4` FOREIGN KEY (`id_calon_dpd`) REFERENCES `calon_dpd` (`id`)
+  CONSTRAINT `suara_pemilihan_ibfk_4` FOREIGN KEY (`id_calon_dpd`) REFERENCES `calon_dpd` (`id`),
+  CONSTRAINT `suara_pemilihan_ibfk_5` FOREIGN KEY (`id_kecamatan`) REFERENCES `kecamatan` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -167,8 +170,7 @@ CREATE TABLE `pemilihan` (
   PRIMARY KEY (`id`),
   KEY `id_kecamatan` (`id_kecamatan`),
   KEY `id_periode` (`id_periode`),
-  CONSTRAINT `pemilihan_ibfk_1` FOREIGN KEY (`id_periode`) REFERENCES `periode` (`id`),
-  CONSTRAINT `pemilihan_ibfk_2` FOREIGN KEY (`id_kecamatan`) REFERENCES `kecamatan` (`id`)
+  CONSTRAINT `pemilihan_ibfk_1` FOREIGN KEY (`id_periode`) REFERENCES `periode` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -310,4 +312,4 @@ COMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on: Wed, 11 Sep 2019 14:52:42 +0700
+-- Dump completed on: Thu, 12 Sep 2019 14:45:25 +0700
