@@ -3,7 +3,7 @@
 -- Host: 127.0.0.1	Database: defta
 -- ------------------------------------------------------
 -- Server version 	5.5.5-10.3.17-MariaDB-0ubuntu0.19.04.1
--- Date: Thu, 12 Sep 2019 14:45:25 +0700
+-- Date: Thu, 12 Sep 2019 14:52:48 +0700
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -165,13 +165,11 @@ COMMIT;
 CREATE TABLE `pemilihan` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_periode` int(11) NOT NULL,
-  `id_kecamatan` int(11) NOT NULL,
   `tipe` enum('presiden','dpr','dpd','dprdp','dprdk') NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `id_kecamatan` (`id_kecamatan`),
   KEY `id_periode` (`id_periode`),
   CONSTRAINT `pemilihan_ibfk_1` FOREIGN KEY (`id_periode`) REFERENCES `periode` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -181,11 +179,12 @@ CREATE TABLE `pemilihan` (
 LOCK TABLES `pemilihan` WRITE;
 /*!40000 ALTER TABLE `pemilihan` DISABLE KEYS */;
 SET autocommit=0;
+INSERT INTO `pemilihan` VALUES (1,1,'dpd');
 /*!40000 ALTER TABLE `pemilihan` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
 
--- Dumped table `pemilihan` with 0 row(s)
+-- Dumped table `pemilihan` with 1 row(s)
 --
 
 --
@@ -312,4 +311,4 @@ COMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on: Thu, 12 Sep 2019 14:45:25 +0700
+-- Dump completed on: Thu, 12 Sep 2019 14:52:48 +0700

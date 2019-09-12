@@ -29,6 +29,12 @@
 </li>
 
 <li>
+  <a href="{{ route('pemilihan.index') }}">
+    <i class="fa fa-calendar-check-o"></i> <span>Pemilihan</span>
+  </a>
+</li>
+
+<li>
   <a href="{{ route('user.index') }}">
     <i class="fa fa-calendar-check-o"></i> <span>User</span>
   </a>

@@ -6,6 +6,7 @@ Route::resources([
 	'partai' => 'PartaiController',
 	'calondpd' => 'CalonDPDController',
 	'pasloncapres' => 'PaslonCapresController',
+	'pemilihan' => 'PemilihanController',
 ]);
 
 Route::get('/kecamatan/{id_kabupaten}', 'KecamatanController@index')->name('kecamatan.index');
