@@ -32,31 +32,7 @@ Pemilihan
                     @foreach($pemilihans as $item)
 
                     <tr>
-
-                      @php
-                      switch ($item->tipe) {
-                        case 'presiden':
-                          $tipe = 'Presiden';
-                          break;
-                        case 'dpr':
-                          $tipe = 'DPR';
-                          break;
-                        case 'dpd':
-                          $tipe = 'DPD';
-                          break;
-                        case 'dprdp':
-                          $tipe = 'DPRD Provinsi';
-                          break;
-                        case 'dprdk':
-                          $tipe = 'DPRD Kabupaten / Kota';
-                          break;
-                        default:
-                          $tipe = 'Error !!!';
-                          break;
-                      }
-                      @endphp
-
-                        <td>{{$tipe}}</td>
+                        <td>{{ADHhelper::displayTipePemilihan($item->tipe)}}</td>
                         <td>{{$item->periode->periode}}</td>
                         
                         <td>

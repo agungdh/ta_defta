@@ -6,13 +6,37 @@ use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 
 use App\Models\Pemilihan;
+use App\Models\Periode;
 
 use ADHhelper;
 
 use DB;
+use Validator;
 
 class PemilihanController extends Controller
 {
+
+    public function getAllTipes()
+    {
+        return [
+            'presiden' => 'Presiden',
+            'dpr' => 'DPR',
+            'dpd' => 'DPD',
+            'dprdp' => 'DPRD Provinsi',
+            'dprdk' => 'DPRD Kabupaten / Kota',
+        ];
+    }
+
+    public function getAllPeriodes()
+    {
+        $periodes_raw = Periode::all();
+        $periodes = [];
+        foreach ($periodes_raw as $item) {
+            $periodes[$item->id] = "{$item->periode}";
+        }
+
+        return $periodes;
+    }
 
     public function index()
     {
@@ -23,18 +47,38 @@ class PemilihanController extends Controller
 
     public function create()
     {
-        return view('pemilihan.create', compact([]));
+        $periodes = $this->getAllPeriodes();
+        $tipes = $this->getAllTipes();
+
+        return view('pemilihan.create', compact(['periodes', 'tipes']));
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'periode' => 'required',
+        $validator = Validator::make($request->all(), [
+            'id_periode' => 'required',
+            'tipe' => 'required',
         ]);
 
-        $data = $request->only('periode');
+        $pemilihan = Pemilihan::where([
+            'id_periode' => $request->id_periode,
+            'tipe' => $request->tipe,
+        ])->first();
+
+        if ($pemilihan) {
+            $validator->after(function ($validator) {
+                $validator->errors()->add('id_periode', 'The Periode and Tipe has already been taken.');
+                $validator->errors()->add('tipe', 'The Periode and Tipe has already been taken.');
+            });
+        }
+
+        if ($validator->fails()) {
+            return redirect()->back()->withInput()->withErrors($validator);
+        }
+
+        $data = $request->only('id_periode', 'tipe');
         
-        DB::table('periode')->insert($data);
+        DB::table('pemilihan')->insert($data);
 
         return redirect()->route('pemilihan.index')->with('alert', [
             'title' => 'BERHASIL !!!',

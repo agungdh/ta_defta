@@ -16,6 +16,32 @@ use File;
 
 class ADHhelper extends Pustaka
 {
+
+    public static function displayTipePemilihan($tipe) {
+        switch ($tipe) {
+            case 'presiden':
+              $result = 'Presiden';
+              break;
+            case 'dpr':
+              $result = 'DPR';
+              break;
+            case 'dpd':
+              $result = 'DPD';
+              break;
+            case 'dprdp':
+              $result = 'DPRD Provinsi';
+              break;
+            case 'dprdk':
+              $result = 'DPRD Kabupaten / Kota';
+              break;
+            default:
+              $result = 'Error !!!';
+              break;
+          }
+
+          return $result;
+    }
+
     public static function getUserData() {
         return User::find(session('userID'));
     }
