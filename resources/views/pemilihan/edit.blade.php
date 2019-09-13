@@ -1,11 +1,11 @@
 @extends('template.template')
 
 @section('title')
-Periode
+Pemilihan
 @endsection
 
 @section('nav')
-@include('periode.nav')
+@include('pemilihan.nav')
 @endsection
 
 @section('content')
@@ -13,15 +13,15 @@ Periode
 	<div class="col-md-12">
         <div class="box animated jackInTheBox box-primary" style="box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);">
 			<div class="box-header with-border">
-				<h3 class="box-title">Ubah Periode</h3>
+				<h3 class="box-title">Ubah Pemilihan</h3>
 			</div>
 
-			{!! Form::model($periode, ['route' => ['periode.update', $periode->id], 'role' => 'form', 'method' => 'put', 'files' => true]) !!}
-				@include('periode.form')
+			{!! Form::model($pemilihan, ['route' => ['pemilihan.update', $pemilihan->id], 'role' => 'form', 'method' => 'put', 'files' => true]) !!}
+				@include('pemilihan.form')
 
 				<div class="box-footer">
 					<button type="submit" class="btn btn-success">Simpan</button>
-					<a href="{{route('periode.index')}}" class="btn btn-info">Batal</a>
+					<a href="{{route('pemilihan.index')}}" class="btn btn-info">Batal</a>
 				</div>
 			{!! Form::close() !!}
 		</div>

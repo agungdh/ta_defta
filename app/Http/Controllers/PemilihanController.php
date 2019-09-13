@@ -89,18 +89,39 @@ class PemilihanController extends Controller
 
     public function edit($id)
     {
-        $periode = Pemilihan::find($id);
+        $pemilihan = Pemilihan::find($id);
+        $periodes = $this->getAllPeriodes();
+        $tipes = $this->getAllTipes();
 
-        return view('pemilihan.edit', compact(['periode']));
+        return view('pemilihan.edit', compact(['pemilihan', 'periodes', 'tipes']));
     }
 
     public function update(Request $request, $id)
     {        
-        $request->validate([
-            'periode' => 'required',
+        $pemilihan = Pemilihan::find($id);
+
+        $validator = Validator::make($request->all(), [
+            'id_periode' => 'required',
+            'tipe' => 'required',
         ]);
 
-        $data = $request->only('periode');
+        $pemilihan = Pemilihan::where([
+            'id_periode' => $request->id_periode,
+            'tipe' => $request->tipe,
+        ])->first();
+
+        if ($pemilihan) {
+            $validator->after(function ($validator) {
+                $validator->errors()->add('id_periode', 'The Periode and Tipe has already been taken.');
+                $validator->errors()->add('tipe', 'The Periode and Tipe has already been taken.');
+            });
+        }
+
+        if ($validator->fails()) {
+            return redirect()->back()->withInput()->withErrors($validator);
+        }
+
+        $data = $request->only('id_periode', 'tipe');
         
         Pemilihan::where('id', $id)->update($data);
 
