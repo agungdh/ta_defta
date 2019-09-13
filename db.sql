@@ -3,7 +3,7 @@
 -- Host: 127.0.0.1	Database: defta
 -- ------------------------------------------------------
 -- Server version 	5.5.5-10.3.17-MariaDB-0ubuntu0.19.04.1
--- Date: Fri, 13 Sep 2019 09:24:45 +0700
+-- Date: Fri, 13 Sep 2019 14:01:07 +0700
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -179,12 +179,11 @@ CREATE TABLE `pemilihan` (
 LOCK TABLES `pemilihan` WRITE;
 /*!40000 ALTER TABLE `pemilihan` DISABLE KEYS */;
 SET autocommit=0;
-INSERT INTO `pemilihan` VALUES (3,2,'presiden'),(4,2,'dpr');
 /*!40000 ALTER TABLE `pemilihan` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
 
--- Dumped table `pemilihan` with 2 row(s)
+-- Dumped table `pemilihan` with 0 row(s)
 --
 
 --
@@ -311,4 +310,4 @@ COMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on: Fri, 13 Sep 2019 09:24:45 +0700
+-- Dump completed on: Fri, 13 Sep 2019 14:01:07 +0700
