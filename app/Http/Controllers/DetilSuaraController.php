@@ -37,22 +37,44 @@ class DetilSuaraController extends Controller
 
     public function store(Request $request, $id_suara_pemilihan)
     {
-        $validator = Validator::make($request->all(), [
-            'id_kecamatan' => 'required',
-            'jumlah_kelurahan' => 'required',
-            'jumlah_tps' => 'required',
-            'jumlah_pemilih' => 'required',
-            'jumlah_suara_tidak_sah' => 'required',
-        ]);
+        $suara = SuaraPemilihan::with('pemilihan', 'kecamatan')->find($id_suara_pemilihan);
+        $pemilihan = $suara->pemilihan;
 
-        $pemilihan = SuaraPemilihan::where([
-            'id_kecamatan' => $request->id_kecamatan,
+        $validatorData = [
+            'jumlah' => 'required',
+        ];
+
+        switch ($pemilihan->tipe) {
+            case 'presiden':
+              $validatorData['id_paslon_capres'] = 'required';
+              break;
+            case 'dpr':
+            case 'dprdk':
+            case 'dprdp':
+              $validatorData['id_partai'] = 'required';
+              break;
+            case 'dpd':
+              $validatorData['id_calon_dpd'] = 'required';
+              break;
+            default:
+              $result = 'Error !!!';
+              break;
+        }
+
+        $validator = Validator::make($request->all(), $validatorData);
+
+        $pemilihanCheck = DetilSuaraPemilihan::where([
+            'id_paslon_capres' => $request->id_paslon_capres,
+            'id_partai' => $request->id_partai,
+            'id_calon_dpd' => $request->id_calon_dpd,
             'id_suara_pemilihan' => $id_suara_pemilihan,
         ])->first();
 
-        if ($pemilihan) {
+        if ($pemilihanCheck) {
             $validator->after(function ($validator) {
-                $validator->errors()->add('id_kecamatan', 'The Suara for this Kecamatan and Pemilihan already been taken.');
+                $validator->errors()->add('id_paslon_capres', 'The id_paslon_capres already been taken.');
+                $validator->errors()->add('id_partai', 'The id_partai already been taken.');
+                $validator->errors()->add('id_calon_dpd', 'The id_calon_dpd already been taken.');
             });
         }
 
@@ -60,14 +82,11 @@ class DetilSuaraController extends Controller
             return redirect()->back()->withInput()->withErrors($validator);
         }
 
-        $data = $request->only('id_kecamatan', 'jumlah_kelurahan', 'jumlah_tps', 'jumlah_pemilih', 'jumlah_suara_tidak_sah');
+        $data = $request->only('jumlah', 'id_paslon_capres', 'id_partai', 'id_calon_dpd');
         $data['id_suara_pemilihan'] = $id_suara_pemilihan;
-        $data['jumlah_kelurahan'] = str_replace(".", "", $request->jumlah_kelurahan);
-        $data['jumlah_tps'] = str_replace(".", "", $request->jumlah_tps);
-        $data['jumlah_pemilih'] = str_replace(".", "", $request->jumlah_pemilih);
-        $data['jumlah_suara_tidak_sah'] = str_replace(".", "", $request->jumlah_suara_tidak_sah);
-
-        DB::table('suara_pemilihan')->insert($data);
+        $data['jumlah'] = str_replace(".", "", $request->jumlah);
+        
+        DB::table('detil_suara_pemilihan')->insert($data);
        
         return redirect()->route('detilsuara.index', $id_suara_pemilihan)->with('alert', [
             'title' => 'BERHASIL !!!',

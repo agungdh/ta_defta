@@ -36,7 +36,7 @@
 		<div class="{{$class}}">
 			<label for="{{ADHhelper::displayIdKandidat($pemilihan->tipe)}}" data-toggle="tooltip" title="{{$message}}">{{ADHhelper::displayKandidat($pemilihan->tipe)}}</label>
 			<div data-toggle="tooltip" title="{{$message}}">
-				{!! Form::select(ADHhelper::displayIdKandidat($pemilihan->tipe),[],null,['class'=> 'form-control select2','placeholder'=>'Pilih ' . ADHhelper::displayKandidat($pemilihan->tipe),'id'=>ADHhelper::displayIdKandidat($pemilihan->tipe)]) !!}
+				{!! Form::select(ADHhelper::displayIdKandidat($pemilihan->tipe),ADHhelper::getSelectKandidat($pemilihan->tipe),null,['class'=> 'form-control select2','placeholder'=>'Pilih ' . ADHhelper::displayKandidat($pemilihan->tipe),'id'=>ADHhelper::displayIdKandidat($pemilihan->tipe)]) !!}
 			</div>
 		</div>
 

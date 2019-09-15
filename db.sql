@@ -3,7 +3,7 @@
 -- Host: 127.0.0.1	Database: defta
 -- ------------------------------------------------------
 -- Server version 	5.5.5-10.3.17-MariaDB-0ubuntu0.19.04.1
--- Date: Sun, 15 Sep 2019 11:09:14 +0700
+-- Date: Sun, 15 Sep 2019 11:47:42 +0700
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -104,7 +104,7 @@ CREATE TABLE `detil_suara_pemilihan` (
   CONSTRAINT `detil_suara_pemilihan_ibfk_2` FOREIGN KEY (`id_paslon_capres`) REFERENCES `paslon_capres` (`id`),
   CONSTRAINT `detil_suara_pemilihan_ibfk_3` FOREIGN KEY (`id_calon_dpd`) REFERENCES `calon_dpd` (`id`),
   CONSTRAINT `detil_suara_pemilihan_ibfk_4` FOREIGN KEY (`id_suara_pemilihan`) REFERENCES `suara_pemilihan` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -114,12 +114,12 @@ CREATE TABLE `detil_suara_pemilihan` (
 LOCK TABLES `detil_suara_pemilihan` WRITE;
 /*!40000 ALTER TABLE `detil_suara_pemilihan` DISABLE KEYS */;
 SET autocommit=0;
-INSERT INTO `detil_suara_pemilihan` VALUES (1,3,NULL,5,NULL,53);
+INSERT INTO `detil_suara_pemilihan` VALUES (1,3,NULL,5,NULL,53),(2,8,NULL,NULL,7,124124),(3,6,8,NULL,NULL,235235),(4,3,NULL,6,NULL,124124);
 /*!40000 ALTER TABLE `detil_suara_pemilihan` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
 
--- Dumped table `detil_suara_pemilihan` with 1 row(s)
+-- Dumped table `detil_suara_pemilihan` with 4 row(s)
 --
 
 --
@@ -170,7 +170,7 @@ CREATE TABLE `calon_dpd` (
   PRIMARY KEY (`id`),
   KEY `id_partai` (`id_partai`),
   CONSTRAINT `calon_dpd_ibfk_1` FOREIGN KEY (`id_partai`) REFERENCES `partai` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -180,11 +180,12 @@ CREATE TABLE `calon_dpd` (
 LOCK TABLES `calon_dpd` WRITE;
 /*!40000 ALTER TABLE `calon_dpd` DISABLE KEYS */;
 SET autocommit=0;
+INSERT INTO `calon_dpd` VALUES (7,NULL,'Agung Sapto Margono Dh');
 /*!40000 ALTER TABLE `calon_dpd` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
 
--- Dumped table `calon_dpd` with 0 row(s)
+-- Dumped table `calon_dpd` with 1 row(s)
 --
 
 --
@@ -342,4 +343,4 @@ COMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on: Sun, 15 Sep 2019 11:09:14 +0700
+-- Dump completed on: Sun, 15 Sep 2019 11:47:43 +0700

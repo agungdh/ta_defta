@@ -70,7 +70,7 @@ Detil
 
                     <tr>
                         <td>{{ADHhelper::displayDataKandidat($pemilihan->tipe, $item)}}</td>
-                        <td>{{$item->jumlah}}</td>
+                        <td>{{ADHhelper::rupiah($item->jumlah, false, false)}}</td>
                         
                         <td>
 

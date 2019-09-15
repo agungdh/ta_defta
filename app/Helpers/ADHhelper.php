@@ -8,6 +8,9 @@ use App\Models\User;
 use App\Models\Menu;
 use App\Models\HakAkses;
 use App\Models\Kecamatan;
+use App\Models\Partai;
+use App\Models\PaslonCapres;
+use App\Models\CalonDPD;
 
 use agungdh\Pustaka;
 
@@ -18,8 +21,62 @@ use File;
 class ADHhelper extends Pustaka
 {
 
+    public static function getAllPartais()
+    {
+        $partais_raw = Partai::all();
+        $partais = [];
+        foreach ($partais_raw as $item) {
+            $partais[$item->id] = "{$item->partai}";
+        }
+
+        return $partais;
+    }
+
+    public static function getAllCapres()
+    {
+        $paslonCapress_raw = PaslonCapres::all();
+        $paslonCapress = [];
+        foreach ($paslonCapress_raw as $item) {
+            $paslonCapress[$item->id] = "{$item->no_urut}) {$item->paslon_capres}";
+        }
+
+        return $paslonCapress;
+    }
+
+    public static function getAllCalonDPDs()
+    {
+        $calonDPDs_raw = CalonDPD::all();
+        $calonDPDs = [];
+        foreach ($calonDPDs_raw as $item) {
+            $calonDPDs[$item->id] = "{$item->nama}";
+        }
+
+        return $calonDPDs;
+    }
+
     public static function getUsersKecamatan() {
       return Kecamatan::where('id_kabupaten', self::getUserData()->id_kabupaten)->get();
+    }
+
+    public static function getSelectKandidat($tipePemilihan) {
+        switch ($tipePemilihan) {
+            case 'presiden':
+              $result = self::getAllCapres();
+              break;
+            case 'dpr':
+            case 'dprdk':
+            case 'dprdp':
+              $result = self::getAllPartais();
+              break;
+            case 'dpd':
+              $result = self::getAllCalonDPDs();
+              break;
+            default:
+              $result = 'Error !!!';
+              break;
+          }
+
+          return $result;
     }
 
     public static function displayIdKandidat($tipePemilihan) {
