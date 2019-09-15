@@ -8,4 +8,15 @@ class SuaraPemilihan extends Model
 {
     protected $table = 'suara_pemilihan';
     public $timestamps = false;
+
+    public function pemilihan()
+    {
+        return $this->belongsTo('App\Models\Pemilihan', 'id_pemilihan');
+    }
+
+    public function kecamatan()
+    {
+        return $this->belongsTo('App\Models\Kecamatan', 'id_kecamatan');
+    }
+
 }

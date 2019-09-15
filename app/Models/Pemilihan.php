@@ -13,4 +13,9 @@ class Pemilihan extends Model
     {
         return $this->belongsTo('App\Models\Periode', 'id_periode');
     }
+
+    public function suaras()
+    {
+        return $this->hasMany('App\Models\SuaraPemilihan', 'id_pemilihan');
+    }
 }

@@ -37,15 +37,25 @@ Pemilihan
                         
                         <td>
 
-                            {!! Form::open(['id' => 'formHapus' . $item->id, 'route' => ['pemilihan.destroy', $item->id], 'method' => 'delete']) !!}
 
-                                <a class="btn btn-primary btn-sm" href="{{route('pemilihan.edit', $item->id)}}">
-                                  <i class="glyphicon glyphicon-pencil"></i> Edit
-                                </a>
 
-                                <button type="button" class="btn btn-danger btn-sm" onclick="hapus('{{ $item->id }}')"><i class="glyphicon glyphicon-trash"></i> Hapus</button>
+                                @if(ADHhelper::getUserData()->level == 'opprov')
+                                  {!! Form::open(['id' => 'formHapus' . $item->id, 'route' => ['pemilihan.destroy', $item->id], 'method' => 'delete']) !!}
 
-                            {!! Form::close() !!}
+                                    <a class="btn btn-primary btn-sm" href="{{route('pemilihan.edit', $item->id)}}">
+                                      <i class="glyphicon glyphicon-pencil"></i> Edit
+                                    </a>
+
+                                    <button type="button" class="btn btn-danger btn-sm" onclick="hapus('{{ $item->id }}')"><i class="glyphicon glyphicon-trash"></i> Hapus</button>
+
+                                  {!! Form::close() !!}
+                                @endif
+
+                                <a class="btn btn-primary btn-sm" href="{{route('suara.index', $item->id)}}">
+                                  <i class="glyphicon glyphicon-pencil"></i> Suara
+                                </a>                                
+
+
                         </td>
                     </tr>
                     @endforeach

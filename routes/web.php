@@ -9,6 +9,20 @@ Route::resources([
 	'pemilihan' => 'PemilihanController',
 ]);
 
+Route::get('/detilsuara/{id_suara}', 'DetilSuaraController@index')->name('detilsuara.index');
+Route::get('/detilsuara/{id_suara}/create', 'DetilSuaraController@create')->name('detilsuara.create');
+Route::post('/detilsuara/{id_suara}', 'DetilSuaraController@store')->name('detilsuara.store');
+Route::get('/detilsuara/{id}/edit', 'DetilSuaraController@edit')->name('detilsuara.edit');
+Route::put('/detilsuara/{id}', 'DetilSuaraController@update')->name('detilsuara.update');
+Route::delete('/detilsuara/{id}', 'DetilSuaraController@destroy')->name('detilsuara.destroy');
+
+Route::get('/suara/{id_pemilihan}', 'SuaraController@index')->name('suara.index');
+Route::get('/suara/{id_pemilihan}/create', 'SuaraController@create')->name('suara.create');
+Route::post('/suara/{id_pemilihan}', 'SuaraController@store')->name('suara.store');
+Route::get('/suara/{id}/edit', 'SuaraController@edit')->name('suara.edit');
+Route::put('/suara/{id}', 'SuaraController@update')->name('suara.update');
+Route::delete('/suara/{id}', 'SuaraController@destroy')->name('suara.destroy');
+
 Route::get('/kecamatan/{id_kabupaten}', 'KecamatanController@index')->name('kecamatan.index');
 Route::get('/kecamatan/{id_kabupaten}/create', 'KecamatanController@create')->name('kecamatan.create');
 Route::post('/kecamatan/{id_kabupaten}', 'KecamatanController@store')->name('kecamatan.store');

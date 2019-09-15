@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use App\Models\Menu;
 use App\Models\HakAkses;
+use App\Models\Kecamatan;
 
 use agungdh\Pustaka;
 
@@ -16,6 +17,10 @@ use File;
 
 class ADHhelper extends Pustaka
 {
+
+    public static function getUsersKecamatan() {
+      return Kecamatan::where('id_kabupaten', self::getUserData()->id_kabupaten)->get();
+    }
 
     public static function displayTipePemilihan($tipe) {
         switch ($tipe) {

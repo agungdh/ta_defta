@@ -3,7 +3,7 @@
 -- Host: 127.0.0.1	Database: defta
 -- ------------------------------------------------------
 -- Server version 	5.5.5-10.3.17-MariaDB-0ubuntu0.19.04.1
--- Date: Fri, 13 Sep 2019 14:01:07 +0700
+-- Date: Sun, 15 Sep 2019 09:06:37 +0700
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -26,26 +26,16 @@ CREATE TABLE `suara_pemilihan` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_pemilihan` int(11) NOT NULL,
   `id_kecamatan` int(11) NOT NULL,
-  `id_partai` int(11) DEFAULT NULL,
-  `id_paslon_capres` int(11) DEFAULT NULL,
-  `id_calon_dpd` int(11) DEFAULT NULL,
   `jumlah_kelurahan` int(11) NOT NULL,
   `jumlah_tps` int(11) NOT NULL,
-  `jumlah_pemilih_terdaftar` int(11) NOT NULL,
-  `jumlah_suara_sah` int(11) NOT NULL,
+  `jumlah_pemilih` int(11) NOT NULL,
   `jumlah_suara_tidak_sah` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_pemilihan` (`id_pemilihan`),
-  KEY `id_partai` (`id_partai`),
-  KEY `id_paslon_capres` (`id_paslon_capres`),
-  KEY `id_calon_dpd` (`id_calon_dpd`),
   KEY `id_kecamatan` (`id_kecamatan`),
   CONSTRAINT `suara_pemilihan_ibfk_1` FOREIGN KEY (`id_pemilihan`) REFERENCES `pemilihan` (`id`),
-  CONSTRAINT `suara_pemilihan_ibfk_2` FOREIGN KEY (`id_partai`) REFERENCES `partai` (`id`),
-  CONSTRAINT `suara_pemilihan_ibfk_3` FOREIGN KEY (`id_paslon_capres`) REFERENCES `paslon_capres` (`id`),
-  CONSTRAINT `suara_pemilihan_ibfk_4` FOREIGN KEY (`id_calon_dpd`) REFERENCES `calon_dpd` (`id`),
   CONSTRAINT `suara_pemilihan_ibfk_5` FOREIGN KEY (`id_kecamatan`) REFERENCES `kecamatan` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -55,11 +45,12 @@ CREATE TABLE `suara_pemilihan` (
 LOCK TABLES `suara_pemilihan` WRITE;
 /*!40000 ALTER TABLE `suara_pemilihan` DISABLE KEYS */;
 SET autocommit=0;
+INSERT INTO `suara_pemilihan` VALUES (2,5,1872011,1000000,2000000,3000000,4000000),(3,5,1872022,25252,352352352,305235235,235235);
 /*!40000 ALTER TABLE `suara_pemilihan` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
 
--- Dumped table `suara_pemilihan` with 0 row(s)
+-- Dumped table `suara_pemilihan` with 2 row(s)
 --
 
 --
@@ -73,7 +64,7 @@ CREATE TABLE `paslon_capres` (
   `no_urut` varchar(191) NOT NULL,
   `paslon_capres` varchar(191) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -83,12 +74,50 @@ CREATE TABLE `paslon_capres` (
 LOCK TABLES `paslon_capres` WRITE;
 /*!40000 ALTER TABLE `paslon_capres` DISABLE KEYS */;
 SET autocommit=0;
-INSERT INTO `paslon_capres` VALUES (4,'hgg','sgsg');
+INSERT INTO `paslon_capres` VALUES (5,'01','Joko Widodo - Ma’ruf Amin'),(6,'02','Prabowo Subianto - Sandiaga Uno');
 /*!40000 ALTER TABLE `paslon_capres` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
 
--- Dumped table `paslon_capres` with 1 row(s)
+-- Dumped table `paslon_capres` with 2 row(s)
+--
+
+--
+-- Table structure for table `detil_suara_pemilihan`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `detil_suara_pemilihan` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_suara_pemilihan` int(11) NOT NULL,
+  `id_partai` int(11) DEFAULT NULL,
+  `id_paslon_capres` int(11) DEFAULT NULL,
+  `id_calon_dpd` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_partai` (`id_partai`),
+  KEY `id_paslon_capres` (`id_paslon_capres`),
+  KEY `id_calon_dpd` (`id_calon_dpd`),
+  KEY `id_suara_pemilihan` (`id_suara_pemilihan`),
+  CONSTRAINT `detil_suara_pemilihan_ibfk_1` FOREIGN KEY (`id_partai`) REFERENCES `partai` (`id`),
+  CONSTRAINT `detil_suara_pemilihan_ibfk_2` FOREIGN KEY (`id_paslon_capres`) REFERENCES `paslon_capres` (`id`),
+  CONSTRAINT `detil_suara_pemilihan_ibfk_3` FOREIGN KEY (`id_calon_dpd`) REFERENCES `calon_dpd` (`id`),
+  CONSTRAINT `detil_suara_pemilihan_ibfk_4` FOREIGN KEY (`id_suara_pemilihan`) REFERENCES `suara_pemilihan` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `detil_suara_pemilihan`
+--
+
+LOCK TABLES `detil_suara_pemilihan` WRITE;
+/*!40000 ALTER TABLE `detil_suara_pemilihan` DISABLE KEYS */;
+SET autocommit=0;
+/*!40000 ALTER TABLE `detil_suara_pemilihan` ENABLE KEYS */;
+UNLOCK TABLES;
+COMMIT;
+
+-- Dumped table `detil_suara_pemilihan` with 0 row(s)
 --
 
 --
@@ -169,7 +198,7 @@ CREATE TABLE `pemilihan` (
   PRIMARY KEY (`id`),
   KEY `id_periode` (`id_periode`),
   CONSTRAINT `pemilihan_ibfk_1` FOREIGN KEY (`id_periode`) REFERENCES `periode` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -179,11 +208,12 @@ CREATE TABLE `pemilihan` (
 LOCK TABLES `pemilihan` WRITE;
 /*!40000 ALTER TABLE `pemilihan` DISABLE KEYS */;
 SET autocommit=0;
+INSERT INTO `pemilihan` VALUES (5,2,'presiden');
 /*!40000 ALTER TABLE `pemilihan` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
 
--- Dumped table `pemilihan` with 0 row(s)
+-- Dumped table `pemilihan` with 1 row(s)
 --
 
 --
@@ -310,4 +340,4 @@ COMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on: Fri, 13 Sep 2019 14:01:07 +0700
+-- Dump completed on: Sun, 15 Sep 2019 09:06:37 +0700
