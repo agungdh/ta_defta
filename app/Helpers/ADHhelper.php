@@ -22,6 +22,69 @@ class ADHhelper extends Pustaka
       return Kecamatan::where('id_kabupaten', self::getUserData()->id_kabupaten)->get();
     }
 
+    public static function displayIdKandidat($tipePemilihan) {
+        switch ($tipePemilihan) {
+            case 'presiden':
+              $result = 'id_paslon_capres';
+              break;
+            case 'dpr':
+            case 'dprdk':
+            case 'dprdp':
+              $result = 'id_partai';
+              break;
+            case 'dpd':
+              $result = 'id_calon_dpd';
+              break;
+            default:
+              $result = 'Error !!!';
+              break;
+          }
+
+          return $result;
+    }
+
+    public static function displayDataKandidat($tipePemilihan, $detilSuara) {
+        switch ($tipePemilihan) {
+            case 'presiden':
+              $result = $detilSuara->paslonCapres->paslon_capres;
+              break;
+            case 'dpr':
+            case 'dprdk':
+            case 'dprdp':
+              $result = $detilSuara->partai->partai;
+              break;
+            case 'dpd':
+              $result = $detilSuara->calonDPD->nama;
+              break;
+            default:
+              $result = 'Error !!!';
+              break;
+          }
+
+          return $result;
+    }
+
+    public static function displayKandidat($tipePemilihan) {
+        switch ($tipePemilihan) {
+            case 'presiden':
+              $result = 'Calon Presiden - Wakil Presiden';
+              break;
+            case 'dpr':
+            case 'dprdk':
+            case 'dprdp':
+              $result = 'Partai';
+              break;
+            case 'dpd':
+              $result = 'Calon DPD';
+              break;
+            default:
+              $result = 'Error !!!';
+              break;
+          }
+
+          return $result;
+    }
+
     public static function displayTipePemilihan($tipe) {
         switch ($tipe) {
             case 'presiden':

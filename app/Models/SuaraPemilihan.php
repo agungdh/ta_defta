@@ -19,4 +19,9 @@ class SuaraPemilihan extends Model
         return $this->belongsTo('App\Models\Kecamatan', 'id_kecamatan');
     }
 
+    public function detilSuaras()
+    {
+        return $this->hasMany('App\Models\DetilSuaraPemilihan', 'id_suara_pemilihan');
+    }
+
 }
