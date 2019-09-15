@@ -1,11 +1,11 @@
 @extends('template.template')
 
 @section('title')
-Suara
+Detil
 @endsection
 
 @section('nav')
-@include('suara.nav')
+@include('detilsuara.nav')
 @endsection
 
 @section('content')
@@ -13,15 +13,15 @@ Suara
 	<div class="col-md-12">
         <div class="box animated jackInTheBox box-primary" style="box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);">
 			<div class="box-header with-border">
-				<h3 class="box-title">Ubah Suara</h3>
+				<h3 class="box-title">Ubah Detil</h3>
 			</div>
 
-			{!! Form::model($suara, ['route' => ['suara.update', $suara->id], 'role' => 'form', 'method' => 'put', 'files' => true]) !!}
-				@include('suara.form')
+			{!! Form::model($detilSuara, ['route' => ['detilsuara.update', $detilSuara->id], 'role' => 'form', 'method' => 'put', 'files' => true]) !!}
+				@include('detilsuara.form')
 
 				<div class="box-footer">
 					<button type="submit" class="btn btn-success">Simpan</button>
-					<a href="{{route('suara.index', $pemilihan->id)}}" class="btn btn-info">Batal</a>
+					<a href="{{route('detilsuara.index', $suara->id)}}" class="btn btn-info">Batal</a>
 				</div>
 			{!! Form::close() !!}
 		</div>

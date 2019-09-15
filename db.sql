@@ -3,7 +3,7 @@
 -- Host: 127.0.0.1	Database: defta
 -- ------------------------------------------------------
 -- Server version 	5.5.5-10.3.17-MariaDB-0ubuntu0.19.04.1
--- Date: Sun, 15 Sep 2019 11:47:42 +0700
+-- Date: Sun, 15 Sep 2019 19:45:57 +0700
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -104,7 +104,7 @@ CREATE TABLE `detil_suara_pemilihan` (
   CONSTRAINT `detil_suara_pemilihan_ibfk_2` FOREIGN KEY (`id_paslon_capres`) REFERENCES `paslon_capres` (`id`),
   CONSTRAINT `detil_suara_pemilihan_ibfk_3` FOREIGN KEY (`id_calon_dpd`) REFERENCES `calon_dpd` (`id`),
   CONSTRAINT `detil_suara_pemilihan_ibfk_4` FOREIGN KEY (`id_suara_pemilihan`) REFERENCES `suara_pemilihan` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -114,12 +114,12 @@ CREATE TABLE `detil_suara_pemilihan` (
 LOCK TABLES `detil_suara_pemilihan` WRITE;
 /*!40000 ALTER TABLE `detil_suara_pemilihan` DISABLE KEYS */;
 SET autocommit=0;
-INSERT INTO `detil_suara_pemilihan` VALUES (1,3,NULL,5,NULL,53),(2,8,NULL,NULL,7,124124),(3,6,8,NULL,NULL,235235),(4,3,NULL,6,NULL,124124);
+INSERT INTO `detil_suara_pemilihan` VALUES (1,3,NULL,5,NULL,53),(2,8,NULL,NULL,7,124124),(3,6,8,NULL,NULL,235235),(4,3,NULL,6,NULL,124124),(6,6,12,NULL,NULL,8807),(7,6,14,NULL,NULL,777771);
 /*!40000 ALTER TABLE `detil_suara_pemilihan` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
 
--- Dumped table `detil_suara_pemilihan` with 4 row(s)
+-- Dumped table `detil_suara_pemilihan` with 6 row(s)
 --
 
 --
@@ -285,7 +285,7 @@ CREATE TABLE `partai` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `partai` varchar(191) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -295,12 +295,12 @@ CREATE TABLE `partai` (
 LOCK TABLES `partai` WRITE;
 /*!40000 ALTER TABLE `partai` DISABLE KEYS */;
 SET autocommit=0;
-INSERT INTO `partai` VALUES (8,'gada gambar zz');
+INSERT INTO `partai` VALUES (8,'gada gambar zz'),(12,'teststs'),(13,'111'),(14,'222');
 /*!40000 ALTER TABLE `partai` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
 
--- Dumped table `partai` with 1 row(s)
+-- Dumped table `partai` with 4 row(s)
 --
 
 --
@@ -343,4 +343,4 @@ COMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on: Sun, 15 Sep 2019 11:47:43 +0700
+-- Dump completed on: Sun, 15 Sep 2019 19:45:57 +0700

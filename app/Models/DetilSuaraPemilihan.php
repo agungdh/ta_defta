@@ -9,7 +9,7 @@ class DetilSuaraPemilihan extends Model
     protected $table = 'detil_suara_pemilihan';
     public $timestamps = false;
 
-    public function suaraPemilihan()
+    public function suara()
     {
         return $this->belongsTo('App\Models\SuaraPemilihan', 'id_suara_pemilihan');
     }
