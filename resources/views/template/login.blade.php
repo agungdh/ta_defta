@@ -4,11 +4,11 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>English Reading Material for Senior High School</title>
+  <title>Aplikasi Pengolahan Data Pemilu Pada Kesatuan Bangsa dan Politik Berbasis Web</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-  <link id="favicon" rel="icon" type="image/x-icon" href="{{asset('storage/assets')}}/favicon/favicon.ico">
+  <link id="favicon" rel="icon" type="image/x-icon" href="{{asset('storage/assets')}}/logo.ico">
   
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="{{asset('storage/assets')}}/AdminLTE/bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -37,11 +37,11 @@
 
 <div class="login-box animated jackInTheBox" style="background-color: red;box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.50); border-radius: 10px; ">
   <div class="login-logo">
-    <a href="{{route('main.index')}}"><b style="color: #fff">ENGLISH READING MATERIAL</b></a>
+    <a href="{{route('main.index')}}"><b style="color: #fff">SELAMAT DATANG</b></a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body" style="">
-    <p class="login-box-msg">English Reading Material for Senior High School</p>
+    <p class="login-box-msg">Aplikasi Pengolahan Data Pemilu Pada Kesatuan Bangsa dan Politik Berbasis Web</p>
 
     <form action="{{route('main.login')}}" method="post">
       @method('post')
@@ -64,10 +64,6 @@
 
   </div>
   <!-- /.login-box-body -->
-
-    <div style="visibility:hidden"> 
-      <embed autoplay="true" src="{{asset('storage/assets')}}/animate/english.mp3"> </embed> 
-    </div>
 
 </div>
 <!-- /.login-box -->

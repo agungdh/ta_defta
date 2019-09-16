@@ -9,11 +9,11 @@ if(session('login')) {
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>English Reading Material for Senior High School</title>
+  <title>Aplikasi Pengolahan Data Pemilu Pada Kesatuan Bangsa dan Politik Berbasis Web</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-  <link id="favicon" rel="icon" type="image/x-icon" href="{{asset('storage/assets')}}/favicon/favicon.ico">
+  <link id="favicon" rel="icon" type="image/x-icon" href="{{asset('storage/assets')}}/logo.ico">
 
   <link rel="stylesheet" href="{{asset('storage/assets')}}/AdminLTE/bower_components/bootstrap/dist/css/bootstrap.min.css">
   <!-- Font Awesome -->
@@ -73,9 +73,9 @@ if(session('login')) {
     <!-- Logo -->
     <a href="{{ route('main.index') }}" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>ERM</b></span>
+      <span class="logo-mini"><b>PML</b></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>English RM</b></span>
+      <span class="logo-lg"><b>PEMILU</b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -92,13 +92,13 @@ if(session('login')) {
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="{{asset('storage/assets')}}/favicon/cbfjg-rsl5i.png" class="user-image" alt="User Image">
+              <img src="{{asset('storage/assets')}}/logo.png" class="user-image" alt="User Image">
               <span class="hidden-xs">{{$userData->nama}}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="{{asset('storage/assets')}}/favicon/cbfjg-rsl5i.png" class="img-circle" alt="User Image">
+                <img src="{{asset('storage/assets')}}/logo.png" class="img-circle" alt="User Image">
 
                 <p>
                     {{$userData->username}}
