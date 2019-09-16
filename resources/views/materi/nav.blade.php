@@ -1,1 +1,0 @@
-<li><a href="{{ route('materi.index') }}"><i class="fa fa-home"></i> Materi</a></li>

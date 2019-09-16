@@ -4,9 +4,6 @@ Route::get('/', 'MainController@index')->name('main.index');
 Route::get('/logout', 'MainController@logout')->name('main.logout');
 Route::post('/login', 'MainController@login')->name('main.login');
 
-Route::get('/temp', 'TempController@index')->name('temp.index');
-Route::post('/temp', 'TempController@sendData')->name('temp.sendData');
-
 Route::middleware(['MustLoggedIn'])->group(function () {
 	Route::get('/profil', 'MainController@profil')->name('main.profil');
 	Route::put('/profil', 'MainController@saveProfil')->name('main.saveProfil');

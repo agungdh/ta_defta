@@ -1,1 +1,0 @@
-<li><a href="{{ route('kendaraan.index') }}"><i class="fa fa-home"></i> Kendaraan</a></li>

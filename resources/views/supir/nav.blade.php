@@ -1,1 +1,0 @@
-<li><a href="{{ route('supir.index') }}"><i class="fa fa-home"></i> Supir</a></li>
