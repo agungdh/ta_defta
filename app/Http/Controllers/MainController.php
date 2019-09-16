@@ -6,12 +6,33 @@ use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 
 use App\Models\User;
+use App\Models\Pemilihan;
+use App\Models\Kabupaten;
 
+use DB;
 use Hash;
 use ADHhelper;
 
 class MainController extends Controller
 {
+
+	public function dashboardsuarapartai($id_pemilihan)
+    {
+    	$kabupatens = Kabupaten::all();
+        $pemilihan = Pemilihan::find($id_pemilihan);
+    	$partais = DB::select('SELECT *
+			FROM partai
+			WHERE id IN (
+			SELECT DISTINCT(pt.id) id_partai
+			FROM pemilihan pl, suara_pemilihan sp, detil_suara_pemilihan ds, partai pt
+			WHERE ds.id_suara_pemilihan = sp.id
+			AND sp.id_pemilihan = pl.id
+			AND ds.id_partai = pt.id
+			AND pl.id = ?)', [$pemilihan->id]);
+
+        return view('dashboard.suarapartai', compact(['pemilihan', 'kabupatens', 'partais']));
+    }
+
     function profil() {
     	$profil = ADHhelper::getUserData();
 
@@ -38,7 +59,8 @@ class MainController extends Controller
 
     function index() {
 		if (session('login') == true) {
-			return redirect(route('pemilihan.index'));
+	        $pemilihans = Pemilihan::all();
+			return view('dashboard.index', compact(['pemilihans']));
 		} else {
 			return view('template.login');
 		}

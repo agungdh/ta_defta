@@ -162,7 +162,7 @@ if(session('login')) {
   <!-- /.content-wrapper -->
 
   <footer class="main-footer">
-    <strong>Copyright &copy; {{ date('Y') }} <a href="{{route('main.index')}}">ERM</a>.</strong> All rights
+    <strong>Copyright &copy; {{ date('Y') }} <a href="{{route('main.index')}}">PML</a>.</strong> All rights
     reserved.
   </footer>
 </div>

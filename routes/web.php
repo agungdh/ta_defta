@@ -4,6 +4,8 @@ Route::get('/', 'MainController@index')->name('main.index');
 Route::get('/logout', 'MainController@logout')->name('main.logout');
 Route::post('/login', 'MainController@login')->name('main.login');
 
+Route::get('/dashboardsuara/{id_pemilihan}/partai', 'MainController@dashboardsuarapartai')->name('dashboard.suarapartai.index');
+
 Route::middleware(['MustLoggedIn'])->group(function () {
 	Route::get('/profil', 'MainController@profil')->name('main.profil');
 	Route::put('/profil', 'MainController@saveProfil')->name('main.saveProfil');
