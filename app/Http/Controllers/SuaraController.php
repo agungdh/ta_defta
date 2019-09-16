@@ -30,9 +30,14 @@ class SuaraController extends Controller
 
     public function index($id_pemilihan)
     {
-        $pemilihan = Pemilihan::with('suaras.kecamatan')->find($id_pemilihan);
-        $suaras = $pemilihan->suaras;
-
+        $kecamatansWhere = [];
+        foreach (ADHhelper::getUsersKecamatan() as $item) {
+            $kecamatansWhere[] = $item->id;
+        }
+        
+        $pemilihan = Pemilihan::find($id_pemilihan);
+        $suaras = SuaraPemilihan::with('kecamatan', 'detilSuaras')->whereIn('id_kecamatan', $kecamatansWhere)->where('id_pemilihan', $id_pemilihan)->get();
+        
         return view('suara.index', compact(['pemilihan', 'suaras']));
     }
 

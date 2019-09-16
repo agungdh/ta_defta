@@ -57,21 +57,28 @@ Suara
                       <th>Jumlah Suara Tidak Sah</th>
                       <th>Jumlah Memilih</th>
                       <th>Jumlah Tidak Memilih</th>
+                      <th>Persentase Pemilihan</th>
                       <th>Proses</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($suaras as $item)
-
+                    @php
+                    $jumlahSuaraSah = 0;
+                    foreach ($item->detilSuaras as $detilSuara) {
+                      $jumlahSuaraSah += $detilSuara->jumlah;
+                    }
+                    @endphp
                     <tr>
                         <td>{{$item->kecamatan->kecamatan}}</td>
                         <td>{{ADHhelper::rupiah($item->jumlah_kelurahan, false, false)}}</td>
                         <td>{{ADHhelper::rupiah($item->jumlah_tps, false, false)}}</td>
-                        <td>Pemilih</td>
-                        <td>Suara Sah</td>
+                        <td>{{ADHhelper::rupiah($item->jumlah_pemilih, false, false)}}</td>
+                        <td>{{ADHhelper::rupiah($jumlahSuaraSah, false, false)}}</td>
                         <td>{{ADHhelper::rupiah($item->jumlah_suara_tidak_sah, false, false)}}</td>
-                        <td>Memilih</td>
-                        <td>Tidak Memilih</td>
+                        <td>{{ADHhelper::rupiah($jumlahSuaraSah + $item->jumlah_suara_tidak_sah, false, false)}}</td>
+                        <td>{{ADHhelper::rupiah($item->jumlah_pemilih - ($jumlahSuaraSah + $item->jumlah_suara_tidak_sah), false, false)}}</td>
+                        <td>{{(($jumlahSuaraSah + $item->jumlah_suara_tidak_sah) / $item->jumlah_pemilih) * 100}}%</td>
                         
                         <td>
 
