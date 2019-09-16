@@ -1,3 +1,4 @@
+@if(ADHhelper::getUserData()->level == 'opprov')
 <li>
   <a href="{{ route('kabupaten.index') }}">
     <i class="fa fa-calendar-check-o"></i> <span>Kabupaten</span>
@@ -29,13 +30,14 @@
 </li>
 
 <li>
-  <a href="{{ route('pemilihan.index') }}">
-    <i class="fa fa-calendar-check-o"></i> <span>Pemilihan</span>
-  </a>
-</li>
-
-<li>
   <a href="{{ route('user.index') }}">
     <i class="fa fa-calendar-check-o"></i> <span>User</span>
+  </a>
+</li>
+@endif
+
+<li>
+  <a href="{{ route('pemilihan.index') }}">
+    <i class="fa fa-calendar-check-o"></i> <span>Pemilihan</span>
   </a>
 </li>

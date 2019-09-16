@@ -17,9 +17,19 @@ use Validator;
 class SuaraController extends Controller
 {
 
-    public function getUsersKecamatan()
+    public function getUserKabupatenKecamatan()
     {
-        $kecamatans_raw = ADHhelper::getUsersKecamatan();
+        return $this->getKecamatans(ADHhelper::getUsersKecamatan());
+    }
+
+    public function getUserProvinsiKecamatan()
+    {
+        return $this->getKecamatans(Kecamatan::all());
+    }
+
+    public function getKecamatans($kecamatans)
+    {
+        $kecamatans_raw = $kecamatans;
         $kecamatans = [];
         foreach ($kecamatans_raw as $item) {
             $kecamatans[$item->id] = "{$item->kecamatan}";
@@ -30,13 +40,18 @@ class SuaraController extends Controller
 
     public function index($id_pemilihan)
     {
-        $kecamatansWhere = [];
-        foreach (ADHhelper::getUsersKecamatan() as $item) {
-            $kecamatansWhere[] = $item->id;
+        if(ADHhelper::getUserData()->level == 'opkab') {
+            $kecamatansWhere = [];
+            foreach (ADHhelper::getUsersKecamatan() as $item) {
+                $kecamatansWhere[] = $item->id;
+            }
+            
+            $pemilihan = Pemilihan::find($id_pemilihan);
+            $suaras = SuaraPemilihan::with('kecamatan', 'detilSuaras')->whereIn('id_kecamatan', $kecamatansWhere)->where('id_pemilihan', $id_pemilihan)->get();            
+        } else {
+            $pemilihan = Pemilihan::with('suaras.kecamatan', 'suaras.detilSuaras')->find($id_pemilihan);
+            $suaras = $pemilihan->suaras;
         }
-        
-        $pemilihan = Pemilihan::find($id_pemilihan);
-        $suaras = SuaraPemilihan::with('kecamatan', 'detilSuaras')->whereIn('id_kecamatan', $kecamatansWhere)->where('id_pemilihan', $id_pemilihan)->get();
         
         return view('suara.index', compact(['pemilihan', 'suaras']));
     }
@@ -44,7 +59,11 @@ class SuaraController extends Controller
     public function create($id_pemilihan)
     {
         $pemilihan = Pemilihan::find($id_pemilihan);
-        $kecamatans = $this->getUsersKecamatan();
+        if(ADHhelper::getUserData()->level == 'opkab') {
+            $kecamatans = $this->getUserKabupatenKecamatan();
+        } else {
+            $kecamatans = $this->getUserProvinsiKecamatan();
+        }
 
         return view('suara.create', compact(['pemilihan', 'kecamatans']));
     }
@@ -94,7 +113,11 @@ class SuaraController extends Controller
     {
         $suara = SuaraPemilihan::find($id);
         $pemilihan = $suara->pemilihan;
-        $kecamatans = $this->getUsersKecamatan();
+        if(ADHhelper::getUserData()->level == 'opkab') {
+            $kecamatans = $this->getUserKabupatenKecamatan();
+        } else {
+            $kecamatans = $this->getUserProvinsiKecamatan();
+        }
 
         return view('suara.edit', compact(['suara', 'pemilihan', 'kecamatans']));
     }

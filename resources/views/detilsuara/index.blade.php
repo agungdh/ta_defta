@@ -54,9 +54,11 @@ Detil
             </div>
             <!-- /.box-header -->
             <div class="box-body">
+              @if(ADHhelper::getUserData()->level == 'opkab')
                 <a class="btn btn-success btn-sm" href="{{route('detilsuara.create', $suara->id)}}">
                   <i class="glyphicon glyphicon-plus"></i> Tambah
                 </a><br><br>
+              @endif
               <table class="table table-bordered table-hover datatable" style="width: 100%">
                 <thead>
                     <tr>
@@ -76,11 +78,13 @@ Detil
 
                             {!! Form::open(['id' => 'formHapus' . $item->id, 'route' => ['detilsuara.destroy', $item->id], 'method' => 'delete']) !!}
 
-                                <a class="btn btn-primary btn-sm" href="{{route('detilsuara.edit', $item->id)}}">
-                                  <i class="glyphicon glyphicon-pencil"></i> Edit
-                                </a>
+                                @if(ADHhelper::getUserData()->level == 'opkab')
+                                  <a class="btn btn-primary btn-sm" href="{{route('detilsuara.edit', $item->id)}}">
+                                    <i class="glyphicon glyphicon-pencil"></i> Edit
+                                  </a>
 
-                                <button type="button" class="btn btn-danger btn-sm" onclick="hapus('{{ $item->id }}')"><i class="glyphicon glyphicon-trash"></i> Hapus</button>
+                                  <button type="button" class="btn btn-danger btn-sm" onclick="hapus('{{ $item->id }}')"><i class="glyphicon glyphicon-trash"></i> Hapus</button>
+                                @endif
 
                             {!! Form::close() !!}
                         </td>

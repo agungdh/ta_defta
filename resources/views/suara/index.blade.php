@@ -43,9 +43,11 @@ Suara
             </div>
             <!-- /.box-header -->
             <div class="box-body">
+              @if(ADHhelper::getUserData()->level == 'opkab')
                 <a class="btn btn-success btn-sm" href="{{route('suara.create', $pemilihan->id)}}">
                   <i class="glyphicon glyphicon-plus"></i> Tambah
                 </a><br><br>
+              @endif
               <table class="table table-bordered table-hover datatable" style="width: 100%">
                 <thead>
                     <tr>
@@ -88,11 +90,16 @@ Suara
                                   <i class="glyphicon glyphicon-pencil"></i> Detil
                                 </a>
 
-                                <a class="btn btn-primary btn-sm" href="{{route('suara.edit', $item->id)}}">
-                                  <i class="glyphicon glyphicon-pencil"></i> Edit
-                                </a>
 
-                                <button type="button" class="btn btn-danger btn-sm" onclick="hapus('{{ $item->id }}')"><i class="glyphicon glyphicon-trash"></i> Hapus</button>
+                                @if(ADHhelper::getUserData()->level == 'opkab')
+
+                                  <a class="btn btn-primary btn-sm" href="{{route('suara.edit', $item->id)}}">
+                                    <i class="glyphicon glyphicon-pencil"></i> Edit
+                                  </a>
+
+                                  <button type="button" class="btn btn-danger btn-sm" onclick="hapus('{{ $item->id }}')"><i class="glyphicon glyphicon-trash"></i> Hapus</button>
+
+                                @endif
 
                             {!! Form::close() !!}
                         </td>
