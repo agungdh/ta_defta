@@ -32,7 +32,25 @@ Dashboard
                         <td>{{ADHhelper::displayTipePemilihan($item->tipe)}}</td>
                         <td>{{$item->periode->periode}}</td>
                         <td>
-                          <a class="btn btn-primary btn-sm" href="{{route('dashboard.suarapartai.index', $item->id)}}">
+                          @php
+                          switch ($item->tipe) {
+                            case 'presiden':
+                              $tipe = 'suaracapres';
+                              break;
+                            case 'dpr':
+                            case 'dprdk':
+                            case 'dprdp':
+                              $tipe = 'suarapartai';
+                              break;
+                            case 'dpd':
+                              $tipe = 'suaradpd';
+                              break;
+                            default:
+                              $tipe = 'Error !!!';
+                              break;
+                          }
+                          @endphp
+                          <a class="btn btn-primary btn-sm" href="{{route('dashboard.' . $tipe . '.index', $item->id)}}">
                             <i class="glyphicon glyphicon-pencil"></i> Suara
                           </a>   
                         </td>

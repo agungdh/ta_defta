@@ -172,6 +172,8 @@ if(session('login')) {
 <script src="{{asset('storage/assets')}}/AdminLTE/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="{{asset('storage/assets')}}/AdminLTE/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- ChartJS -->
+<script src="{{asset('storage/assets')}}/AdminLTE/bower_components/chart.js/Chart.js"></script>
 <!-- Select2 -->
 <script src="{{asset('storage/assets')}}/AdminLTE/bower_components/select2/dist/js/select2.full.min.js"></script>
 <!-- bootstrap datepicker -->

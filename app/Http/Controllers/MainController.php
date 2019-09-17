@@ -28,9 +28,46 @@ class MainController extends Controller
 			WHERE ds.id_suara_pemilihan = sp.id
 			AND sp.id_pemilihan = pl.id
 			AND ds.id_partai = pt.id
-			AND pl.id = ?)', [$pemilihan->id]);
+			AND pl.id = ?
+		)', [$pemilihan->id]);
 
         return view('dashboard.suarapartai', compact(['pemilihan', 'kabupatens', 'partais']));
+    }
+
+	public function dashboardsuaradpd($id_pemilihan)
+    {
+    	$kabupatens = Kabupaten::all();
+        $pemilihan = Pemilihan::find($id_pemilihan);
+    	$partais = DB::select('SELECT *
+			FROM partai
+			WHERE id IN (
+			SELECT DISTINCT(pt.id) id_partai
+			FROM pemilihan pl, suara_pemilihan sp, detil_suara_pemilihan ds, partai pt
+			WHERE ds.id_suara_pemilihan = sp.id
+			AND sp.id_pemilihan = pl.id
+			AND ds.id_partai = pt.id
+			AND pl.id = ?
+		)', [$pemilihan->id]);
+
+        return view('dashboard.suaradpd', compact(['pemilihan', 'kabupatens', 'partais']));
+    }
+
+	public function dashboardsuaracapres($id_pemilihan)
+    {
+    	$kabupatens = Kabupaten::all();
+        $pemilihan = Pemilihan::find($id_pemilihan);
+    	$capress = DB::select('SELECT *
+			FROM paslon_capres
+			WHERE id IN (
+			    SELECT DISTINCT(pc.id) id_paslon_capres
+			    FROM pemilihan pl, suara_pemilihan sp, detil_suara_pemilihan ds, paslon_capres pc
+			    WHERE ds.id_suara_pemilihan = sp.id
+			    AND sp.id_pemilihan = pl.id
+			    AND ds.id_paslon_capres = pc.id
+				AND pl.id = ?
+			)', [$pemilihan->id]);
+
+        return view('dashboard.suaracapres', compact(['pemilihan', 'kabupatens', 'capress']));
     }
 
     function profil() {

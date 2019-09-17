@@ -64,8 +64,9 @@ Suara
                 <table class="table table-bordered table-hover datatable" style="width: 100%">
                   <thead>
                       <tr>
-                        <th>Nama Partai</th>
-                        <th>Logo Partai</th>
+                        <th>No Urut</th>
+                        <th>Paslon Capres</th>
+                        <th>Foto</th>
                         @foreach($kabupatens as $kabupaten)
                         <th>{{$kabupaten->kabupaten}}</th>
                         @endforeach
@@ -82,16 +83,17 @@ Suara
                       }
 
                       @endphp
-                      @foreach($partais as $partai)
+                      @foreach($capress as $capres)
                       @php
-                      $jumlahAllPartai = 0;
+                      $jumlahAllCapres = 0;
                       @endphp
                       <tr>
-                          <td>{{$partai->partai}}</td>
+                          <td>{{$capres->no_urut}}</td>
+                          <td>{{$capres->paslon_capres}}</td>
                           <td>
-                            @if(file_exists(storage_path('app/public/files/logo/' . $partai->id)))
-                              <a href="{{asset('storage/files/logo/' . $partai->id)}}?nocache={{time()}}" target="_blank">
-                                <img class="img-responsive" src="{{asset('storage/files/logo/' . $partai->id)}}?nocache={{time()}}">
+                            @if(file_exists(storage_path('app/public/files/foto/' . $capres->id)))
+                              <a href="{{asset('storage/files/foto/' . $capres->id)}}?nocache={{time()}}" target="_blank">
+                                <img class="img-responsive" src="{{asset('storage/files/foto/' . $capres->id)}}?nocache={{time()}}">
                               </a>
                             @else
                               <img class="img-responsive" src="{{asset('storage/assets/inf')}}">
@@ -110,24 +112,24 @@ Suara
                                 WHERE ds.id_suara_pemilihan = sp.id
                                 AND sp.id_pemilihan = pl.id
                                 AND pl.id = ?
-                                AND ds.id_partai = ?
-                                AND sp.id_kecamatan IN (' . implode(",", $kecamatans) . ')', [$pemilihan->id, $partai->id]);
+                                AND ds.id_paslon_capres = ?
+                                AND sp.id_kecamatan IN (' . implode(",", $kecamatans) . ')', [$pemilihan->id, $capres->id]);
                               $jumlah = $afa[0]->jumlah;
-                              $jumlahAllPartai += $jumlah;
+                              $jumlahAllCapres += $jumlah;
                               $jumlahSuaraSah[$kabupaten->id] += $jumlah;
                             @endphp
                             <td>{{ADHhelper::rupiah($jumlah, false, false)}}</td>
                           @endforeach
-                          <td>{{ADHhelper::rupiah($jumlahAllPartai, false, false)}}</td>
+                          <td>{{ADHhelper::rupiah($jumlahAllCapres, false, false)}}</td>
                           <script type="text/javascript">
                                 PieData.push({
-                                  value    : {{$jumlahAllPartai}},
+                                  value    : {{$jumlahAllCapres}},
                                   @php
                                   $color = '#' . str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT);
                                   @endphp
                                   color    : '{{$color}}',
                                   highlight: '{{$color}}',
-                                  label    : '{{$partai->partai}}'
+                                  label    : '{{$capres->paslon_capres}}'
                                 });
                           </script>
                       </tr>

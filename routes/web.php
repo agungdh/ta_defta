@@ -5,6 +5,8 @@ Route::get('/logout', 'MainController@logout')->name('main.logout');
 Route::post('/login', 'MainController@login')->name('main.login');
 
 Route::get('/dashboardsuara/{id_pemilihan}/partai', 'MainController@dashboardsuarapartai')->name('dashboard.suarapartai.index');
+Route::get('/dashboardsuara/{id_pemilihan}/dpd', 'MainController@dashboardsuaradpd')->name('dashboard.suaradpd.index');
+Route::get('/dashboardsuara/{id_pemilihan}/capres', 'MainController@dashboardsuaracapres')->name('dashboard.suaracapres.index');
 
 Route::middleware(['MustLoggedIn'])->group(function () {
 	Route::get('/profil', 'MainController@profil')->name('main.profil');
