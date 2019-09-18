@@ -6,7 +6,7 @@ Suara
 
 @section('nav')
 @include('dashboard.nav')
-<li><a href="{{ route('dashboard.suarapartai.index', $pemilihan->id) }}"> Suara</a></li>
+<li><a href="{{ route('dashboard.suaradpd.index', $pemilihan->id) }}"> Suara</a></li>
 @endsection
 
 @section('content')
@@ -64,8 +64,7 @@ Suara
                 <table class="table table-bordered table-hover datatable" style="width: 100%">
                   <thead>
                       <tr>
-                        <th>Nama Partai</th>
-                        <th>Logo Partai</th>
+                        <th>Nama</th>
                         @foreach($kabupatens as $kabupaten)
                         <th>{{$kabupaten->kabupaten}}</th>
                         @endforeach
@@ -82,21 +81,12 @@ Suara
                       }
 
                       @endphp
-                      @foreach($partais as $partai)
+                      @foreach($dpds as $dpd)
                       @php
-                      $jumlahAllPartai = 0;
+                      $jumlahAllDPD = 0;
                       @endphp
                       <tr>
-                          <td>{{$partai->partai}}</td>
-                          <td>
-                            @if(file_exists(storage_path('app/public/files/logo/' . $partai->id)))
-                              <a href="{{asset('storage/files/logo/' . $partai->id)}}?nocache={{time()}}" target="_blank">
-                                <img class="img-responsive" src="{{asset('storage/files/logo/' . $partai->id)}}?nocache={{time()}}">
-                              </a>
-                            @else
-                              <img class="img-responsive" src="{{asset('storage/assets/inf')}}">
-                            @endif
-                          </td>
+                          <td>{{$dpd->nama}}</td>
                           @foreach($kabupatens as $kabupaten)
                             @php
                               $kecamatans_raw = App\Models\Kecamatan::where('id_kabupaten', $kabupaten->id)->get();
@@ -110,24 +100,24 @@ Suara
                                 WHERE ds.id_suara_pemilihan = sp.id
                                 AND sp.id_pemilihan = pl.id
                                 AND pl.id = ?
-                                AND ds.id_partai = ?
-                                AND sp.id_kecamatan IN (' . implode(",", $kecamatans) . ')', [$pemilihan->id, $partai->id]);
+                                AND ds.id_calon_dpd = ?
+                                AND sp.id_kecamatan IN (' . implode(",", $kecamatans) . ')', [$pemilihan->id, $dpd->id]);
                               $jumlah = $afa[0]->jumlah;
-                              $jumlahAllPartai += $jumlah;
+                              $jumlahAllDPD += $jumlah;
                               $jumlahSuaraSah[$kabupaten->id] += $jumlah;
                             @endphp
                             <td>{{ADHhelper::rupiah($jumlah, false, false)}}</td>
                           @endforeach
-                          <td>{{ADHhelper::rupiah($jumlahAllPartai, false, false)}}</td>
+                          <td>{{ADHhelper::rupiah($jumlahAllDPD, false, false)}}</td>
                           <script type="text/javascript">
                                 PieData.push({
-                                  value    : {{$jumlahAllPartai}},
+                                  value    : {{$jumlahAllDPD}},
                                   @php
                                   $color = '#' . str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT);
                                   @endphp
                                   color    : '{{$color}}',
                                   highlight: '{{$color}}',
-                                  label    : '{{$partai->partai}}'
+                                  label    : '{{$dpd->nama}}'
                                 });
                           </script>
                       </tr>
@@ -140,11 +130,11 @@ Suara
                   @endphp
                   <tfoot>
                     <tr>
-                      <th colspan="2">Jumlah Suara Sah</th>
+                      <th>Jumlah Suara Sah</th>
                       @foreach($kabupatens as $kabupaten)
-                      <th>{{$jumlahSuaraSah[$kabupaten->id]}}</th>
+                      <th>{{ADHhelper::rupiah($jumlahSuaraSah[$kabupaten->id], false, false)}}</th>
                       @endforeach
-                      <th>{{$jumlahTotalSuaraSah}}</th>
+                      <th>{{ADHhelper::rupiah($jumlahTotalSuaraSah, false, false)}}</th>
                     </tr>
                   </tfoot>
                 </table>

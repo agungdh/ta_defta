@@ -6,7 +6,7 @@ Suara
 
 @section('nav')
 @include('dashboard.nav')
-<li><a href="{{ route('dashboard.suarapartai.index', $pemilihan->id) }}"> Suara</a></li>
+<li><a href="{{ route('dashboard.suaracapres.index', $pemilihan->id) }}"> Suara</a></li>
 @endsection
 
 @section('content')
@@ -142,11 +142,11 @@ Suara
                   @endphp
                   <tfoot>
                     <tr>
-                      <th colspan="2">Jumlah Suara Sah</th>
+                      <th colspan="3">Jumlah Suara Sah</th>
                       @foreach($kabupatens as $kabupaten)
-                      <th>{{$jumlahSuaraSah[$kabupaten->id]}}</th>
+                      <th>{{ADHhelper::rupiah($jumlahSuaraSah[$kabupaten->id], false, false)}}</th>
                       @endforeach
-                      <th>{{$jumlahTotalSuaraSah}}</th>
+                      <th>{{ADHhelper::rupiah($jumlahTotalSuaraSah, false, false)}}</th>
                     </tr>
                   </tfoot>
                 </table>

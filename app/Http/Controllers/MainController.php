@@ -38,18 +38,18 @@ class MainController extends Controller
     {
     	$kabupatens = Kabupaten::all();
         $pemilihan = Pemilihan::find($id_pemilihan);
-    	$partais = DB::select('SELECT *
-			FROM partai
+    	$dpds = DB::select('SELECT *
+			FROM calon_dpd
 			WHERE id IN (
-			SELECT DISTINCT(pt.id) id_partai
-			FROM pemilihan pl, suara_pemilihan sp, detil_suara_pemilihan ds, partai pt
+			SELECT DISTINCT(cd.id) id_calon_dpd
+			FROM pemilihan pl, suara_pemilihan sp, detil_suara_pemilihan ds, calon_dpd cd
 			WHERE ds.id_suara_pemilihan = sp.id
 			AND sp.id_pemilihan = pl.id
-			AND ds.id_partai = pt.id
+			AND ds.id_calon_dpd = cd.id
 			AND pl.id = ?
 		)', [$pemilihan->id]);
-
-        return view('dashboard.suaradpd', compact(['pemilihan', 'kabupatens', 'partais']));
+    	
+        return view('dashboard.suaradpd', compact(['pemilihan', 'kabupatens', 'dpds']));
     }
 
 	public function dashboardsuaracapres($id_pemilihan)
