@@ -8,6 +8,10 @@ Route::get('/dashboardsuara/{id_pemilihan}/partai', 'MainController@dashboardsua
 Route::get('/dashboardsuara/{id_pemilihan}/dpd', 'MainController@dashboardsuaradpd')->name('dashboard.suaradpd.index');
 Route::get('/dashboardsuara/{id_pemilihan}/capres', 'MainController@dashboardsuaracapres')->name('dashboard.suaracapres.index');
 
+Route::get('/pdfsuara/{id_pemilihan}/partai', 'MainController@pdfsuarapartai')->name('dashboard.suarapartai.pdf');
+Route::get('/pdfsuara/{id_pemilihan}/dpd', 'MainController@pdfsuaradpd')->name('dashboard.suaradpd.pdf');
+Route::get('/pdfsuara/{id_pemilihan}/capres', 'MainController@pdfsuaracapres')->name('dashboard.suaracapres.pdf');
+
 Route::middleware(['MustLoggedIn'])->group(function () {
 	Route::get('/profil', 'MainController@profil')->name('main.profil');
 	Route::put('/profil', 'MainController@saveProfil')->name('main.saveProfil');
