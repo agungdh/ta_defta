@@ -81,9 +81,21 @@ Suara
                       @php
                       $jumlahSuaraSah = [];
                       $jumlahTotalSuaraSah = 0;
+                      
+                      $jumlahTotalSuaraTidakSah = 0;
+                      $jumlahSuaraTidakSah = [];
+
+                      $jumlahTotalSuaraPemilih = 0;
+                      $jumlahSuaraPemilih = [];
+
+                      $jumlahTotalSuaraTidakMemilih = 0;
+                      $jumlahSuaraTidakMemilih = [];
 
                       foreach ($kabupatens as $kabupaten) {
                         $jumlahSuaraSah[$kabupaten->id] = 0;
+                        $jumlahSuaraTidakSah[$kabupaten->id] = 0;
+                        $jumlahSuaraPemilih[$kabupaten->id] = 0;
+                        $jumlahSuaraTidakMemilih[$kabupaten->id] = 0;
                       }
 
                       @endphp
@@ -101,16 +113,36 @@ Suara
                                 $kecamatans[] = $kecamatan_raw->id;
                               }
                               
-                              $afa = DB::select('SELECT sum(ds.jumlah) jumlah
+                              $jumlahSahRaw = DB::select('SELECT sum(ds.jumlah) jumlah
                                 FROM pemilihan pl, suara_pemilihan sp, detil_suara_pemilihan ds
                                 WHERE ds.id_suara_pemilihan = sp.id
                                 AND sp.id_pemilihan = pl.id
                                 AND pl.id = ?
                                 AND ds.id_calon_dpd = ?
                                 AND sp.id_kecamatan IN (' . implode(",", $kecamatans) . ')', [$pemilihan->id, $dpd->id]);
-                              $jumlah = $afa[0]->jumlah;
+                              $jumlah = $jumlahSahRaw[0]->jumlah;
                               $jumlahAllDPD += $jumlah;
                               $jumlahSuaraSah[$kabupaten->id] += $jumlah;
+
+                              $jumlahTidakSahRaw = DB::select('SELECT sum(sp.jumlah_suara_tidak_sah) jumlah
+                                FROM pemilihan pl, suara_pemilihan sp, detil_suara_pemilihan ds
+                                WHERE ds.id_suara_pemilihan = sp.id
+                                AND sp.id_pemilihan = pl.id
+                                AND pl.id = ?
+                                AND ds.id_calon_dpd = ?
+                                AND sp.id_kecamatan IN (' . implode(",", $kecamatans) . ')', [$pemilihan->id, $dpd->id]);
+                              $jumlahTidakSah = $jumlahTidakSahRaw[0]->jumlah;
+                              $jumlahSuaraTidakSah[$kabupaten->id] += $jumlahTidakSah;
+
+                              $jumlahPemilihRaw = DB::select('SELECT sum(sp.jumlah_pemilih) jumlah
+                                FROM pemilihan pl, suara_pemilihan sp, detil_suara_pemilihan ds
+                                WHERE ds.id_suara_pemilihan = sp.id
+                                AND sp.id_pemilihan = pl.id
+                                AND pl.id = ?
+                                AND ds.id_calon_dpd = ?
+                                AND sp.id_kecamatan IN (' . implode(",", $kecamatans) . ')', [$pemilihan->id, $dpd->id]);
+                              $jumlahPemilih = $jumlahPemilihRaw[0]->jumlah;
+                              $jumlahSuaraPemilih[$kabupaten->id] += $jumlahPemilih;
                             @endphp
                             <td>{{ADHhelper::rupiah($jumlah, false, false)}}</td>
                           @endforeach
@@ -133,14 +165,51 @@ Suara
                   foreach ($jumlahSuaraSah as $item) {
                     $jumlahTotalSuaraSah += $item;
                   }
+                  foreach ($jumlahSuaraTidakSah as $item) {
+                    $jumlahTotalSuaraTidakSah += $item;
+                  }
+                  foreach ($jumlahSuaraPemilih as $item) {
+                    $jumlahTotalSuaraPemilih += $item;
+                  }
+                  foreach ($jumlahSuaraTidakMemilih as $item) {
+                    $jumlahTotalSuaraTidakMemilih += $item;
+                  }
                   @endphp
                   <tfoot>
                     <tr>
-                      <th>Jumlah Suara Sah</th>
+                      <th colspan="1">Jumlah Suara Sah</th>
                       @foreach($kabupatens as $kabupaten)
                       <th>{{ADHhelper::rupiah($jumlahSuaraSah[$kabupaten->id], false, false)}}</th>
                       @endforeach
                       <th>{{ADHhelper::rupiah($jumlahTotalSuaraSah, false, false)}}</th>
+                    </tr>
+                    <tr>
+                      <th colspan="1">Jumlah Suara Tidak Sah</th>
+                      @foreach($kabupatens as $kabupaten)
+                      <th>{{ADHhelper::rupiah($jumlahSuaraTidakSah[$kabupaten->id], false, false)}}</th>
+                      @endforeach
+                      <th>{{ADHhelper::rupiah($jumlahTotalSuaraTidakSah, false, false)}}</th>
+                    </tr>
+                    <tr>
+                      <th colspan="1">Jumlah Memilih</th>
+                      @foreach($kabupatens as $kabupaten)
+                      <th>{{ADHhelper::rupiah($jumlahSuaraSah[$kabupaten->id] + $jumlahSuaraTidakSah[$kabupaten->id], false, false)}}</th>
+                      @endforeach
+                      <th>{{ADHhelper::rupiah($jumlahTotalSuaraSah + $jumlahTotalSuaraTidakSah, false, false)}}</th>
+                    </tr>
+                    <tr>
+                      <th colspan="1">Jumlah Tidak Memilih</th>
+                      @foreach($kabupatens as $kabupaten)
+                      <th>{{ADHhelper::rupiah($jumlahSuaraPemilih[$kabupaten->id] - ($jumlahSuaraSah[$kabupaten->id] + $jumlahSuaraTidakSah[$kabupaten->id]), false, false)}}</th>
+                      @endforeach
+                      <th>{{ADHhelper::rupiah($jumlahTotalSuaraPemilih - ($jumlahTotalSuaraSah + $jumlahTotalSuaraTidakSah), false, false)}}</th>
+                    </tr>
+                    <tr>
+                      <th colspan="1">Jumlah Pemilih</th>
+                      @foreach($kabupatens as $kabupaten)
+                      <th>{{ADHhelper::rupiah($jumlahSuaraPemilih[$kabupaten->id], false, false)}}</th>
+                      @endforeach
+                      <th>{{ADHhelper::rupiah($jumlahTotalSuaraPemilih, false, false)}}</th>
                     </tr>
                   </tfoot>
                 </table>
