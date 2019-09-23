@@ -13,6 +13,9 @@ use DB;
 use Hash;
 use ADHhelper;
 
+use Dompdf\Dompdf;
+use Dompdf\Options;
+
 class MainController extends Controller
 {
 
@@ -31,8 +34,21 @@ class MainController extends Controller
 			AND pl.id = ?
 		)', [$pemilihan->id]);
 
-        return view('dashboard.pdfsuarapartai', compact(['pemilihan', 'kabupatens', 'partais']));
-
+    	$options = new Options();
+		$options->set('isRemoteEnabled', TRUE);
+		$dompdf = new Dompdf($options);
+		$contxt = stream_context_create([ 
+		    'ssl' => [ 
+		        'verify_peer' => FALSE, 
+		        'verify_peer_name' => FALSE,
+		        'allow_self_signed'=> TRUE
+		    ] 
+		]);
+		$dompdf->setHttpContext($contxt);
+		$dompdf->loadHtml(view('dashboard.pdfsuarapartai', compact(['pemilihan', 'kabupatens', 'partais'])));
+		$dompdf->setPaper('A1', 'landscape');
+		$dompdf->render();
+		$dompdf->stream(date('Ymdhis'), array("Attachment" => false));
 	}
 
 	public function pdfsuaradpd($id_pemilihan)
@@ -49,8 +65,22 @@ class MainController extends Controller
 			AND ds.id_calon_dpd = cd.id
 			AND pl.id = ?
 		)', [$pemilihan->id]);
-    	
-        return view('dashboard.pdfsuaradpd', compact(['pemilihan', 'kabupatens', 'dpds']));
+
+		$options = new Options();
+		$options->set('isRemoteEnabled', TRUE);
+		$dompdf = new Dompdf($options);
+		$contxt = stream_context_create([ 
+		    'ssl' => [ 
+		        'verify_peer' => FALSE, 
+		        'verify_peer_name' => FALSE,
+		        'allow_self_signed'=> TRUE
+		    ] 
+		]);
+		$dompdf->setHttpContext($contxt);
+		$dompdf->loadHtml(view('dashboard.pdfsuaradpd', compact(['pemilihan', 'kabupatens', 'dpds']))->render());
+		$dompdf->setPaper('A1', 'landscape');
+		$dompdf->render();
+		$dompdf->stream(date('Ymdhis'), array("Attachment" => false));
 	}
 
 	public function pdfsuaracapres($id_pemilihan)
@@ -68,7 +98,21 @@ class MainController extends Controller
 				AND pl.id = ?
 			)', [$pemilihan->id]);
 
-        return view('dashboard.pdfsuaracapres', compact(['pemilihan', 'kabupatens', 'capress']));
+        $options = new Options();
+		$options->set('isRemoteEnabled', TRUE);
+		$dompdf = new Dompdf($options);
+		$contxt = stream_context_create([ 
+		    'ssl' => [ 
+		        'verify_peer' => FALSE, 
+		        'verify_peer_name' => FALSE,
+		        'allow_self_signed'=> TRUE
+		    ] 
+		]);
+		$dompdf->setHttpContext($contxt);
+		$dompdf->loadHtml(view('dashboard.pdfsuaracapres', compact(['pemilihan', 'kabupatens', 'capress'])));
+		$dompdf->setPaper('A1', 'landscape');
+		$dompdf->render();
+		$dompdf->stream(date('Ymdhis'), array("Attachment" => false));
 	}
 
 	public function dashboardsuarapartai($id_pemilihan)

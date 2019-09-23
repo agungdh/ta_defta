@@ -41,7 +41,7 @@ Suara
 
           <div class="col-md-12">
             <div class="form-group">
-              <a class="btn btn-success" href="{{route('dashboard.suaradpd.pdf', $pemilihan->id)}}">PDF</a>
+              <a target="_blank" class="btn btn-success" href="{{route('dashboard.suaradpd.pdf', $pemilihan->id)}}">PDF</a>
             </div>
           </div>
         </div>
