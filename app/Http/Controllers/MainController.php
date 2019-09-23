@@ -31,7 +31,7 @@ class MainController extends Controller
 			AND pl.id = ?
 		)', [$pemilihan->id]);
 
-        return view('dashboard.suarapartai', compact(['pemilihan', 'kabupatens', 'partais']));
+        return view('dashboard.pdfsuarapartai', compact(['pemilihan', 'kabupatens', 'partais']));
 
 	}
 
@@ -50,7 +50,7 @@ class MainController extends Controller
 			AND pl.id = ?
 		)', [$pemilihan->id]);
     	
-        return view('dashboard.suaradpd', compact(['pemilihan', 'kabupatens', 'dpds']));
+        return view('dashboard.pdfsuaradpd', compact(['pemilihan', 'kabupatens', 'dpds']));
 	}
 
 	public function pdfsuaracapres($id_pemilihan)
