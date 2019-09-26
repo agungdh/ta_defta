@@ -32,7 +32,7 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body class="hold-transition login-page" style="background-color: green; background-image: url('{{asset("")}}storage/assets/animate/background.jpg'); background-size: cover;">
+<body class="hold-transition login-page" style="background-color: green; background-image: url('{{asset("")}}storage/assets/Kesbangpol.jpg'); background-size: cover;">
   <div id="app">
 
 <div class="login-box animated jackInTheBox" style="background-color: red;box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.50); border-radius: 10px; ">
