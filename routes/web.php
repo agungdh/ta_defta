@@ -46,6 +46,4 @@ Route::middleware(['MustLoggedIn'])->group(function () {
 	Route::get('/kecamatan/{id}/edit', 'KecamatanController@edit')->name('kecamatan.edit');
 	Route::put('/kecamatan/{id}', 'KecamatanController@update')->name('kecamatan.update');
 	Route::delete('/kecamatan/{id}', 'KecamatanController@destroy')->name('kecamatan.destroy');
-
-
 });

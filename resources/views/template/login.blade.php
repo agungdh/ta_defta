@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,6 +33,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="hold-transition login-page" style="background-color: green; background-image: url('{{asset("")}}storage/assets/animate/background.jpg'); background-size: cover;">
+  <div id="app">
 
 <div class="login-box animated jackInTheBox" style="background-color: red;box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.50); border-radius: 10px; ">
   <div class="login-logo">
@@ -56,6 +56,7 @@
       </div>
       <div class="row">
         <div class="col-xs-4 pull-right">
+          {{-- <button type="button" @@click="login" class="btn btn-primary btn-block">Login</button> --}}
           <button type="submit" class="btn btn-primary btn-block">Login</button>
         </div>
         <!-- /.col -->
@@ -67,6 +68,7 @@
 
 </div>
 <!-- /.login-box -->
+</div>
 
 <!-- jQuery 3 -->
 <script src="{{asset('storage/assets')}}/AdminLTE/bower_components/jquery/dist/jquery.min.js"></script>
@@ -79,5 +81,6 @@
     swal('{{ session('alert')['title'] }}', '{{ session('alert')['message'] }}', '{{ session('alert')['class'] }}');
 </script>
 @endif
+{{-- <script src="{{ADHhelper::mix('js/login.js')}}"></script> --}}
 </body>
 </html>

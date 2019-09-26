@@ -21,6 +21,11 @@ use File;
 class ADHhelper extends Pustaka
 {
 
+    public static function mix($path){
+      $mix = explode("?", mix($path));
+      return asset($path . "?" . $mix[1]);
+    }
+
     public static function getAllPartais()
     {
         $partais_raw = Partai::all();
