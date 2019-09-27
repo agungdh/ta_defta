@@ -17,3 +17,5 @@ mix.js('resources/js/app.js', 'public/js')
 mix.js('resources/js/login.js', 'public/js');
 
 mix.version();
+mix.disableNotifications();
+mix.extract(['axios','bootstrap','jquery','lodash','popper.js','vue']);
