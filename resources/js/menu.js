@@ -1,6 +1,6 @@
 window.Vue = require('vue');
 
-new Vue({
+window.vmenu = new Vue({
     el: '#menu',
     data: {
     	kabupaten: false,

@@ -274,7 +274,9 @@ function getDatePickerValue(id) {
 <script src="{{ADHhelper::mix('js/vendor.js')}}"></script>
 <script src="{{ADHhelper::mix('js/menu.js')}}"></script>
 <script type="text/javascript">
-  menu.__vue__.{{session('activeMenu')}} = true;
+  @if(session('activeMenu'))
+  vmenu.{{session('activeMenu')}} = true;
+  @endif
 </script>
 @php
 session()->forget('activeMenu');
