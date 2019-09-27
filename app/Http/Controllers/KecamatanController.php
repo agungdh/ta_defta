@@ -18,7 +18,7 @@ class KecamatanController extends Controller
 
     public function __construct()
     {
-        $this->middleware('Menu:kecamatan');
+        $this->middleware('Menu:kabupaten');
     }
 
     public function index($id_kabupaten)

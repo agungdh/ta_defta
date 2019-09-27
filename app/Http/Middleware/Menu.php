@@ -13,7 +13,7 @@ class Menu
 {
     public function handle($request, Closure $next, $menu)
     {
-    	Session::flash('activeMenu', $menu); 
+    	Session::put('activeMenu', $menu); 
 
         return $next($request);
     }

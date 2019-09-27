@@ -276,5 +276,8 @@ function getDatePickerValue(id) {
 <script type="text/javascript">
   menu.__vue__.{{session('activeMenu')}} = true;
 </script>
+@php
+session()->forget('activeMenu');
+@endphp
 </body>
 </html>

@@ -20,7 +20,7 @@ class DetilSuaraController extends Controller
 
     public function __construct()
     {
-        $this->middleware('Menu:detilsuara');
+        $this->middleware('Menu:pemilihan');
     }
 
     public function index($id_suara_pemilihan)
