@@ -18,6 +18,11 @@ use Validator;
 class DetilSuaraController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('Menu:detilsuara');
+    }
+
     public function index($id_suara_pemilihan)
     {
         $suara = SuaraPemilihan::with('pemilihan', 'detilSuaras', 'kecamatan')->find($id_suara_pemilihan);

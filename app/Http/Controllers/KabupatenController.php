@@ -14,6 +14,11 @@ use DB;
 class KabupatenController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('Menu:kabupaten');
+    }
+
     public function index()
     {
         $kabupatens = Kabupaten::all();

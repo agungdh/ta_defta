@@ -15,6 +15,11 @@ use DB;
 class CalonDPDController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('Menu:calondpd');
+    }
+
     public function index()
     {
         $calonDPDs = CalonDPD::with('partai')->get();

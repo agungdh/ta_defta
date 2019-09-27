@@ -17,6 +17,11 @@ use Validator;
 class SuaraController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('Menu:pemilihan');
+    }
+
     public function getUserKabupatenKecamatan()
     {
         return $this->getKecamatans(ADHhelper::getUsersKecamatan());

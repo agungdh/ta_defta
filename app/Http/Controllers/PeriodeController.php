@@ -14,6 +14,11 @@ use DB;
 class PeriodeController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('Menu:periode');
+    }
+
     public function index()
     {
         $periodes = Periode::all();

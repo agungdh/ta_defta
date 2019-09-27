@@ -123,19 +123,21 @@ if(session('login')) {
 
   <!-- =============================================== -->
 
-  <!-- Left side column. contains the sidebar -->
-  <aside class="main-sidebar">
-    <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar">
-      <!-- sidebar menu: : style can be found in sidebar.less -->
-      <ul class="sidebar-menu" data-widget="tree">
+  <div id="menu">
+    <!-- Left side column. contains the sidebar -->
+    <aside class="main-sidebar">
+      <!-- sidebar: style can be found in sidebar.less -->
+      <section class="sidebar">
+        <!-- sidebar menu: : style can be found in sidebar.less -->
+        <ul class="sidebar-menu" data-widget="tree">
 
-        @include('template.menu')
+          @include('template.menu')
 
-      </ul>
-    </section>
-    <!-- /.sidebar -->
-  </aside>
+        </ul>
+      </section>
+      <!-- /.sidebar -->
+    </aside>
+  </div>
 
   <!-- =============================================== -->
 
@@ -268,5 +270,11 @@ function getDatePickerValue(id) {
     swal('{{ session('alert')['title'] }}', '{{ session('alert')['message'] }}', '{{ session('alert')['class'] }}');
 </script>
 @endif
+<script src="{{ADHhelper::mix('js/manifest.js')}}"></script>
+<script src="{{ADHhelper::mix('js/vendor.js')}}"></script>
+<script src="{{ADHhelper::mix('js/menu.js')}}"></script>
+<script type="text/javascript">
+  menu.__vue__.{{session('activeMenu')}} = true;
+</script>
 </body>
 </html>

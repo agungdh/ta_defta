@@ -13,9 +13,16 @@ use ADHhelper;
 
 use Hash;
 use DB;
+use Session;
 
 class UserController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('Menu:user');
+    }
+
     public function getAllKabupatens()
     {
         $kabupatens_raw = Kabupaten::all();

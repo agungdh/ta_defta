@@ -12,9 +12,15 @@ use ADHhelper;
 
 use DB;
 use Validator;
+use Session;
 
 class PemilihanController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('Menu:pemilihan');
+    }
 
     public function getAllTipes()
     {

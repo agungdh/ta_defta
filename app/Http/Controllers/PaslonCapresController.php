@@ -14,6 +14,11 @@ use DB;
 class PaslonCapresController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('Menu:pasloncapres');
+    }
+
     public function index()
     {
         $paslonCapresses = PaslonCapres::all();

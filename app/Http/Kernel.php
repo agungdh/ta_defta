@@ -62,6 +62,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'ADHauth' => \App\Http\Middleware\ADHauth::class,
+        'Menu' => \App\Http\Middleware\Menu::class,
         'MustLoggedIn' => \App\Http\Middleware\MustLoggedIn::class,
     ];
 
@@ -81,6 +82,7 @@ class Kernel extends HttpKernel
         \Illuminate\Routing\Middleware\SubstituteBindings::class,
         // \Illuminate\Auth\Middleware\Authorize::class,
         \App\Http\Middleware\ADHauth::class,
+        \App\Http\Middleware\Menu::class,
         \App\Http\Middleware\MustLoggedIn::class,
     ];
 }

@@ -17,10 +17,17 @@ use agungdh\Pustaka;
 use DB;
 use Response;
 use File;
+use Request;
+use Session;
 
 class ADHhelper extends Pustaka
 {
 
+    public static function setActiveMenu($menu){
+      Session::flash('activeMenu', $menu);
+      Session::save();
+    }
+    
     public static function mix($path){
       $mix = explode("?", mix($path));
       return asset($path . "?" . $mix[1]);

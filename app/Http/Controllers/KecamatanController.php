@@ -16,6 +16,11 @@ use Validator;
 class KecamatanController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('Menu:kecamatan');
+    }
+
     public function index($id_kabupaten)
     {
         $kabupaten = Kabupaten::with('kecamatans')->find($id_kabupaten);

@@ -14,6 +14,11 @@ use DB;
 class PartaiController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('Menu:partai');
+    }
+
     public function index()
     {
         $partais = Partai::all();
