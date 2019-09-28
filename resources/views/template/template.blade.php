@@ -270,9 +270,9 @@ function getDatePickerValue(id) {
     swal('{{ session('alert')['title'] }}', '{{ session('alert')['message'] }}', '{{ session('alert')['class'] }}');
 </script>
 @endif
-<script src="{{ADHhelper::mix('js/manifest.js')}}"></script>
-<script src="{{ADHhelper::mix('js/vendor.js')}}"></script>
-<script src="{{ADHhelper::mix('js/menu.js')}}"></script>
+<script src="{{ADHhelper::mix('compiled/js/manifest.js')}}"></script>
+<script src="{{ADHhelper::mix('compiled/js/vendor.js')}}"></script>
+<script src="{{ADHhelper::mix('compiled/js/menu.js')}}"></script>
 <script type="text/javascript">
   @if(session('activeMenu'))
   vmenu.{{session('activeMenu')}} = true;
