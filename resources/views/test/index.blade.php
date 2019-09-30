@@ -41,12 +41,12 @@ Calon DPD
               </table>
               <div>
                 Menampilkan @{{tableInfo.from}} sampai @{{tableInfo.to}} dari @{{tableInfo.total}} data
-                <button @@click="firstPage"><<</button>
-                <button><</button>
+                <button @@click="firstPage" v-bind:disabled="!tableNav.first"><<</button>
+                <button @@click="prevPage" v-bind:disabled="!tableNav.prev"><</button>
                 <input type="number" min="1" @@keyup="recall" @@change="recall" v-bind:max="tableParam.maxPage" v-model="tableParam.page">
                 Of @{{tableParam.maxPage}}
-                <button>></button>
-                <button @@click="lastPage">>></button>
+                <button @@click="nextPage" v-bind:disabled="!tableNav.next">></button>
+                <button @@click="lastPage" v-bind:disabled="!tableNav.last">>></button>
               </div>
             </div>
             <!-- /.box-body -->

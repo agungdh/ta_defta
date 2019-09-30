@@ -26,6 +26,12 @@ window.vpage = new Vue({
       	to: 0,
       	total: 0,
       },
+      tableNav: {
+      	first: false,
+      	prev: false,
+      	next: true,
+      	last: true,
+      },
       formData: {
         text1: '',
         text2: '',
@@ -44,6 +50,12 @@ window.vpage = new Vue({
 
     		if (vpage.tableParam.perPage != vpage.tableParamPrev.perPage) {
     			vpage.tableParamPrev.perPage = vpage.tableParam.perPage;
+
+    			recall = true;
+    		}
+
+    		if (vpage.tableParam.page != vpage.tableParamPrev.page) {
+    			vpage.tableParamPrev.page = vpage.tableParam.page;
 
     			recall = true;
     		}
@@ -68,6 +80,8 @@ window.vpage = new Vue({
 		    vpage.tableInfo.from = response.data.from;
 		    vpage.tableInfo.to = response.data.to;
 		    vpage.tableInfo.total = response.data.total;
+
+		    vpage.setTableNav();
 		  })
 		  .catch(function (error) {
 		    console.log(error);
@@ -88,10 +102,43 @@ window.vpage = new Vue({
 
     		vpage.call();
     	},
+    	nextPage: function() {
+    		vpage.tableParam.page++;
+
+    		vpage.call();
+    	},
+    	prevPage: function() {
+    		vpage.tableParam.page--;
+
+    		vpage.call();
+    	},
     	lastPage: function() {
     		vpage.tableParam.page = vpage.tableParam.maxPage;
-    		
+
     		vpage.call();
+    	},
+    	setTableNav: function() {
+    		if (vpage.tableParam.maxPage == 1) {
+    			vpage.tableNav.first = false;
+    			vpage.tableNav.prev = false;
+    			vpage.tableNav.next = false;
+    			vpage.tableNav.last = false;
+    		} else if (vpage.tableParam.page >= vpage.tableParam.maxPage) {
+    			vpage.tableNav.first = true;
+    			vpage.tableNav.prev = true;
+    			vpage.tableNav.next = false;
+    			vpage.tableNav.last = false;    			
+    		} else if (vpage.tableParam.page <= 1) {
+    			vpage.tableNav.first = false;
+    			vpage.tableNav.prev = false;
+    			vpage.tableNav.next = true;
+    			vpage.tableNav.last = true;
+    		} else {
+				vpage.tableNav.first = true;
+				vpage.tableNav.prev = true;
+				vpage.tableNav.next = true;
+				vpage.tableNav.last = true;
+    		}
     	}
     },
     mounted: function () {
