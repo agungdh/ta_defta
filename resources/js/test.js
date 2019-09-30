@@ -33,10 +33,19 @@ window.vpage = new Vue({
       	last: true,
       },
       formData: {
+        id: '',
         text1: '',
         text2: '',
         text3: '',
       },
+      formDataErrors: {
+        id: '',
+        text1: '',
+        text2: '',
+        text3: '',
+      },
+      formState: '',
+      formStateAdd: true,
     },
     methods: {
     	recall: function() {
@@ -84,8 +93,40 @@ window.vpage = new Vue({
 		    vpage.setTableNav();
 		  })
 		  .catch(function (error) {
+		  	swal('Whoops!!!', 'Something bad happend...', 'error');
 		    console.log(error);
 		  });
+    	},
+    	save: function() {
+    		if (vpage.formStateAdd) {
+    			vpage.store();
+    		} else {
+    			vpage.update();
+    		}
+    	},
+    	store: function() {
+			axios.post(baseUrl + '/test', vpage.formData)
+		  .then(function (response) {
+		    console.log(response);
+		  })
+		  .catch(function (error) {
+		  	console.log(error.response);
+		  	if (error.response.data.errors) {
+		  		let formErrors = error.response.data.errors;
+
+		  		vpage.formDataErrors.text1 = formErrors.text1 ? formErrors.text1[0] : '';
+		  		vpage.formDataErrors.text2 = formErrors.text2 ? formErrors.text2[0] : '';
+		  		vpage.formDataErrors.text3 = formErrors.text3 ? formErrors.text3[0] : '';
+		  	} else {
+			  	swal('Whoops!!!', 'Something bad happend...', 'error');
+			    console.log(error);
+		  	}
+		  });
+
+		  vpage.call();
+    	},
+    	update: function() {
+			
     	},
     	sort: function(colNo) {
     		 if (vpage.tableSorting.colNo == colNo) {
@@ -145,11 +186,15 @@ window.vpage = new Vue({
 				vpage.tableNav.next = true;
 				vpage.tableNav.last = true;
     		}
-    	}
+    	},
+    	changeFormState: function(add, text) {
+    		vpage.formStateAdd = add;
+    		vpage.formState = text;
+    	},
     },
     mounted: function () {
 		this.$nextTick(function () {
 		 vpage.call();
 		});
-	}
+	},
 });

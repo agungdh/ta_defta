@@ -32,22 +32,17 @@ class TestController extends Controller
         return response()->json($tests);
     }
 
-    public function create()
-    {
-        
-    }
 
    public function store(Request $request)
     {
-        
+        $request->validate([
+            'text1' => 'required',
+            'text2' => 'required',
+            'text3' => 'required',
+        ]);
     }
 
     public function show($id)
-    {
-        
-    }
-
-    public function edit($id)
     {
         
     }
