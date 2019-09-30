@@ -1,7 +1,7 @@
 @extends('template.template')
 
 @section('title')
-Calon DPD
+Test
 @endsection
 
 @section('nav')
@@ -13,7 +13,7 @@ Calon DPD
     <div class="col-md-12">
         <div class="box animated slideInLeft box-primary" style="box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);">
             <div class="box-header">
-              <h3 class="box-title">Data Calon DPD</h3>
+              <h3 class="box-title">Data Test</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">

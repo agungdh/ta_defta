@@ -118,6 +118,12 @@ window.vpage = new Vue({
     		vpage.call();
     	},
     	setTableNav: function() {
+    		if (vpage.tableParam.page > vpage.tableParam.maxPage) {
+    			vpage.tableParam.page = vpage.tableParam.maxPage;
+
+    			vpage.call();
+    		}
+
     		if (vpage.tableParam.maxPage == 1) {
     			vpage.tableNav.first = false;
     			vpage.tableNav.prev = false;
