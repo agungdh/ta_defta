@@ -1,5 +1,8 @@
 <?php
 
+Route::post('/test/getTableData', 'TestController@getTableData')->name('test.getTableData');
+Route::resource('/test', 'TestController');
+
 Route::get('/', 'MainController@index')->name('main.index');
 Route::get('/logout', 'MainController@logout')->name('main.logout');
 Route::post('/login', 'MainController@login')->name('main.login');

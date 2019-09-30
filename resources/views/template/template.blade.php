@@ -12,7 +12,9 @@ if(session('login')) {
   <title>Aplikasi Pengolahan Data Pemilu Pada Kesatuan Bangsa dan Politik Berbasis Web</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-
+  <script type="text/javascript">
+    var baseUrl = '{{url('/')}}';
+  </script>
   <link id="favicon" rel="icon" type="image/x-icon" href="{{asset('storage/assets')}}/logo.ico">
 
   <link rel="stylesheet" href="{{asset('storage/assets')}}/AdminLTE/bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -156,7 +158,9 @@ if(session('login')) {
     <!-- Main content -->
     <section class="content">
 
+      <div id="page">
         @yield('content')
+      </div>
 
     </section>
     <!-- /.content -->
@@ -272,6 +276,7 @@ function getDatePickerValue(id) {
 @endif
 <script src="{{ADHhelper::mix('compiled/js/manifest.js')}}"></script>
 <script src="{{ADHhelper::mix('compiled/js/vendor.js')}}"></script>
+@yield('jsvue')
 <script src="{{ADHhelper::mix('compiled/js/menu.js')}}"></script>
 <script type="text/javascript">
   @if(session('activeMenu'))

@@ -13,8 +13,9 @@ const mix = require('laravel-mix');
 
 // mix.js('resources/js/app.js', 'public/js')
 //    .sass('resources/sass/app.scss', 'public/css');
-mix.js('resources/js/login.js', 'compiled/js');
+// mix.js('resources/js/login.js', 'compiled/js');
 mix.js('resources/js/menu.js', 'compiled/js');
+mix.js('resources/js/test.js', 'compiled/js');
 
 mix.version();
 mix.disableNotifications();
