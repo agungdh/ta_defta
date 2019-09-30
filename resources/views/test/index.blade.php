@@ -20,7 +20,7 @@ Calon DPD
                 <a class="btn btn-success btn-sm">
                   <i class="glyphicon glyphicon-plus"></i> Tambah
                 </a><br><br>
-                <input type="number" v-model="tableParam.perPage" min="1" @@keyup="recall" @@change="recall" placeholder="Jumlah Per Halaman">
+                <input required type="number" v-model="tableParam.perPage" min="1" @@keyup="recall" @@change="recall" placeholder="Jumlah Per Halaman">
                 <input type="text" v-model="tableParam.search" @@keyup="recall" @@change="recall" placeholder="Cari">
               <table class="table table-bordered table-hover" style="width: 100%">
                 <thead>
@@ -43,7 +43,7 @@ Calon DPD
                 Menampilkan @{{tableInfo.from}} sampai @{{tableInfo.to}} dari @{{tableInfo.total}} data
                 <button @@click="firstPage" v-bind:disabled="!tableNav.first"><<</button>
                 <button @@click="prevPage" v-bind:disabled="!tableNav.prev"><</button>
-                <input type="number" min="1" @@keyup="recall" @@change="recall" v-bind:max="tableParam.maxPage" v-model="tableParam.page">
+                <input required type="number" min="1" @@keyup="recall" @@change="recall" v-bind:max="tableParam.maxPage" v-model="tableParam.page">
                 Of @{{tableParam.maxPage}}
                 <button @@click="nextPage" v-bind:disabled="!tableNav.next">></button>
                 <button @@click="lastPage" v-bind:disabled="!tableNav.last">>></button>
