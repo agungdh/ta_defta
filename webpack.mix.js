@@ -19,4 +19,4 @@ mix.js('resources/js/test.js', 'compiled/js');
 
 mix.version();
 mix.disableNotifications();
-mix.extract(['axios','lodash','vue']);
+mix.extract(['axios','lodash','vue','vue-directive-tooltip']);

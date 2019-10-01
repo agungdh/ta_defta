@@ -1,6 +1,11 @@
 window.Vue = require('vue');
 window.axios = require('axios');
 
+import Tooltip from 'vue-directive-tooltip';
+import 'vue-directive-tooltip/dist/vueDirectiveTooltip.css';
+
+Vue.use(Tooltip);
+
 window.vpage = new Vue({
     el: '#page',
     data: {
@@ -44,6 +49,7 @@ window.vpage = new Vue({
         text2: '',
         text3: '',
       },
+      formDisplayDataErrors: [],
       formState: '',
       formStateAdd: true,
     },
@@ -107,23 +113,27 @@ window.vpage = new Vue({
     	store: function() {
 			axios.post(baseUrl + '/test', vpage.formData)
 		  .then(function (response) {
-		    console.log(response);
+		  	vpage.call();
 		  })
 		  .catch(function (error) {
-		  	console.log(error.response);
 		  	if (error.response.data.errors) {
+		  		vpage.formDisplayDataErrors = [];
 		  		let formErrors = error.response.data.errors;
 
 		  		vpage.formDataErrors.text1 = formErrors.text1 ? formErrors.text1[0] : '';
 		  		vpage.formDataErrors.text2 = formErrors.text2 ? formErrors.text2[0] : '';
 		  		vpage.formDataErrors.text3 = formErrors.text3 ? formErrors.text3[0] : '';
+
+		  		for (let key1 in formErrors) {
+				    for (let key2 in formErrors[key1]) {
+					    vpage.formDisplayDataErrors.push(formErrors[key1][key2]);
+					}
+				}
 		  	} else {
 			  	swal('Whoops!!!', 'Something bad happend...', 'error');
 			    console.log(error);
 		  	}
 		  });
-
-		  vpage.call();
     	},
     	update: function() {
 			
@@ -191,6 +201,21 @@ window.vpage = new Vue({
     		vpage.formStateAdd = add;
     		vpage.formState = text;
     	},
+    	resetForm: function() {
+    		vpage.formDisplayDataErrors = [];
+			vpage.formData = {
+				id: '',
+				text1: '',
+				text2: '',
+				text3: '',
+			};
+			vpage.formDataErrors = {
+				id: '',
+				text1: '',
+				text2: '',
+				text3: '',
+			};
+    	}
     },
     mounted: function () {
 		this.$nextTick(function () {

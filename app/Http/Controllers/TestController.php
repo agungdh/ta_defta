@@ -9,6 +9,11 @@ use App\Models\Test;
 
 class TestController extends Controller
 {
+    public function __construct()
+    {
+        // $this->middleware('MustLoggedIn');
+    }
+
     public function index()
     {
         return view('test.index');

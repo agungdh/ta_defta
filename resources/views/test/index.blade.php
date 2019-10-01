@@ -45,12 +45,12 @@ Test
               </table>
               <div>
                 Menampilkan @{{tableInfo.from}} sampai @{{tableInfo.to}} dari @{{tableInfo.total}} data
-                <button @@click="firstPage" v-bind:disabled="!tableNav.first"><<</button>
-                <button @@click="prevPage" v-bind:disabled="!tableNav.prev"><</button>
-                <input required type="number" min="1" @@keyup="recall" @@change="recall" v-bind:max="tableParam.maxPage" v-model="tableParam.page">
+                <button @@click="firstPage" :disabled="!tableNav.first"><<</button>
+                <button @@click="prevPage" :disabled="!tableNav.prev"><</button>
+                <input required type="number" min="1" @@keyup="recall" @@change="recall" :max="tableParam.maxPage" v-model="tableParam.page">
                 Of @{{tableParam.maxPage}}
-                <button @@click="nextPage" v-bind:disabled="!tableNav.next">></button>
-                <button @@click="lastPage" v-bind:disabled="!tableNav.last">>></button>
+                <button @@click="nextPage" :disabled="!tableNav.next">></button>
+                <button @@click="lastPage" :disabled="!tableNav.last">>></button>
               </div>
             </div>
             <!-- /.box-body -->
@@ -69,37 +69,70 @@ Test
       <div class="modal-body">
         <div class="box-body">
 
-          <div :class="{'form-group': true, 'has-error': formDataErrors.text1 != ''}">
-            <div data-toggle="tooltip" v-bind:title="formDataErrors.text1">
-              <label>Text 1</label>
+          <div v-if="formDisplayDataErrors.length > 0">
+            <div class="alert alert-danger">
+              <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+              <ul v-for="item in formDisplayDataErrors">
+                <li>@{{item}}</li>
+              </ul>
             </div>
-            <div data-toggle="tooltip" v-bind:title="formDataErrors.text1">
-              <div v-bind:title="formDataErrors.text1">
+          </div>
+
+          <div v-if="formDataErrors.text1 == ''">
+            <div :class="{'form-group': true, 'has-error': formDataErrors.text1 != ''}">
+                <label>Text 1</label>
                 <input type="text" class="form-control" v-model="formData.text1" placeholder="Isi Text 1">
-              </div>
             </div>
           </div>
+          <div v-else>
+            <div :class="{'form-group': true, 'has-error': formDataErrors.text1 != ''}">
+                <div v-tooltip.top="formDataErrors.text1">
+                  <label>Text 1</label>
+                </div>
+                <div v-tooltip.top="formDataErrors.text1">
+                  <div v-tooltip.top="formDataErrors.text1">
+                    <input type="text" class="form-control" v-model="formData.text1" placeholder="Isi Text 1">
+                  </div>
+                </div>
+              </div>
+          </div>
 
-          <div :class="{'form-group': true, 'has-error': formDataErrors.text2 != ''}">
-            <div data-toggle="tooltip" v-bind:title="formDataErrors.text2">
-              <label>Text 2</label>
-            </div>
-            <div data-toggle="tooltip" v-bind:title="formDataErrors.text2">
-              <div v-bind:title="formDataErrors.text2">
+          <div v-if="formDataErrors.text2 == ''">
+            <div :class="{'form-group': true, 'has-error': formDataErrors.text2 != ''}">
+                <label>Text 2</label>
                 <input type="text" class="form-control" v-model="formData.text2" placeholder="Isi Text 2">
-              </div>
             </div>
           </div>
-
-          <div :class="{'form-group': true, 'has-error': formDataErrors.text3 != ''}">
-            <div data-toggle="tooltip" v-bind:title="formDataErrors.text3">
-              <label>Text 3</label>
-            </div>
-            <div data-toggle="tooltip" v-bind:title="formDataErrors.text3">
-              <div v-bind:title="formDataErrors.text3">
-                <input type="text" class="form-control" v-model="formData.text3" placeholder="Isi Text 3">
+          <div v-else>
+            <div :class="{'form-group': true, 'has-error': formDataErrors.text2 != ''}">
+                <div v-tooltip.top="formDataErrors.text2">
+                  <label>Text 2</label>
+                </div>
+                <div v-tooltip.top="formDataErrors.text2">
+                  <div v-tooltip.top="formDataErrors.text2">
+                    <input type="text" class="form-control" v-model="formData.text2" placeholder="Isi Text 2">
+                  </div>
+                </div>
               </div>
+          </div>
+
+          <div v-if="formDataErrors.text3 == ''">
+            <div :class="{'form-group': true, 'has-error': formDataErrors.text3 != ''}">
+                <label>Text 3</label>
+                <input type="text" class="form-control" v-model="formData.text3" placeholder="Isi Text 3">
             </div>
+          </div>
+          <div v-else>
+            <div :class="{'form-group': true, 'has-error': formDataErrors.text3 != ''}">
+                <div v-tooltip.top="formDataErrors.text3">
+                  <label>Text 3</label>
+                </div>
+                <div v-tooltip.top="formDataErrors.text3">
+                  <div v-tooltip.top="formDataErrors.text3">
+                    <input type="text" class="form-control" v-model="formData.text3" placeholder="Isi Text 3">
+                  </div>
+                </div>
+              </div>
           </div>
 
         </div>

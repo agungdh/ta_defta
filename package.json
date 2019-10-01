@@ -23,6 +23,6 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
-        "v-tooltip": "^2.0.2"
+        "vue-directive-tooltip": "^1.6.2"
     }
 }
