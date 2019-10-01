@@ -55,12 +55,22 @@ class TestController extends Controller
 
     public function show($id)
     {
-        
+        return Test::findOrFail($id);
     }
 
     public function update(Request $request, $id)
     {
-        
+        $request->validate([
+            'text1' => 'required',
+            'text2' => 'required',
+            'text3' => 'required',
+        ]);
+
+        $test = Test::find($id);
+        $test->text1 = $request->text1;
+        $test->text2 = $request->text2;
+        $test->text3 = $request->text3;
+        $test->save();
     }
 
     public function destroy($id)

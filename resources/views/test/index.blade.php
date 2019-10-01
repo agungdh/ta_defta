@@ -37,8 +37,8 @@ Test
                     <td>@{{ item.text2 }}</td>
                     <td>@{{ item.text3 }}</td>
                     <td>
-                      <button data-toggle="modal" data-target="#modal-default" @@click="changeFormState(false, 'Ubah Data')">Ubah</button>
-                      <button @@click="hapusData(item)">Hapus</button>
+                      <button @@click="getData(item.id)">Ubah</button>
+                      <button @@click="hapusData(item.id)">Hapus</button>
                     </td>
                   </tr>
                 </tbody>

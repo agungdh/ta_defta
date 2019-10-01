@@ -107,7 +107,7 @@ window.vpage = new Vue({
     		if (vpage.formStateAdd) {
     			vpage.store();
     		} else {
-    			vpage.update();
+    			vpage.update(vpage.formData.id);
     		}
     	},
     	store: function() {
@@ -138,11 +138,56 @@ window.vpage = new Vue({
 		  	}
 		  });
     	},
-    	update: function() {
-			
+    	getData: function(id) {
+			axios.get(baseUrl + '/test/' + id)
+		  .then(function (response) {
+		  	vpage.changeFormState(false, 'Ubah Data');
+		  	$("#modal-default").modal('show');
+
+		  	vpage.formData.id = response.data.id;
+		  	vpage.formData.text1 = response.data.text1;
+		  	vpage.formData.text2 = response.data.text2;
+		  	vpage.formData.text3 = response.data.text3;
+		  })
+		  .catch(function (error) {
+		  	if (error.response.data.message) {
+		  		swal('ERROR !!!', error.response.data.message, 'error');
+		  	} else {
+			  	swal('Whoops!!!', 'Something bad happend...', 'error');
+			    console.log(error);
+		  	}
+		  });
+    	},
+    	update: function(id) {
+			axios.put(baseUrl + '/test/' + id, vpage.formData)
+		  .then(function (response) {
+		  	vpage.resetForm();
+		  	vpage.call();
+		  	swal('SUKSES !!!', 'Berhasil Ubah Data !!!', 'success');
+		  	$('#modal-default').modal('hide');
+		  })
+		  .catch(function (error) {
+		  	if (error.response.data.errors) {
+		  		vpage.formDisplayDataErrors = [];
+		  		let formErrors = error.response.data.errors;
+
+		  		vpage.formDataErrors.text1 = formErrors.text1 ? formErrors.text1[0] : '';
+		  		vpage.formDataErrors.text2 = formErrors.text2 ? formErrors.text2[0] : '';
+		  		vpage.formDataErrors.text3 = formErrors.text3 ? formErrors.text3[0] : '';
+
+		  		for (let key1 in formErrors) {
+				    for (let key2 in formErrors[key1]) {
+					    vpage.formDisplayDataErrors.push(formErrors[key1][key2]);
+					}
+				}
+		  	} else {
+			  	swal('Whoops!!!', 'Something bad happend...', 'error');
+			    console.log(error);
+		  	}
+		  });
     	},
     	delete: function(id) {
-			axios.delete(baseUrl + '/test/' + id, vpage.formData)
+			axios.delete(baseUrl + '/test/' + id)
 		  .then(function (response) {
 		  	setTimeout(function(){
 	  			swal('SUKSES !!!', 'Berhasil Simpan Data !!!', 'success');
@@ -238,7 +283,7 @@ window.vpage = new Vue({
 				text3: '',
 			};
     	},
-    	hapusData: function(item) {
+    	hapusData: function(id) {
     		swal({
 		      title: "Yakin Hapus ???",
 		      text: "Data yang sudah dihapus tidak dapat dikembalikan lagi !!!",
@@ -247,7 +292,7 @@ window.vpage = new Vue({
 		      confirmButtonColor: "#DD6B55",
 		      confirmButtonText: "Hapus",
 		    }, function(){
-		      vpage.delete(item.id);
+		      vpage.delete(id);
 		    });
     	}
     },
