@@ -11,7 +11,7 @@ class TestController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware('MustLoggedIn');
+        $this->middleware('Menu:test');
     }
 
     public function index()

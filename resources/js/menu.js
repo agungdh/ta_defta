@@ -10,5 +10,6 @@ window.vmenu = new Vue({
       pasloncapres: false,
       user: false,
       pemilihan: false,
+      test: false,
     }
 });

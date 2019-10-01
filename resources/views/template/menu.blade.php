@@ -41,3 +41,9 @@
     <i class="fa fa-calendar-check-o"></i> <span>Pemilihan</span>
   </a>
 </li>
+
+<li :class="{'active': test}">
+  <a href="{{ route('test.index') }}">
+    <i class="fa fa-calendar-check-o"></i> <span>Test</span>
+  </a>
+</li>
