@@ -113,7 +113,10 @@ window.vpage = new Vue({
     	store: function() {
 			axios.post(baseUrl + '/test', vpage.formData)
 		  .then(function (response) {
+		  	vpage.resetForm();
 		  	vpage.call();
+		  	swal('SUKSES !!!', 'Berhasil Simpan Data !!!', 'success');
+		  	$('#modal-default').modal('hide');
 		  })
 		  .catch(function (error) {
 		  	if (error.response.data.errors) {
@@ -137,6 +140,16 @@ window.vpage = new Vue({
     	},
     	update: function() {
 			
+    	},
+    	delete: function(id) {
+			axios.delete(baseUrl + '/test/' + id, vpage.formData)
+		  .then(function (response) {
+		  	vpage.call();
+		  })
+		  .catch(function (error) {
+		  	swal('Whoops!!!', 'Something bad happend...', 'error');
+		    console.log(error);
+		  });
     	},
     	sort: function(colNo) {
     		 if (vpage.tableSorting.colNo == colNo) {
@@ -215,6 +228,18 @@ window.vpage = new Vue({
 				text2: '',
 				text3: '',
 			};
+    	},
+    	hapusData: function(item) {
+    		swal({
+		      title: "Yakin Hapus ???",
+		      text: "Data yang sudah dihapus tidak dapat dikembalikan lagi !!!",
+		      type: "warning",
+		      showCancelButton: true,
+		      confirmButtonColor: "#DD6B55",
+		      confirmButtonText: "Hapus",
+		    }, function(){
+		      vpage.delete(item.id);
+		    });
     	}
     },
     mounted: function () {

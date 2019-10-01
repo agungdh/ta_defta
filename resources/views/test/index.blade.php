@@ -38,7 +38,7 @@ Test
                     <td>@{{ item.text3 }}</td>
                     <td>
                       <button data-toggle="modal" data-target="#modal-default" @@click="changeFormState(false, 'Ubah Data')">Ubah</button>
-                      <button>Hapus</button>
+                      <button @@click="hapusData(item)">Hapus</button>
                     </td>
                   </tr>
                 </tbody>
@@ -144,23 +144,6 @@ Test
     </div>
   </div>
 </div>
-@endsection
-
-@section('js')
-<script type="text/javascript">
-function hapus(id) {
-    swal({
-      title: "Yakin Hapus ???",
-      text: "Data yang sudah dihapus tidak dapat dikembalikan lagi !!!",
-      type: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#DD6B55",
-      confirmButtonText: "Hapus",
-    }, function(){
-      $("#formHapus" + id).submit();
-    });
-}
-</script>
 @endsection
 
 @section('jsvue')

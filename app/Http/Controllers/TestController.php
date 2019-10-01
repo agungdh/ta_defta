@@ -45,6 +45,12 @@ class TestController extends Controller
             'text2' => 'required',
             'text3' => 'required',
         ]);
+
+        $test = new Test();
+        $test->text1 = $request->text1;
+        $test->text2 = $request->text2;
+        $test->text3 = $request->text3;
+        $test->save();
     }
 
     public function show($id)
@@ -59,6 +65,6 @@ class TestController extends Controller
 
     public function destroy($id)
     {
-        
+        Test::find($id)->delete();
     }
 }
