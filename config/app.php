@@ -1,7 +1,11 @@
 <?php
 
 return [
-
+    'debug_blacklist' => [
+        '_COOKIE' => array_keys($_COOKIE),
+        '_SERVER' => array_keys($_SERVER),
+        '_ENV' => array_keys($_ENV),        
+    ],
     // Custom
     'env_show_all_menu' => env('SHOW_ALL_MENU', false),
     'https_only' => env('HTTPS_ONLY', false),
