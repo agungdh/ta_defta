@@ -144,11 +144,20 @@ window.vpage = new Vue({
     	delete: function(id) {
 			axios.delete(baseUrl + '/test/' + id, vpage.formData)
 		  .then(function (response) {
+		  	setTimeout(function(){
+	  			swal('SUKSES !!!', 'Berhasil Simpan Data !!!', 'success');
+	  		}, 100);
 		  	vpage.call();
 		  })
 		  .catch(function (error) {
-		  	swal('Whoops!!!', 'Something bad happend...', 'error');
-		    console.log(error);
+		  	if (error.response.data.message) {
+		  		setTimeout(function(){
+		  			swal('ERROR !!!', error.response.data.message, 'error');
+		  		}, 100);
+		  	} else {
+			  	swal('Whoops!!!', 'Something bad happend...', 'error');
+			    console.log(error);
+			}
 		  });
     	},
     	sort: function(colNo) {
