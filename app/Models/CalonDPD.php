@@ -13,4 +13,9 @@ class CalonDPD extends Model
     {
         return $this->belongsTo('App\Models\Partai', 'id_partai');
     }
+
+    public function periode()
+    {
+        return $this->belongsTo('App\Models\Periode', 'id_periode');
+    }
 }

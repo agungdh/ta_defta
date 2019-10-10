@@ -23,6 +23,7 @@ Partai
               <table class="table table-bordered table-hover datatable" style="width: 100%">
                 <thead>
                     <tr>
+                      <th>Periode</th>
                       <th>Partai</th>
                       <th>Logo</th>
                       <th>Proses</th>
@@ -32,6 +33,7 @@ Partai
                     @foreach($partais as $item)
 
                     <tr>
+                        <td>{{$item->periode->periode}}</td>
                         <td>{{$item->partai}}</td>
                         <td>
                           @if(file_exists(storage_path('app/public/files/logo/' . $item->id)))

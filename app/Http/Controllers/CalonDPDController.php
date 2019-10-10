@@ -7,6 +7,7 @@ use Illuminate\Database\QueryException;
 
 use App\Models\CalonDPD;
 use App\Models\Partai;
+use App\Models\Periode;
 
 use ADHhelper;
 
@@ -18,6 +19,17 @@ class CalonDPDController extends Controller
     public function __construct()
     {
         $this->middleware('Menu:calondpd');
+    }
+
+    public function getAllPeriodes()
+    {
+        $periodes_raw = Periode::all();
+        $periodes = [];
+        foreach ($periodes_raw as $item) {
+            $periodes[$item->id] = "{$item->periode}";
+        }
+
+        return $periodes;
     }
 
     public function index()
@@ -41,17 +53,19 @@ class CalonDPDController extends Controller
     public function create()
     {
         $partais = $this->getAllPartais();
+        $periodes = $this->getAllPeriodes();
 
-        return view('calondpd.create', compact(['partais']));
+        return view('calondpd.create', compact(['periodes', 'partais']));
     }
 
     public function store(Request $request)
     {
         $request->validate([
             'nama' => 'required',
+            'id_periode' => 'required',
         ]);
 
-        $data = $request->only('nama', 'id_partai');
+        $data = $request->only('nama', 'id_partai', 'id_periode');
         
         DB::table('calon_dpd')->insert($data);
 
@@ -66,17 +80,19 @@ class CalonDPDController extends Controller
     {
         $calonDPD = CalonDPD::find($id);
         $partais = $this->getAllPartais();
+        $periodes = $this->getAllPeriodes();
 
-        return view('calondpd.edit', compact(['calonDPD', 'partais']));
+        return view('calondpd.edit', compact(['periodes', 'calonDPD', 'partais']));
     }
 
     public function update(Request $request, $id)
     {        
         $request->validate([
             'nama' => 'required',
+            'id_periode' => 'required',
         ]);
 
-        $data = $request->only('nama', 'id_partai');
+        $data = $request->only('nama', 'id_partai', 'id_periode');
         
         CalonDPD::where('id', $id)->update($data);
 

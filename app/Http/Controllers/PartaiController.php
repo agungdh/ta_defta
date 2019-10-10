@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 
 use App\Models\Partai;
+use App\Models\Periode;
 
 use ADHhelper;
 
@@ -19,6 +20,17 @@ class PartaiController extends Controller
         $this->middleware('Menu:partai');
     }
 
+    public function getAllPeriodes()
+    {
+        $periodes_raw = Periode::all();
+        $periodes = [];
+        foreach ($periodes_raw as $item) {
+            $periodes[$item->id] = "{$item->periode}";
+        }
+
+        return $periodes;
+    }
+
     public function index()
     {
         $partais = Partai::all();
@@ -28,17 +40,20 @@ class PartaiController extends Controller
 
     public function create()
     {
-        return view('partai.create', compact([]));
+        $periodes = $this->getAllPeriodes();
+
+        return view('partai.create', compact(['periodes']));
     }
 
     public function store(Request $request)
     {
         $request->validate([
             'partai' => 'required',
+            'id_periode' => 'required',
             'logo' => 'image',
         ]);
 
-        $data = $request->only('partai');
+        $data = $request->only('partai', 'id_periode');
         
         $id = DB::table('partai')->insertGetId($data);
 
@@ -57,18 +72,20 @@ class PartaiController extends Controller
     public function edit($id)
     {
         $partai = Partai::find($id);
+        $periodes = $this->getAllPeriodes();
 
-        return view('partai.edit', compact(['partai']));
+        return view('partai.edit', compact(['partai', 'periodes']));
     }
 
     public function update(Request $request, $id)
     {        
         $request->validate([
             'partai' => 'required',
+            'id_periode' => 'required',
             'logo' => 'image',
         ]);
 
-        $data = $request->only('partai');
+        $data = $request->only('partai', 'id_periode');
         
         Partai::where('id', $id)->update($data);
 

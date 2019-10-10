@@ -23,6 +23,7 @@ Calon DPD
               <table class="table table-bordered table-hover datatable" style="width: 100%">
                 <thead>
                     <tr>
+                      <th>Periode</th>
                       <th>Calon DPD</th>
                       <th>Partai</th>
                       <th>Proses</th>
@@ -32,6 +33,7 @@ Calon DPD
                     @foreach($calonDPDs as $item)
 
                     <tr>
+                        <td>{{$item->periode->periode}}</td>
                         <td>{{$item->nama}}</td>
                         <td>{{$item->partai ? $item->partai->partai : null}}</td>
                         

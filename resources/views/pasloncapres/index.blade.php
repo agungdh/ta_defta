@@ -23,6 +23,7 @@ Paslon Capres
               <table class="table table-bordered table-hover datatable" style="width: 100%">
                 <thead>
                     <tr>
+                      <th>Periode</th>
                       <th>No Urut</th>
                       <th>Paslon Capres</th>
                       <th>Foto</th>
@@ -33,6 +34,7 @@ Paslon Capres
                     @foreach($paslonCapresses as $item)
 
                     <tr>
+                        <td>{{$item->periode->periode}}</td>
                         <td>{{$item->no_urut}}</td>
                         <td>{{$item->paslon_capres}}</td>
                         <td>
