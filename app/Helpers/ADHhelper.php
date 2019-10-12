@@ -33,9 +33,9 @@ class ADHhelper extends Pustaka
       return asset($path . "?" . $mix[1]);
     }
 
-    public static function getAllPartais()
+    public static function getAllPartais($periode)
     {
-        $partais_raw = Partai::all();
+        $partais_raw = $periode->partais;
         $partais = [];
         foreach ($partais_raw as $item) {
             $partais[$item->id] = "{$item->partai}";
@@ -44,9 +44,9 @@ class ADHhelper extends Pustaka
         return $partais;
     }
 
-    public static function getAllCapres()
+    public static function getAllCapres($periode)
     {
-        $paslonCapress_raw = PaslonCapres::all();
+        $paslonCapress_raw = $periode->paslonCapress;
         $paslonCapress = [];
         foreach ($paslonCapress_raw as $item) {
             $paslonCapress[$item->id] = "{$item->no_urut}) {$item->paslon_capres}";
@@ -55,9 +55,9 @@ class ADHhelper extends Pustaka
         return $paslonCapress;
     }
 
-    public static function getAllCalonDPDs()
+    public static function getAllCalonDPDs($periode)
     {
-        $calonDPDs_raw = CalonDPD::all();
+        $calonDPDs_raw = $periode->calonDPDs;
         $calonDPDs = [];
         foreach ($calonDPDs_raw as $item) {
             $calonDPDs[$item->id] = "{$item->nama}";
@@ -70,18 +70,18 @@ class ADHhelper extends Pustaka
       return Kecamatan::where('id_kabupaten', self::getUserData()->id_kabupaten)->get();
     }
 
-    public static function getSelectKandidat($tipePemilihan) {
+    public static function getSelectKandidat($tipePemilihan, $periode) {
         switch ($tipePemilihan) {
             case 'presiden':
-              $result = self::getAllCapres();
+              $result = self::getAllCapres($periode);
               break;
             case 'dpr':
             case 'dprdk':
             case 'dprdp':
-              $result = self::getAllPartais();
+              $result = self::getAllPartais($periode);
               break;
             case 'dpd':
-              $result = self::getAllCalonDPDs();
+              $result = self::getAllCalonDPDs($periode);
               break;
             default:
               $result = 'Error !!!';
