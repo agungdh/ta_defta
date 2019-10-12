@@ -64,6 +64,7 @@ class PemilihanController extends Controller
         $validator = Validator::make($request->all(), [
             'id_periode' => 'required',
             'tipe' => 'required',
+            'aktif' => 'required',
         ]);
 
         $pemilihan = Pemilihan::where([
@@ -82,7 +83,7 @@ class PemilihanController extends Controller
             return redirect()->back()->withInput()->withErrors($validator);
         }
 
-        $data = $request->only('id_periode', 'tipe');
+        $data = $request->only('id_periode', 'tipe', 'aktif');
         
         DB::table('pemilihan')->insert($data);
 
@@ -109,6 +110,7 @@ class PemilihanController extends Controller
         $validator = Validator::make($request->all(), [
             'id_periode' => 'required',
             'tipe' => 'required',
+            'aktif' => 'required',
         ]);
 
         if ($request->id_periode != $pemilihan->id_periode || $request->tipe != $pemilihan->tipe) {
@@ -123,13 +125,13 @@ class PemilihanController extends Controller
                     $validator->errors()->add('tipe', 'The Periode and Tipe has already been taken.');
                 });
             }
-
-            if ($validator->fails()) {
-                return redirect()->back()->withInput()->withErrors($validator);
-            }
+        }
+        
+        if ($validator->fails()) {
+            return redirect()->back()->withInput()->withErrors($validator);
         }
 
-        $data = $request->only('id_periode', 'tipe');
+        $data = $request->only('id_periode', 'tipe', 'aktif');
         
         Pemilihan::where('id', $id)->update($data);
 

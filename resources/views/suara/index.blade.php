@@ -43,7 +43,7 @@ Suara
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              @if(ADHhelper::getUserData()->level == 'opkab')
+              @if(ADHhelper::getUserData()->level == 'opkab' && $pemilihan->aktif == 'y')
                 <a class="btn btn-success btn-sm" href="{{route('suara.create', $pemilihan->id)}}">
                   <i class="glyphicon glyphicon-plus"></i> Tambah
                 </a><br><br>
@@ -91,7 +91,7 @@ Suara
                                 </a>
 
 
-                                @if(ADHhelper::getUserData()->level == 'opkab')
+                                @if(ADHhelper::getUserData()->level == 'opkab' && $pemilihan->aktif == 'y')
 
                                   <a class="btn btn-primary btn-sm" href="{{route('suara.edit', $item->id)}}">
                                     <i class="glyphicon glyphicon-pencil"></i> Edit

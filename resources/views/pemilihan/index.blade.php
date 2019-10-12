@@ -27,6 +27,7 @@ Pemilihan
                     <tr>
                       <th>Pemilihan</th>
                       <th>Periode</th>
+                      <th>Aktif/Tidak Aktif</th>
                       <th>Proses</th>
                     </tr>
                 </thead>
@@ -36,6 +37,7 @@ Pemilihan
                     <tr>
                         <td>{{ADHhelper::displayTipePemilihan($item->tipe)}}</td>
                         <td>{{$item->periode->periode}}</td>
+                        <td>{{$item->aktif == 'y' ? 'Aktif' : 'Tidak Aktif'}}</td>
                         
                         <td>
                           

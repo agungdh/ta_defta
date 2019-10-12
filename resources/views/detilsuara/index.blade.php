@@ -54,7 +54,7 @@ Detil
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              @if(ADHhelper::getUserData()->level == 'opkab')
+              @if(ADHhelper::getUserData()->level == 'opkab' && $pemilihan->aktif == 'y')
                 <a class="btn btn-success btn-sm" href="{{route('detilsuara.create', $suara->id)}}">
                   <i class="glyphicon glyphicon-plus"></i> Tambah
                 </a><br><br>
@@ -78,7 +78,7 @@ Detil
 
                             {!! Form::open(['id' => 'formHapus' . $item->id, 'route' => ['detilsuara.destroy', $item->id], 'method' => 'delete']) !!}
 
-                                @if(ADHhelper::getUserData()->level == 'opkab')
+                                @if(ADHhelper::getUserData()->level == 'opkab' && $pemilihan->aktif == 'y')
                                   <a class="btn btn-primary btn-sm" href="{{route('detilsuara.edit', $item->id)}}">
                                     <i class="glyphicon glyphicon-pencil"></i> Edit
                                   </a>

@@ -22,4 +22,18 @@
 		</div>
 	</div>
 
+	@php
+	$class = $errors->has('aktif') ? 'form-group has-error' : 'form-group';
+	$message = $errors->has('aktif') ? $errors->first('aktif') : '';
+	@endphp
+	<div class="{{$class}}">
+		<label for="aktif" data-toggle="tooltip" title="{{$message}}">Aktif</label>
+		<div data-toggle="tooltip" title="{{$message}}">
+			{!! Form::select('aktif',[
+					'y' => 'Aktif',
+					'n' => 'Tidak Aktif',
+				],null,['class'=> 'form-control select2','placeholder'=>'Pilih Aktif','id'=>'aktif']) !!}
+		</div>
+	</div>
+
 </div>
