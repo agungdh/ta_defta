@@ -74,7 +74,7 @@
                 AND ds.id_calon_dpd = ?
                 AND sp.id_kecamatan IN (' . implode(",", $kecamatans) . ')', [$pemilihan->id, $dpd->id]);
               $jumlahPemilih = $jumlahPemilihRaw[0]->jumlah;
-              $jumlahSuaraPemilih[$kabupaten->id] += $jumlahPemilih;
+              $jumlahSuaraPemilih[$kabupaten->id] = $jumlahPemilih;
             @endphp
             <td>{{ADHhelper::rupiah($jumlah, false, false)}}</td>
           @endforeach
