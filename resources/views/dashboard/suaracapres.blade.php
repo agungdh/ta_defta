@@ -144,7 +144,7 @@ Suara
                                 AND ds.id_paslon_capres = ?
                                 AND sp.id_kecamatan IN (' . implode(",", $kecamatans) . ')', [$pemilihan->id, $capres->id]);
                               $jumlahTidakSah = $jumlahTidakSahRaw[0]->jumlah;
-                              $jumlahSuaraTidakSah[$kabupaten->id] += $jumlahTidakSah;
+                              $jumlahSuaraTidakSah[$kabupaten->id] = $jumlahTidakSah;
 
                               $jumlahPemilihRaw = DB::select('SELECT sum(sp.jumlah_pemilih) jumlah
                                 FROM pemilihan pl, suara_pemilihan sp, detil_suara_pemilihan ds
